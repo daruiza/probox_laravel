@@ -1,0 +1,541 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "PROBOX Documentación",
+        "description": "Adminstración de Proyectos APP",
+        "contact": {
+            "email": "daruiza@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8090/api",
+            "description": "PROBOX API Server"
+        }
+    ],
+    "paths": {
+        "/auth/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Get User Token",
+                "description": "Return Token",
+                "operationId": "getToken",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/auth/logout": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "GetOut",
+                "description": "Close session",
+                "operationId": "87f34df7a8880c90b2728d9ab78fd564",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/auth/user": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Get User Auth",
+                "description": "Return User",
+                "operationId": "getUser",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/index": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Get All Users",
+                "description": "Return Users",
+                "operationId": "getAllUser",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "User Name",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "lastname",
+                        "in": "query",
+                        "description": "User Lastname",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "phone",
+                        "in": "query",
+                        "description": "User Phone",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "User Email",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "rol_id",
+                        "in": "query",
+                        "description": "User Rol",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/showbyuserid/{id}": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Get One User By one Id",
+                "description": "Return One User",
+                "operationId": "getUserById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/showbyrolid/{id}": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Get One User By one Rol Id",
+                "description": "Return One User with Rol",
+                "operationId": "getUserByRolId",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Rol Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/store": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Store User",
+                "description": "Store User",
+                "operationId": "storeUser",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserStore"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/update": {
+            "put": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Update User",
+                "description": "update User",
+                "operationId": "UpdateUser",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserUpdate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/updateid/{id}": {
+            "put": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Update User",
+                "description": "update User",
+                "operationId": "UpdateUserId",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserUpdate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/destroy/{id}": {
+            "delete": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Delete One user By one UserId",
+                "description": "Delete One user",
+                "operationId": "getUserId",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "User": {
+                "title": "User",
+                "description": "User body data",
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Name of the user",
+                        "type": "string",
+                        "example": "super-admin"
+                    },
+                    "email": {
+                        "title": "email",
+                        "description": "Email of the user",
+                        "type": "string",
+                        "example": "superadmin@yopmail.com"
+                    },
+                    "password": {
+                        "title": "password",
+                        "description": "Password of the user",
+                        "type": "string",
+                        "example": "0000"
+                    }
+                },
+                "type": "object"
+            },
+            "UserStore": {
+                "title": "UserStore",
+                "description": "User body data",
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Name of the user",
+                        "type": "string",
+                        "example": "super"
+                    },
+                    "email": {
+                        "title": "email",
+                        "description": "Email of the user",
+                        "type": "string",
+                        "example": "super@yopmail.com"
+                    },
+                    "password": {
+                        "title": "password",
+                        "description": "Password of the user",
+                        "type": "string",
+                        "example": "0000"
+                    },
+                    "lastname": {
+                        "title": "lastname",
+                        "description": "Lastname of the user",
+                        "type": "string",
+                        "example": "LastName"
+                    },
+                    "phone": {
+                        "title": "phone",
+                        "description": "phone of the user",
+                        "example": 2147483647
+                    },
+                    "theme": {
+                        "title": "theme",
+                        "description": "theme of the user",
+                        "type": "string",
+                        "example": "red"
+                    },
+                    "photo": {
+                        "title": "photo",
+                        "description": "photo of the user",
+                        "type": "string",
+                        "example": "avatar"
+                    },
+                    "rol_id": {
+                        "title": "rol_id",
+                        "description": "rol_id of the user",
+                        "example": 1
+                    }
+                },
+                "type": "object"
+            },
+            "UserUpdate": {
+                "title": "UserUpdate",
+                "description": "UserUpdate body data",
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Name of the user",
+                        "type": "string",
+                        "example": "super"
+                    },
+                    "email": {
+                        "title": "email",
+                        "description": "Email of the user",
+                        "type": "string",
+                        "example": "super@yopmail.com"
+                    },
+                    "lastname": {
+                        "title": "lastname",
+                        "description": "Lastname of the user",
+                        "type": "string",
+                        "example": "LastName"
+                    },
+                    "phone": {
+                        "title": "phone",
+                        "description": "phone of the user",
+                        "example": 2147483647
+                    },
+                    "theme": {
+                        "title": "theme",
+                        "description": "theme of the user",
+                        "type": "string",
+                        "example": "blue"
+                    },
+                    "photo": {
+                        "title": "photo",
+                        "description": "photo of the user",
+                        "type": "string",
+                        "example": "avatar"
+                    },
+                    "rol_id": {
+                        "title": "rol_id",
+                        "description": "rol_id of the user",
+                        "example": 1
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "API EndPoints of Auth"
+        }
+    ]
+}
