@@ -22,8 +22,8 @@ class CreateTasksTable extends Migration
             $table->boolean('focus')->default(true);
             $table->timestamps();
 
-            $table->unsignedBigInteger('id_project');
-            $table->unsignedBigInteger('id_task');
+            $table->unsignedBigInteger('id_project')->nullable();
+            $table->unsignedBigInteger('id_task')->nullable();
             $table->foreign('id_project')->references('id')->on('projects')->onDelete('set null')
                 ->onUpdate('cascade');
             $table->foreign('id_task')->references('id')->on('tasks')->onDelete('set null')
