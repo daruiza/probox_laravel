@@ -14,6 +14,10 @@ use App\Http\Controllers\Api\UserController;
 use App\Query\Abstraction\IUserQuery;
 use App\Query\Request\UserQuery;
 
+use App\Http\Controllers\Api\GeneralListController;
+use App\Query\Abstraction\IGeneralListQuery;
+use App\Query\Request\GeneralListQuery;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -28,6 +32,9 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(IUserQuery::class, UserQuery::class);
         $this->app->make(UserController::class);
+
+        $this->app->bind(IGeneralListQuery::class, GeneralListQuery::class);
+        $this->app->make(GeneralListController::class);
     }
 
     /**
