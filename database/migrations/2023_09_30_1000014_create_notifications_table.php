@@ -16,13 +16,10 @@ class CreateNotificationsTable extends Migration
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
             $table->string('name', 64);
-            $table->string('description')->nullable();
-            $table->string('emisor_email', 64);
-            $table->string('receptor_email', 64);
-
-            $table->unsignedInteger('index')->default(0);
-            $table->string('value', 64);
-            $table->string('class')->default('');
+            $table->string('summary', 64)->nullable();
+            $table->string('description', 128);
+            $table->string('priority');
+            $table->string('status');
             $table->timestamps();
         });
     }
