@@ -16,8 +16,8 @@ class CreateProjectsTagsTable extends Migration
         Schema::create('projects_tags', function (Blueprint $table) {
             $table->id('id');
             
-            $table->unsignedBigInteger('id_tag');
-            $table->unsignedBigInteger('id_project');
+            $table->unsignedBigInteger('id_tag')->nullable();
+            $table->unsignedBigInteger('id_project')->nullable();
             $table->foreign('id_tag')->references('id')->on('tags')->onDelete('set null')
                 ->onUpdate('cascade');
             $table->foreign('id_project')->references('id')->on('projects')->onDelete('set null')

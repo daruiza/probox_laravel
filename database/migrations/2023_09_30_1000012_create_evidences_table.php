@@ -23,7 +23,7 @@ class CreateEvidencesTable extends Migration
             $table->boolean('focus')->default(true);
             $table->timestamps();
 
-            $table->unsignedBigInteger('id_task');
+            $table->unsignedBigInteger('id_task')->nullable();
                 $table->foreign('id_task')->references('id')->on('tasks')->onDelete('set null')
                 ->onUpdate('cascade');
 
