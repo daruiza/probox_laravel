@@ -77,8 +77,8 @@
 
             <div class="links">
                 <a href="{{ url('/api/documentation') }}">DOCUMENTATION</a>
-                <a href="{{ url(env('WEB_URL')??'') }}">WEB</a>
-                <a href="{{ url(env('WEB_URL')??'') }}">APP</a>
+                <a href="{{ url(env('WEB_URL')??'http://projectbox.thinkwg.com') }}">WEB</a>
+                <a href="{{ url(env('WEB_URL')??'http://projectbox.thinkwg.com') }}">APP</a>
             </div>
         </div>
     </div>
