@@ -102,7 +102,7 @@
         "/generallist/index": {
             "get": {
                 "tags": [
-                    "generallist"
+                    "Generallist"
                 ],
                 "summary": "Get All General List",
                 "description": "Return General List",
@@ -128,7 +128,7 @@
         "/generallist/showbyid/{id}": {
             "get": {
                 "tags": [
-                    "generallist"
+                    "Generallist"
                 ],
                 "summary": "Get one General List By Id",
                 "description": "Return one General List",
@@ -165,7 +165,7 @@
         "/generallist/showbyname": {
             "get": {
                 "tags": [
-                    "generallist"
+                    "Generallist"
                 ],
                 "summary": "Get General List By Name",
                 "description": "Return General List",
@@ -202,7 +202,7 @@
         "/generallist/showbynamelist": {
             "get": {
                 "tags": [
-                    "generallist"
+                    "Generallist"
                 ],
                 "summary": "Get General List By Name",
                 "description": "Return General List",
@@ -239,7 +239,7 @@
         "/generallist/store": {
             "post": {
                 "tags": [
-                    "generallist"
+                    "Generallist"
                 ],
                 "summary": "Store General List",
                 "description": "Store General List",
@@ -275,7 +275,7 @@
         "/generallist/destroy/{id}": {
             "delete": {
                 "tags": [
-                    "generallist"
+                    "Generallist"
                 ],
                 "summary": "Delete One General List By one Id",
                 "description": "Delete One General List",
@@ -312,7 +312,7 @@
         "/generallist/update/{id}": {
             "put": {
                 "tags": [
-                    "generallist"
+                    "Generallist"
                 ],
                 "summary": "Update One General List By one Id",
                 "description": "Update One General List",
@@ -356,10 +356,203 @@
                 ]
             }
         },
+        "/module/index": {
+            "get": {
+                "tags": [
+                    "Module"
+                ],
+                "summary": "Get All Modules",
+                "description": "Return Modules",
+                "operationId": "getAllModules",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Module Name",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "active",
+                        "in": "query",
+                        "description": "Module city",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/module/store": {
+            "post": {
+                "tags": [
+                    "Module"
+                ],
+                "summary": "Store Module",
+                "description": "Store Module",
+                "operationId": "storeModule",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Module"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/module/showbymoduleid/{id}": {
+            "get": {
+                "tags": [
+                    "Module"
+                ],
+                "summary": "Get One Module By one Id",
+                "description": "Return One Module",
+                "operationId": "getModuleById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Module Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/module/update/{id}": {
+            "put": {
+                "tags": [
+                    "Module"
+                ],
+                "summary": "Update One Module By one Id",
+                "description": "Update One Module",
+                "operationId": "getUpdateModuleById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Module Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/module/destroy/{id}": {
+            "delete": {
+                "tags": [
+                    "Module"
+                ],
+                "summary": "Delete One Module By one Id",
+                "description": "Delete One Module",
+                "operationId": "getDestroyModuleById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Module Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/user/index": {
             "get": {
                 "tags": [
-                    "user"
+                    "User"
                 ],
                 "summary": "Get All Users",
                 "description": "Return Users",
@@ -432,7 +625,7 @@
         "/user/showbyuserid/{id}": {
             "get": {
                 "tags": [
-                    "user"
+                    "User"
                 ],
                 "summary": "Get One User By one Id",
                 "description": "Return One User",
@@ -469,7 +662,7 @@
         "/user/showbyrolid/{id}": {
             "get": {
                 "tags": [
-                    "user"
+                    "User"
                 ],
                 "summary": "Get One User By one Rol Id",
                 "description": "Return One User with Rol",
@@ -506,7 +699,7 @@
         "/user/store": {
             "post": {
                 "tags": [
-                    "user"
+                    "User"
                 ],
                 "summary": "Store User",
                 "description": "Store User",
@@ -542,7 +735,7 @@
         "/user/update": {
             "put": {
                 "tags": [
-                    "user"
+                    "User"
                 ],
                 "summary": "Update User",
                 "description": "update User",
@@ -578,7 +771,7 @@
         "/user/updateid/{id}": {
             "put": {
                 "tags": [
-                    "user"
+                    "User"
                 ],
                 "summary": "Update User",
                 "description": "update User",
@@ -625,7 +818,7 @@
         "/user/destroy/{id}": {
             "delete": {
                 "tags": [
-                    "user"
+                    "User"
                 ],
                 "summary": "Delete One user By one UserId",
                 "description": "Delete One user",
@@ -677,6 +870,37 @@
                         "description": "value of the General List",
                         "type": "string",
                         "example": "Femenino"
+                    }
+                },
+                "type": "object"
+            },
+            "Module": {
+                "title": "Module",
+                "description": "Module body data",
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Name of the Module",
+                        "type": "string",
+                        "example": "Tags"
+                    },
+                    "description": {
+                        "title": "description",
+                        "description": "Description of the Module",
+                        "type": "string",
+                        "example": "Description tags"
+                    },
+                    "label": {
+                        "title": "label",
+                        "description": "Label of the Module",
+                        "type": "string",
+                        "example": "Example"
+                    },
+                    "active": {
+                        "title": "active",
+                        "description": "Active of the Module",
+                        "type": "boolean",
+                        "example": "Example"
                     }
                 },
                 "type": "object"

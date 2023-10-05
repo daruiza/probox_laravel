@@ -19,7 +19,7 @@ class GeneralListController extends Controller
      * @OA\Get(
      *      path="/generallist/index",
      *      operationId="getGenarallist",
-     *      tags={"generallist"},
+     *      tags={"Generallist"},
      *      summary="Get All General List",
      *      description="Return General List",
      *      security={ {"bearer": {} }},
@@ -46,7 +46,7 @@ class GeneralListController extends Controller
      * @OA\Get(
      *      path="/generallist/showbyid/{id}",
      *      operationId="get General List By Id",
-     *      tags={"generallist"},
+     *      tags={"Generallist"},
      *      summary="Get one General List By Id",
      *      description="Return one General List",
      *      security={ {"bearer": {} }},
@@ -82,7 +82,7 @@ class GeneralListController extends Controller
      * @OA\Get(
      *      path="/generallist/showbyname",
      *      operationId="get General List By Name",
-     *      tags={"generallist"},
+     *      tags={"Generallist"},
      *      summary="Get General List By Name",
      *      description="Return General List",
      *      security={ {"bearer": {} }},
@@ -118,7 +118,7 @@ class GeneralListController extends Controller
      * @OA\Get(
      *      path="/generallist/showbynamelist",
      *      operationId="get General List By Name List",
-     *      tags={"generallist"},
+     *      tags={"Generallist"},
      *      summary="Get General List By Name",
      *      description="Return General List",
      *      security={ {"bearer": {} }},
@@ -154,7 +154,7 @@ class GeneralListController extends Controller
      * @OA\Post(
      *      path="/generallist/store",
      *      operationId="store General List",
-     *      tags={"generallist"},
+     *      tags={"Generallist"},
      *      summary="Store General List",
      *      description="Store General List",
      *      security={ {"bearer": {} }},
@@ -185,7 +185,7 @@ class GeneralListController extends Controller
      * @OA\Delete(
      *      path="/generallist/destroy/{id}",
      *      operationId="DestroyGeneralListById",
-     *      tags={"generallist"},
+     *      tags={"Generallist"},
      *      summary="Delete One General List By one Id",
      *      description="Delete One General List",
      *      security={ {"bearer": {} }},
@@ -221,7 +221,7 @@ class GeneralListController extends Controller
      * @OA\Put(
      *      path="/generallist/update/{id}",
      *      operationId="UpdateGeneralListById",
-     *      tags={"generallist"},
+     *      tags={"Generallist"},
      *      summary="Update One General List By one Id",
      *      description="Update One General List",
      *      security={ {"bearer": {} }},
