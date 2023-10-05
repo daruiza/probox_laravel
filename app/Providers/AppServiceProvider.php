@@ -18,6 +18,10 @@ use App\Http\Controllers\Api\GeneralListController;
 use App\Query\Abstraction\IGeneralListQuery;
 use App\Query\Request\GeneralListQuery;
 
+use App\Http\Controllers\Api\ModuleController;
+use App\Query\Abstraction\IModuleQuery;
+use App\Query\Request\ModuleQuery;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -35,6 +39,9 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(IGeneralListQuery::class, GeneralListQuery::class);
         $this->app->make(GeneralListController::class);
+
+        $this->app->bind(IModuleQuery::class, ModuleQuery::class);
+        $this->app->make(ModuleController::class);
     }
 
     /**

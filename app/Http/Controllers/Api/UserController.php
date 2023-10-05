@@ -19,7 +19,7 @@ class UserController extends Controller
      * @OA\Get(
      *      path="/user/index",
      *      operationId="getAllUser",
-     *      tags={"user"},
+     *      tags={"User"},
      *      summary="Get All Users",
      *      description="Return Users",
      *      security={ {"bearer": {} }},
@@ -91,7 +91,7 @@ class UserController extends Controller
      * @OA\Get(
      *      path="/user/showbyuserid/{id}",
      *      operationId="getUserById",
-     *      tags={"user"},
+     *      tags={"User"},
      *      summary="Get One User By one Id",
      *      description="Return One User",
      *      security={ {"bearer": {} }},
@@ -127,7 +127,7 @@ class UserController extends Controller
      * @OA\Get(
      *      path="/user/showbyrolid/{id}",
      *      operationId="getUserByRolId",
-     *      tags={"user"},
+     *      tags={"User"},
      *      summary="Get One User By one Rol Id",
      *      description="Return One User with Rol",
      *      security={ {"bearer": {} }},
@@ -173,7 +173,7 @@ class UserController extends Controller
      * @OA\Post(
      *      path="/user/store",
      *      operationId="storeUser",
-     *      tags={"user"},
+     *      tags={"User"},
      *      summary="Store User",
      *      description="Store User",
      *      security={ {"bearer": {} }},
@@ -226,7 +226,7 @@ class UserController extends Controller
      * @OA\Put(
      *      path="/user/update",
      *      operationId="UpdateUser",
-     *      tags={"user"},
+     *      tags={"User"},
      *      summary="Update User",
      *      description="update User",
      *      security={ {"bearer": {} }},
@@ -257,7 +257,7 @@ class UserController extends Controller
      * @OA\Put(
      *      path="/user/updateid/{id}",
      *      operationId="UpdateUserId",
-     *      tags={"user"},
+     *      tags={"User"},
      *      summary="Update User",
      *      description="update User",
      *      security={ {"bearer": {} }},
@@ -297,7 +297,7 @@ class UserController extends Controller
      * @OA\DELETE(
      *      path="/user/destroy/{id}",
      *      operationId="getUserId",
-     *      tags={"user"},
+     *      tags={"User"},
      *      summary="Delete One user By one UserId",
      *      description="Delete One user",
      *      security={ {"bearer": {} }},
