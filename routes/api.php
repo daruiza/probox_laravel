@@ -33,3 +33,25 @@ Route::group(['prefix' => 'user'], function () {
         Route::delete('destroy/{user_id}', 'Api\UserController@destroy');
     });
 });
+
+Route::group(['prefix' => 'generallist'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('index', 'Api\GeneralListController@index');
+        Route::get('showbyid/{id}', 'Api\GeneralListController@showById');
+        Route::get('showbyname', 'Api\GeneralListController@showByName');
+        Route::get('showbynamelist', 'Api\GeneralListController@showByNameList');
+        Route::post('store', 'Api\GeneralListController@store');
+        Route::delete('destroy/{id}', 'Api\GeneralListController@destroy');
+        Route::put('update/{id}', 'Api\GeneralListController@update');
+    });
+});
+
+Route::group(['prefix' => 'module'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('index', 'Api\ModuleController@index');
+        Route::post('store', 'Api\ModuleController@store');
+        Route::put('update/{id}', 'Api\ModuleController@update');
+        Route::get('showbymoduleid/{user_id}', 'Api\ModuleController@showByModuleId');
+        Route::delete('destroy/{id}', 'Api\ModuleController@destroy');
+    });
+});
