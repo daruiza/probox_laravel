@@ -91,7 +91,7 @@ class ModuleQuery implements IModuleQuery
                 $rules = [
                     $this->name    => 'required|string|min:1|max:128|',
                     $this->description   => 'required|string|min:1|max:128|',
-                    $this->label   => 'required|string|min:1|max:128|'
+                    $this->label   => 'required|string|min:1|max:128|',
                 ];
                 //Validación de rules
                 $validator = Validator::make($request->all(), $rules);
