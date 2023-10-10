@@ -171,7 +171,7 @@ class GeneralListQuery implements IGeneralListQuery
                 if ($validator->fails()) {
                     throw (new ValidationException($validator->errors()->getMessages()));
                 }
-                $generallist->name = $request->name;
+                $generallist->name = $request->name ?? $generallist->name;
                 $generallist->value = $request->value ?? $generallist->value;
                 $generallist->save();
 
@@ -184,7 +184,7 @@ class GeneralListQuery implements IGeneralListQuery
             } catch (ModelNotFoundException $ex) {
                 return response()->json(['message' => "Lista General con id {$id} no existe!", 'error' => $ex->getMessage()], 404);
             } catch (\Exception $e) {
-                return response()->json(['message' => 'Algo salio mal!', 'error' => $e], 403);
+                return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
             }
         }
     }

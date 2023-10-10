@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\Query\Abstraction\IModuleQuery;
-use Carbon\Carbon;
+
 
 class ModuleQuery implements IModuleQuery
 {
@@ -21,72 +21,113 @@ class ModuleQuery implements IModuleQuery
     private $label  = 'label';
     private $active  = 'active';
 
-    //Devuelve todos los modulos existentes
-    public function index()
+    //Index: Página principal
+    public function index(Request $request)
     {
-       $modules = DB::table('modules')->get();
+       try
+        {
+            //Devuelve todos los modulos existentes
+            $modules = Module::query()->select(['id', 'name', 'description', 'label', 'active'])->get();
 
-       return view('module.index', ['modules'-> $modules]);
+            return response()->json(['message' => $modules]) ;
+        }
+        catch (\Exception $e)
+        {    
+            return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
+        }
     }
 
-    //Crear un nuevo modulo
+    //Store: Guardar datos en la BD
     public function store(Request $request)
     {
         try
         {
-            $newModule = DB::table('modules')->insert(
-                [
-                    'name' => 'Projects',
-                    'description' => 'Project object',
-                    'label' => 'PP'
-                ]
-            );
-
-            return response()->json([
-                'data' => [
-                    'module' => $newModule,
-                ],
-                'message' => 'Modulo creado correctamente!'
-            ], 201);
-
-        }catch (\Exception $e)
-        {
+            return response() -> json(['message'=> $request->input()]);
+        }
+        catch (\Exception $e)
+        {    
             return response()->json(['message' => 'Algo salio mal!', 'error' => $e], 403);
         }
         
     }
 
-    public function update(Request $request, int $id, string $name, string $description, string $label)
+    //Show: Obtener un registro de la tabla
+    public function showByModuleId(Request $request,  int $id)
     {
-        //$module = DB::table('modules')->where('id', $id)->first();
-         try
-         {
-            $updateModule = DB::table('modules')->where('id', $id)->upsert
-            ([
-                ['name' => $name, 'description' => $description, 'label' => $label]
-            ], ['name', 'description','label']);
-
-            return response()->json([
-                'data' =>
-                [
-                    'module' => $updateModule,
-                ],
-                    'message' => 'Modulo actualizado correctamente!'
-            ], 201);
-      
-              }catch (\Exception $e)
-              {
-                  return response()->json(['message' => 'Algo salio mal!', 'error' => $e], 403);
-              }
+        try {
+            $ml = Module::findOrFail($id);
+            if ($ml) {
+                $module = DB::table('modules')
+                    ->select(['id', 'name', 'description', 'label', 'active'])
+                    ->where('modules.id', '=', $id)
+                    ->get();
+                return response()->json([
+                    'data' => [
+                        'modules' => $module,
+                    ],
+                    'message' => 'Datos de modulos Consultados Correctamente!'
+                ]);
+            }
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['message' => "Modulo con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+        }
     }
 
-    public function destroy(int $id)
+    //Update: Actualiza los datos en la BD
+    public function update(Request $request, int $id)
     {
-        $deleteModule = DB::table('modules')->where('id', $id)->delete();
+        if ($id) {
+            try {
+                //Consulta por Id
+                $module = Module::findOrFail($id);
+                //Rules: Especificaciones a validar
+                $rules = [
+                    $this->name    => 'required|string|min:1|max:128|',
+                    $this->description   => 'required|string|min:1|max:128|',
+                    $this->label   => 'required|string|min:1|max:128|'
+                ];
+                //Validación de rules
+                $validator = Validator::make($request->all(), $rules);
+                if ($validator->fails()) {
+                    //throw (new ValidationException($validator->errors()->getMessages()));
+                }
+                //Actualización de datos
+                $module->name = $request->name ?? $module->name;
+                $module->description = $request->description ?? $module->description;
+                $module->label = $request->label ?? $module->label;
+                $module->active = $request->active ?? $module->active;
+                $module->save();
+
+                return response()->json([
+                    'data' => [
+                        'module' => $module,
+                    ],
+                    'message' => 'Modulo actualizado con éxito!'
+                ], 201);
+            } catch (ModelNotFoundException $ex) {
+                return response()->json(['message' => "Modulo con id {$id} no existe!", 'error' => $ex->getMessage()], 404);
+            } catch (\Exception $e) {
+                return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
+            }
+        }
     }
 
-    public function showByModuleId(Request $request, int $id)
+    //Destroy: Elimina un resgistro de la BD
+    public function destroy(Request $request, int $id)
     {
-        
+        if ($id) {
+            try {
+                $module = Module::findOrFail($id);
+                $module->delete();
+                return response()->json([
+                    'data' => [
+                        'module' => $module,
+                    ],
+                    'message' => 'Modulo eliminado con éxito!'
+                ], 201);
+            } catch (ModelNotFoundException $e) {
+                return response()->json(['message' => "Modulo con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+            }
+        }
     }
 }
