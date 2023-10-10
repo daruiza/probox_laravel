@@ -17,6 +17,7 @@ class ModuleController extends Controller
     }
 
     /**
+     * Listado de todos los Modulos
      * @OA\Get(
      *      path="/module/index",
      *      operationId="getAllModules",
@@ -124,22 +125,9 @@ class ModuleController extends Controller
      *      )
      *     )
      */
-
      public function showByModuleId(Request $request, $id)
      {
          return $this->ModuleQuery->showByModuleId($request, $id);
-     }
- 
- 
-     /**
-      * Show the form for editing the specified resource.
-      *
-      * @param  int  $id
-      * @return \Illuminate\Http\Response
-      */
-     public function edit($id)
-     {
-         return '';
      }
  
      /**
@@ -209,9 +197,9 @@ class ModuleController extends Controller
       *      )
       *     )
       */
-     public function destroy($id)
+     public function destroy(Request $request, $id)
      {
-         return $this->ModuleQuery->destroy($id);
+         return $this->ModuleQuery->destroy($request, $id);
      }
  }
  
