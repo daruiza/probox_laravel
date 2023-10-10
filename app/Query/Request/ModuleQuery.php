@@ -55,6 +55,10 @@ class ModuleQuery implements IModuleQuery
     public function showByModuleId(Request $request,  int $id)
     {
         try {
+
+            //*** Falta validar que $id sea valido para iniciar a operar con el
+
+
             $ml = Module::findOrFail($id);
             if ($ml) {
                 $module = DB::table('modules')
@@ -76,6 +80,9 @@ class ModuleQuery implements IModuleQuery
     //Update: Actualiza los datos en la BD
     public function update(Request $request, int $id)
     {
+        //*** Revisar $request->input() esta llegando vacio - al swagger no lo provee mirar ejemlo en guía
+        //*** El Controllador esta incompleto - le falta es squema para que retorne el $request
+
         if ($id) {
             try {
                 //Consulta por Id
@@ -89,7 +96,7 @@ class ModuleQuery implements IModuleQuery
                 //Validación de rules
                 $validator = Validator::make($request->all(), $rules);
                 if ($validator->fails()) {
-                    //throw (new ValidationException($validator->errors()->getMessages()));
+                    throw (new ValidationException($validator->errors()->getMessages()));
                 }
                 //Actualización de datos
                 $module->name = $request->name ?? $module->name;
