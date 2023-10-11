@@ -23,15 +23,12 @@ class RolQuery implements IRolQuery
     //Index: Página principal
     public function index(Request $request)
     {
-       try
-        {
+        try {
             //Devuelve todos los modulos existentes
             $roles = Rol::query()->select(['id', 'name', 'description', 'active'])->get();
 
-            return response()->json(['message' => $roles]) ;
-        }
-        catch (\Exception $e)
-        {    
+            return response()->json(['message' => $roles]);
+        } catch (\Exception $e) {
             return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
         }
     }
@@ -39,15 +36,11 @@ class RolQuery implements IRolQuery
     //Store: Guardar datos en la BD
     public function store(Request $request)
     {
-        try
-        {
-            return response() -> json(['message'=> $request->input()]);
-        }
-        catch (\Exception $e)
-        {    
+        try {
+            return response()->json(['message' => $request->input()]);
+        } catch (\Exception $e) {
             return response()->json(['message' => 'Algo salio mal!', 'error' => $e], 403);
         }
-        
     }
 
     //Show: Obtener un registro de la tabla
@@ -110,6 +103,8 @@ class RolQuery implements IRolQuery
             } catch (\Exception $e) {
                 return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
             }
+        } else {
+            //*** Que pasa si no se recive el ID, deberia sacar un mensaje de errror
         }
     }
 
@@ -129,6 +124,8 @@ class RolQuery implements IRolQuery
             } catch (ModelNotFoundException $e) {
                 return response()->json(['message' => "Modulo con id {$id} no existe!", 'error' => $e->getMessage()], 403);
             }
+        } else {
+            //*** Que pasa si no se recive el ID, deberia sacar un mensaje de errror
         }
     }
 }

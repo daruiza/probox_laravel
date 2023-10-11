@@ -38,4 +38,11 @@ class Rol extends Model
         return is_null($description) ?  $query : $query->where('description', 'LIKE', '%' . $description . '%');
     }
 
+    public function scopeIdRol($query, $idRol)
+    {
+        return $idRol ?
+            $query->where('id', '!=', intval($idRol)) :
+            $query->where('id', '!=', 1);
+    }
+
 }
