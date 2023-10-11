@@ -47,7 +47,7 @@ class Module
      * @OA\Property(
      *      title="active",
      *      description="Active of the Module",
-     *      example="Example"
+     *      example=true
      * )
      *
      * @var boolean

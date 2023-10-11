@@ -361,29 +361,9 @@
                 "tags": [
                     "Module"
                 ],
-                "summary": "Get All Modules",
-                "description": "Return Modules",
-                "operationId": "getAllModules",
-                "parameters": [
-                    {
-                        "name": "name",
-                        "in": "query",
-                        "description": "Module Name",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "active",
-                        "in": "query",
-                        "description": "Module city",
-                        "required": false,
-                        "schema": {
-                            "type": "boolean"
-                        }
-                    }
-                ],
+                "summary": "Get All Module",
+                "description": "Return Module",
+                "operationId": "getModule",
                 "responses": {
                     "200": {
                         "description": "Successful operation"
@@ -494,6 +474,16 @@
                         }
                     }
                 ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Module"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Successful operation"
@@ -525,6 +515,189 @@
                         "name": "id",
                         "in": "path",
                         "description": "Module Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/rol/index": {
+            "get": {
+                "tags": [
+                    "Rol"
+                ],
+                "summary": "Get All Rol",
+                "description": "Return Rol",
+                "operationId": "getRol",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/rol/store": {
+            "post": {
+                "tags": [
+                    "Rol"
+                ],
+                "summary": "Store Rol",
+                "description": "Store Rol",
+                "operationId": "storeRol",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Rol"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/rol/showbyrolid/{id}": {
+            "get": {
+                "tags": [
+                    "Rol"
+                ],
+                "summary": "Get One Rol By one Id",
+                "description": "Return One Rol",
+                "operationId": "getRolById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Rol Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/rol/update/{id}": {
+            "put": {
+                "tags": [
+                    "Rol"
+                ],
+                "summary": "Update One Rol By one Id",
+                "description": "Update One Rol",
+                "operationId": "getUpdateRolById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Rol Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Rol"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/rol/destroy/{id}": {
+            "delete": {
+                "tags": [
+                    "Rol"
+                ],
+                "summary": "Delete One Rol By one Id",
+                "description": "Delete One Rol",
+                "operationId": "getDestroyRolById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Rol Id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -900,7 +1073,32 @@
                         "title": "active",
                         "description": "Active of the Module",
                         "type": "boolean",
-                        "example": "Example"
+                        "example": true
+                    }
+                },
+                "type": "object"
+            },
+            "Rol": {
+                "title": "Rol",
+                "description": "Rol body data",
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Name of the Rol",
+                        "type": "string",
+                        "example": "Rol Name"
+                    },
+                    "description": {
+                        "title": "description",
+                        "description": "Description of the Rol",
+                        "type": "string",
+                        "example": "Rol Description"
+                    },
+                    "active": {
+                        "title": "active",
+                        "description": "Active of the Rol",
+                        "type": "boolean",
+                        "example": true
                     }
                 },
                 "type": "object"
