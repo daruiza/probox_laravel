@@ -22,6 +22,10 @@ use App\Http\Controllers\Api\ModuleController;
 use App\Query\Abstraction\IModuleQuery;
 use App\Query\Request\ModuleQuery;
 
+use App\Http\Controllers\Api\RolController;
+use App\Query\Abstraction\IRolQuery;
+use App\Query\Request\RolQuery;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -42,6 +46,9 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(IModuleQuery::class, ModuleQuery::class);
         $this->app->make(ModuleController::class);
+
+        $this->app->bind(IRolQuery::class, RolQuery::class);
+        $this->app->make(RolController::class);
     }
 
     /**

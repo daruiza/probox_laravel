@@ -55,3 +55,13 @@ Route::group(['prefix' => 'module'], function () {
         Route::delete('destroy/{id}', 'Api\ModuleController@destroy');
     });
 });
+
+Route::group(['prefix' => 'rol'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('index', 'Api\RolController@index');
+        Route::post('store', 'Api\RolController@store');
+        Route::get('showbyrolid/{id}', 'Api\RolController@showByRolId');
+        Route::put('update/{id}', 'Api\RolController@update');
+        Route::delete('destroy/{id}', 'Api\RolController@destroy');
+    });
+});
