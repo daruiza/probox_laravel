@@ -24,15 +24,12 @@ class ModuleQuery implements IModuleQuery
     //Index: Página principal
     public function index(Request $request)
     {
-       try
-        {
+        try {
             //Devuelve todos los modulos existentes
             $modules = Module::query()->select(['id', 'name', 'description', 'label', 'active'])->get();
 
-            return response()->json(['message' => $modules]) ;
-        }
-        catch (\Exception $e)
-        {    
+            return response()->json(['message' => $modules]);
+        } catch (\Exception $e) {
             return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
         }
     }
@@ -40,15 +37,11 @@ class ModuleQuery implements IModuleQuery
     //Store: Guardar datos en la BD
     public function store(Request $request)
     {
-        try
-        {
-            return response() -> json(['message'=> $request->input()]);
-        }
-        catch (\Exception $e)
-        {    
+        try {
+            return response()->json(['message' => $request->input()]);
+        } catch (\Exception $e) {
             return response()->json(['message' => 'Algo salio mal!', 'error' => $e], 403);
         }
-        
     }
 
     //Show: Obtener un registro de la tabla
@@ -80,9 +73,6 @@ class ModuleQuery implements IModuleQuery
     //Update: Actualiza los datos en la BD
     public function update(Request $request, int $id)
     {
-        //*** Revisar $request->input() esta llegando vacio - al swagger no lo provee mirar ejemlo en guía
-        //*** El Controllador esta incompleto - le falta es squema para que retorne el $request
-
         if ($id) {
             try {
                 //Consulta por Id
@@ -116,6 +106,8 @@ class ModuleQuery implements IModuleQuery
             } catch (\Exception $e) {
                 return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
             }
+        } else {
+            //*** Que pasa si no se recive el ID, deberia sacar un mensaje de errror
         }
     }
 
@@ -135,6 +127,8 @@ class ModuleQuery implements IModuleQuery
             } catch (ModelNotFoundException $e) {
                 return response()->json(['message' => "Modulo con id {$id} no existe!", 'error' => $e->getMessage()], 403);
             }
+        } else {
+            //*** Que pasa si no se recive el ID, deberia sacar un mensaje de errror
         }
     }
 }
