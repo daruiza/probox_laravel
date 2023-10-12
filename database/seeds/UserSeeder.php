@@ -22,6 +22,10 @@ class UserSeeder extends Seeder
             'theme' => 'super',
             'photo' => 'avatar',
             'rol_id' => '1',
+            'chexk_digit' => '3',
+            'nacionality' => 'Venezolano',
+            'birthdate' => '2002-10-12',
+            'active' => '1',
         ));
 
         DB::table('users')->insert(array(
@@ -33,6 +37,10 @@ class UserSeeder extends Seeder
             'theme' => 'skyblue',
             'photo' => 'avatar',
             'rol_id' => '2',
+            'chexk_digit' => '3',
+            'nacionality' => 'Venezolano',
+            'birthdate' => '2002-10-12',
+            'active' => '1',
         ));
 
         DB::table('users')->insert(array(
@@ -44,6 +52,10 @@ class UserSeeder extends Seeder
             'theme' => 'skyblue',
             'photo' => 'avatar',
             'rol_id' => '3',
+            'chexk_digit' => '3',
+            'nacionality' => 'Venezolano',
+            'birthdate' => '2002-10-12',
+            'active' => '1',
         ));
 
         DB::table('users')->insert(array(
@@ -55,6 +67,10 @@ class UserSeeder extends Seeder
             'theme' => 'skyblue',
             'photo' => 'avatar',
             'rol_id' => '3',
+            'chexk_digit' => '3',
+            'nacionality' => 'Venezolano',
+            'birthdate' => '2002-10-12',
+            'active' => '1',
         ));
 
         DB::table('users')->insert(array(
@@ -66,6 +82,10 @@ class UserSeeder extends Seeder
             'theme' => 'skyblue',
             'photo' => 'avatar',
             'rol_id' => '2',
+            'chexk_digit' => '3',
+            'nacionality' => 'Venezolano',
+            'birthdate' => '2002-10-12',
+            'active' => '1',
         ));
     }
 }

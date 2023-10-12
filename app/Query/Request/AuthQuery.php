@@ -22,7 +22,7 @@ class AuthQuery implements IAuthQuery
             // $this->name     => 'required|string|min:1|max:128',
             $this->email    => 'required|string|max:128|email',
             $this->password => 'required|string',
-        ];        
+        ];
 
         try {
             // Ejecutamos el validador y en caso de que falle devolvemos la respuesta
@@ -57,7 +57,11 @@ class AuthQuery implements IAuthQuery
     {
         try {
             $user = User::query()
-                ->select(['id', 'name', 'lastname', 'phone', 'email', 'photo', 'theme', 'rol_id'])
+                ->select([
+                    'id', 'name', 'lastname', 'phone', 'email',
+                    'photo', 'theme', 'rol_id', 'chexk_digit',
+                    'nacionality', 'birthdate', 'active'
+                ])
                 ->where('id', '=', $request->user()->id)
                 ->with(['rol:id,name,description,active'])
                 ->first();

@@ -26,6 +26,10 @@ class User extends Authenticatable
         'photo',
         'lastname',
         'rol_id',
+        'chexk_digit',
+        'nacionality',
+        'birthdate',
+        'active',
     ];
 
     /**
@@ -76,5 +80,4 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Model\Core\Rol::class);
     }
-
 }

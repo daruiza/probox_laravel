@@ -23,6 +23,11 @@ class CreateUsersTable extends Migration
             $table->string('theme')->nullable();
             $table->string('photo')->nullable();
             $table->string('password');
+            $table->unsignedBigInteger('chexk_digit')->unsigned()->nullable();
+            $table->string('nacionality');
+            $table->date('birthdate')->nullable()->default(null);
+            $table->boolean('active')->default(true);
+
             $table->rememberToken();
             $table->timestamps();
 
@@ -32,7 +37,6 @@ class CreateUsersTable extends Migration
                 ->on('rols')
                 ->onUpdate('cascade')
                 ->onDelete('set null');
-
         });
     }
 
