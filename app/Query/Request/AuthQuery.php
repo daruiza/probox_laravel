@@ -67,7 +67,7 @@ class AuthQuery implements IAuthQuery
                 ->first();
             return response()->json([
                 'data' => [
-                    'User' => $user,
+                    'user' => $user,
                 ],
                 'message' => 'Datos de Usuario Consultados Correctamente!'
             ]);
