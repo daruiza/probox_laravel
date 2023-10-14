@@ -26,9 +26,13 @@ use App\Http\Controllers\Api\RolController;
 use App\Query\Abstraction\IRolQuery;
 use App\Query\Request\RolQuery;
 
-//use App\Http\Controllers\Api\OptionController;
-//use App\Query\Abstraction\IOptionQuery;
-//use App\Query\Request\OptionQuery;
+use App\Http\Controllers\Api\OptionController;
+use App\Query\Abstraction\IOptionQuery;
+use App\Query\Request\OptionQuery;
+
+use App\Http\Controllers\Api\OptionRolController;
+use App\Query\Abstraction\IOptionRolQuery;
+use App\Query\Request\OptionRolQuery;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -54,8 +58,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(IRolQuery::class, RolQuery::class);
         $this->app->make(RolController::class);
 
-        //$this->app->bind(IOptionQuery::class, OptionQuery::class);
-        //$this->app->make(OptionController::class);
+        $this->app->bind(IOptionQuery::class, OptionQuery::class);
+        $this->app->make(OptionController::class);
+
+        $this->app->bind(IOptionRolQuery::class, OptionRolQuery::class);
+        $this->app->make(OptionRolController::class);
     }
 
     /**

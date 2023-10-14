@@ -539,6 +539,483 @@
                 ]
             }
         },
+        "/option/index": {
+            "get": {
+                "tags": [
+                    "Option"
+                ],
+                "summary": "Get All Option",
+                "description": "Return Option",
+                "operationId": "getOption",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/option/store": {
+            "post": {
+                "tags": [
+                    "Option"
+                ],
+                "summary": "Store Option",
+                "description": "Store Option",
+                "operationId": "storeOption",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Option"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/option/showbyoptionid/{id}": {
+            "get": {
+                "tags": [
+                    "Option"
+                ],
+                "summary": "Get One Option By one Id",
+                "description": "Return One Option",
+                "operationId": "getOptionById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Option Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/option/update/{id}": {
+            "put": {
+                "tags": [
+                    "Option"
+                ],
+                "summary": "Update One Option By one Id",
+                "description": "Update One Option",
+                "operationId": "getUpdateOptionById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Option Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Option"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/option/destroy/{id}": {
+            "delete": {
+                "tags": [
+                    "Option"
+                ],
+                "summary": "Delete One Option By one Id",
+                "description": "Delete One Option",
+                "operationId": "getDestroyOptionById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Option Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/option/showoptionbymoduleid/{id_module}": {
+            "get": {
+                "tags": [
+                    "Option"
+                ],
+                "summary": "Get One Option By one Id Module",
+                "description": "Return One Option by Id Module",
+                "operationId": "getOptionByModuleId",
+                "parameters": [
+                    {
+                        "name": "id_module",
+                        "in": "path",
+                        "description": "Option by Id Module",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/optionrol/index": {
+            "get": {
+                "tags": [
+                    "OptionRol"
+                ],
+                "summary": "Get All OptionRol",
+                "description": "Return OptionRol",
+                "operationId": "getOption",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/optionrol/store": {
+            "post": {
+                "tags": [
+                    "OptionRol"
+                ],
+                "summary": "Store OptionRol",
+                "description": "Store OptionRol",
+                "operationId": "storeOptionRol",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/OptionRol"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/optionrol/showbyoptionrolid/{id}": {
+            "get": {
+                "tags": [
+                    "OptionRol"
+                ],
+                "summary": "Get One OptionRol By one Id",
+                "description": "Return One OptionRol",
+                "operationId": "getOptionRolById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "OptionRol Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/optionrol/update/{id}": {
+            "put": {
+                "tags": [
+                    "OptionRol"
+                ],
+                "summary": "Update One OptioRol By one Id",
+                "description": "Update One OptionRol",
+                "operationId": "getUpdateOptionRolById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "OptionRol Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/OptionRol"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/optionrol/destroy/{id}": {
+            "delete": {
+                "tags": [
+                    "OptionRol"
+                ],
+                "summary": "Delete One OptionRol By one Id",
+                "description": "Delete One OptionRol",
+                "operationId": "getDestroyOptionRolById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "OptionRol Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/optionrol/showoptionrolbyrolid/{id_rol}": {
+            "get": {
+                "tags": [
+                    "OptionRol"
+                ],
+                "summary": "Get One OptionRol By one Id Rol",
+                "description": "Return One OptionRol by Id Rol",
+                "operationId": "getOptionRolByRolId",
+                "parameters": [
+                    {
+                        "name": "id_rol",
+                        "in": "path",
+                        "description": "OptionRol by Id Rol",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/optionrol/showoptionrolbyoptionid/{id_option}": {
+            "get": {
+                "tags": [
+                    "OptionRol"
+                ],
+                "summary": "Get One OptionRol By one Id Option",
+                "description": "Return One OptionRol by Id Option",
+                "operationId": "getOptionRolByOptionId",
+                "parameters": [
+                    {
+                        "name": "id_option",
+                        "in": "path",
+                        "description": "OptionRol by Id Option",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/rol/index": {
             "get": {
                 "tags": [
@@ -1055,25 +1532,96 @@
                         "title": "name",
                         "description": "Name of the Module",
                         "type": "string",
-                        "example": "Tags"
+                        "example": "Name Module"
                     },
                     "description": {
                         "title": "description",
                         "description": "Description of the Module",
                         "type": "string",
-                        "example": "Description tags"
+                        "example": "Description Module"
                     },
                     "label": {
                         "title": "label",
                         "description": "Label of the Module",
                         "type": "string",
-                        "example": "Example"
+                        "example": "Label Module"
                     },
                     "active": {
                         "title": "active",
                         "description": "Active of the Module",
                         "type": "boolean",
                         "example": true
+                    }
+                },
+                "type": "object"
+            },
+            "Option": {
+                "title": "Option",
+                "description": "Option body data",
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Name of the Option",
+                        "type": "string",
+                        "example": "Name Option"
+                    },
+                    "description": {
+                        "title": "description",
+                        "description": "Description of the Option",
+                        "type": "string",
+                        "example": "Description Option"
+                    },
+                    "label": {
+                        "title": "label",
+                        "description": "Label of the Option",
+                        "type": "string",
+                        "example": "Label Option"
+                    },
+                    "active": {
+                        "title": "active",
+                        "description": "Active of the Option",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "id_module": {
+                        "title": "id_module",
+                        "description": "id_module of the Option",
+                        "example": 1
+                    }
+                },
+                "type": "object"
+            },
+            "OptionRol": {
+                "title": "OptionRol",
+                "description": "OptionRol body data",
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Name of the OptionRol",
+                        "type": "string",
+                        "example": "Name OptionRol"
+                    },
+                    "description": {
+                        "title": "description",
+                        "description": "Description of the OptionRol",
+                        "type": "string",
+                        "example": "Description OptionRol"
+                    },
+                    "active": {
+                        "title": "active",
+                        "description": "Active of the OptionRol",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "id_rol": {
+                        "title": "id_rol",
+                        "description": "id_rol of the OptionRol",
+                        "example": 1
+                    },
+                    "id_option": {
+                        "title": "id_option",
+                        "description": "id_option of the OptionRol",
+                        "example": 1
                     }
                 },
                 "type": "object"
@@ -1086,13 +1634,13 @@
                         "title": "name",
                         "description": "Name of the Rol",
                         "type": "string",
-                        "example": "Rol Name"
+                        "example": "Name Rol"
                     },
                     "description": {
                         "title": "description",
                         "description": "Description of the Rol",
                         "type": "string",
-                        "example": "Rol Description"
+                        "example": "Description Rol"
                     },
                     "active": {
                         "title": "active",

@@ -65,3 +65,26 @@ Route::group(['prefix' => 'rol'], function () {
         Route::delete('destroy/{id}', 'Api\RolController@destroy');
     });
 });
+
+Route::group(['prefix' => 'option'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('index', 'Api\OptionController@index');
+        Route::post('store', 'Api\OptionController@store');
+        Route::get('showbyoptionid/{id}', 'Api\OptionController@showByOptionId');
+        Route::put('update/{id}', 'Api\OptionController@update');
+        Route::delete('destroy/{id}', 'Api\OptionController@destroy');
+        Route::get('showoptionbymoduleid/{id_module}', 'Api\OptionController@showOptionByModuleId');
+    });
+});
+
+Route::group(['prefix' => 'optionrol'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('index', 'Api\OptionRolController@index');
+        Route::post('store', 'Api\OptionRolController@store');
+        Route::get('showbyoptionrolid/{id}', 'Api\OptionRolController@showByOptionRolId');
+        Route::put('update/{id}', 'Api\OptionRolController@update');
+        Route::delete('destroy/{id}', 'Api\OptionRolController@destroy');
+        Route::get('showoptionrolbyrolid/{id_rol}', 'Api\OptionRolController@showOptionRolByRolId');
+        Route::get('showoptionrolbyoptionid/{id_option}', 'Api\OptionRolController@showOptionRolByOptionId');
+    });
+});
