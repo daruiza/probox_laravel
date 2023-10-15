@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\Query\Abstraction\IOptionQuery;
-
+use OpenApi\Annotations\Options;
 
 class OptionQuery implements IOptionQuery
 {
@@ -180,14 +180,15 @@ class OptionQuery implements IOptionQuery
 
         if ($id_module) {
             try {
-                $op = Option::findOrFail($id_module);
-
+                $op = Option::where('id_module', '=', $id_module)->firstOrFail();
+                
                 if ($op) {
                     //Select a la BD: TB_modules
                     $option = DB::table('options')
-                        ->select(['id', 'name', 'description', 'label', 'active', 'id_module'])
-                        ->where('options.id_module', '=', $id_module)
-                        ->get();
+                    ->select(['id', 'name', 'description', 'label', 'active', 'id_module'])
+                    ->where('options.id_module', '=', $id_module)
+                    ->get();
+
                     return response()->json([
                         'data' => [
                             'option' => $option,

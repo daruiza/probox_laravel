@@ -178,10 +178,9 @@ class OptionRolQuery implements IOptionRolQuery
 
         if ($id_rol) {
             try {
-                
-                $opr = OptionRol::findOrFail($id_rol);
+                $opr = OptionRol::where('id_rol', '=', $id_rol)->firstOrFail();
 
-                if ($opr) {
+                if (isset($opr)) {
                     //Select a la BD: TB_modules
                     $optionrol = DB::table('options_rols')
                         ->select(['id', 'name', 'description', 'active', 'id_rol', 'id_option'])
@@ -206,7 +205,7 @@ class OptionRolQuery implements IOptionRolQuery
 
         if ($id_option) {
             try {
-                $opo = OptionRol::findOrFail($id_option);
+                $opo = OptionRol::where('id_option', '=', $id_option)->firstOrFail();
 
                 if ($opo) {
                     //Select a la BD: TB_modules
