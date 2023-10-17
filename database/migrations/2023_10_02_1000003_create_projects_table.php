@@ -22,6 +22,7 @@ class CreateProjectsTable extends Migration
             $table->string('address')->unique();
             $table->string('quotion', 512)->nullable();
             $table->string('goal')->nullable();
+            $table->string('photo')->nullable();
             $table->string('description')->nullable();
             $table->boolean('focus')->default(true);
             $table->boolean('active')->default(true);

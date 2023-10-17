@@ -50,8 +50,18 @@ Route::group(['prefix' => 'module'], function () {
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('index', 'Api\ModuleController@index');
         Route::post('store', 'Api\ModuleController@store');
+        Route::get('showbymoduleid/{id}', 'Api\ModuleController@showByModuleId');
         Route::put('update/{id}', 'Api\ModuleController@update');
-        Route::get('showbymoduleid/{user_id}', 'Api\ModuleController@showByModuleId');
         Route::delete('destroy/{id}', 'Api\ModuleController@destroy');
+    });
+});
+
+Route::group(['prefix' => 'rol'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('index', 'Api\RolController@index');
+        Route::post('store', 'Api\RolController@store');
+        Route::get('showbyrolid/{id}', 'Api\RolController@showByRolId');
+        Route::put('update/{id}', 'Api\RolController@update');
+        Route::delete('destroy/{id}', 'Api\RolController@destroy');
     });
 });

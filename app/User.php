@@ -17,7 +17,19 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'id',
+        'name',
+        'email',
+        'password',
+        'phone',
+        'theme',
+        'photo',
+        'lastname',
+        'rol_id',
+        'chexk_digit',
+        'nacionality',
+        'birthdate',
+        'active',
     ];
 
     /**
@@ -37,4 +49,35 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function scopeName($query, $name)
+    {
+        return is_null($name) ?  $query : $query->where('name', 'LIKE', '%' . $name . '%');
+    }
+
+    public function scopeLastname($query, $lastname)
+    {
+        return is_null($lastname) ?  $query : $query->where('lastname', 'LIKE', '%' . $lastname . '%');
+    }
+
+    public function scopePhone($query, $phone)
+    {
+        return is_null($phone) ?  $query : $query->where('phone', 'LIKE', '%' . $phone . '%');
+    }
+
+    public function scopeEmail($query, $email)
+    {
+        return is_null($email) ?  $query : $query->where('email', 'LIKE', '%' . $email . '%');
+    }
+
+    public function scopeRol_id($query, $rolid)
+    {
+        return is_null($rolid) ?  $query : $query->where('rol_id', $rolid);
+    }
+
+    //un usuario posee/pertenece un rol
+    public function rol()
+    {
+        return $this->belongsTo(Model\Core\Rol::class);
+    }
 }

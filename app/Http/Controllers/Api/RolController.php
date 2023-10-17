@@ -4,26 +4,25 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Query\Abstraction\IModuleQuery;
+use App\Query\Abstraction\IRolQuery;
 
-class ModuleController extends Controller
+class RolController extends Controller
 {
 
-    private $ModuleQuery;
+    private $RolQuery;
 
-    public function __construct(IModuleQuery $ModuleQuery)
+    public function __construct(IRolQuery $RolQuery)
     {
-        $this->ModuleQuery = $ModuleQuery;
+        $this->RolQuery = $RolQuery;
     }
 
     /**
-     * Listado de todos los Modulos
      * @OA\Get(
-     *      path="/module/index",
-     *      operationId="getModule",
-     *      tags={"Module"},
-     *      summary="Get All Module",
-     *      description="Return Module",
+     *      path="/rol/index",
+     *      operationId="getRol",
+     *      tags={"Rol"},
+     *      summary="Get All Rol",
+     *      description="Return Rol",
      *      security={ {"bearer": {} }},
      *      @OA\Response(
      *          response=200,
@@ -41,20 +40,20 @@ class ModuleController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->ModuleQuery->index($request);
+        return $this->RolQuery->index($request);
     }
 
     /**
      * @OA\Post(
-     *      path="/module/store",
-     *      operationId="storeModule",
-     *      tags={"Module"},
-     *      summary="Store Module",
-     *      description="Store Module",
+     *      path="/rol/store",
+     *      operationId="storeRol",
+     *      tags={"Rol"},
+     *      summary="Store Rol",
+     *      description="Store Rol",
      *      security={ {"bearer": {} }},
      *      @OA\RequestBody(
      *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/Module")
+     *          @OA\JsonContent(ref="#/components/schemas/Rol")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -72,20 +71,20 @@ class ModuleController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->ModuleQuery->store($request);
+        return $this->RolQuery->store($request);
     }
 
     /**
      * @OA\Get(
-     *      path="/module/showbymoduleid/{id}",
-     *      operationId="getModuleById",
-     *      tags={"Module"},
-     *      summary="Get One Module By one Id",
-     *      description="Return One Module",
+     *      path="/rol/showbyrolid/{id}",
+     *      operationId="getRolById",
+     *      tags={"Rol"},
+     *      summary="Get One Rol By one Id",
+     *      description="Return One Rol",
      *      security={ {"bearer": {} }},
      *      @OA\Parameter(
      *          name="id",
-     *          description="Module Id",
+     *          description="Rol Id",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -106,22 +105,22 @@ class ModuleController extends Controller
      *      )
      *     )
      */
-     public function showByModuleId(Request $request, $id)
+     public function showByRolId(Request $request, $id)
      {
-         return $this->ModuleQuery->showByModuleId($request, $id);
+         return $this->RolQuery->showByRolId($request, $id);
      }
  
      /**
      * @OA\Put(
-     *      path="/module/update/{id}",
-     *      operationId="getUpdateModuleById",
-     *      tags={"Module"},
-     *      summary="Update One Module By one Id",
-     *      description="Update One Module",
+     *      path="/rol/update/{id}",
+     *      operationId="getUpdateRolById",
+     *      tags={"Rol"},
+     *      summary="Update One Rol By one Id",
+     *      description="Update One Rol",
      *      security={ {"bearer": {} }},
      *      @OA\Parameter(
      *          name="id",
-     *          description="Module Id",
+     *          description="Rol Id",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -130,7 +129,7 @@ class ModuleController extends Controller
      *      ),
      *       @OA\RequestBody(
      *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/Module")
+     *          @OA\JsonContent(ref="#/components/schemas/Rol")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -148,20 +147,20 @@ class ModuleController extends Controller
      */
      public function update(Request $request, $id)
      {
-         return $this->ModuleQuery->update($request, $id);
+         return $this->RolQuery->update($request, $id);
      }
  
      /**
       * @OA\Delete(
-      *      path="/module/destroy/{id}",
-      *      operationId="getDestroyModuleById",
-      *      tags={"Module"},
-      *      summary="Delete One Module By one Id",
-      *      description="Delete One Module",
+      *      path="/rol/destroy/{id}",
+      *      operationId="getDestroyRolById",
+      *      tags={"Rol"},
+      *      summary="Delete One Rol By one Id",
+      *      description="Delete One Rol",
       *      security={ {"bearer": {} }},
       *      @OA\Parameter(
       *          name="id",
-      *          description="Module Id",
+      *          description="Rol Id",
       *          required=true,
       *          in="path",
       *          @OA\Schema(
@@ -184,7 +183,7 @@ class ModuleController extends Controller
       */
      public function destroy(Request $request, $id)
      {
-         return $this->ModuleQuery->destroy($request, $id);
+         return $this->RolQuery->destroy($request, $id);
      }
  }
  
