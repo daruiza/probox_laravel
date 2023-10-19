@@ -3,8 +3,9 @@
 namespace App\Query\Request;
 
 use Illuminate\Support\Facades\DB;
-use App\Model\Core\Module;
 use App\Model\Core\Option;
+use App\Model\Core\OptionRol;
+use App\Model\Core\Module;
 
 use App\User;
 use Illuminate\Http\Request;
@@ -12,24 +13,25 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use App\Query\Abstraction\IModuleQuery;
+use App\Query\Abstraction\IOptionQuery;
+use OpenApi\Annotations\Options;
 
-
-class ModuleQuery implements IModuleQuery
+class OptionQuery implements IOptionQuery
 {
     private $name   = 'name';
     private $description = 'description';
     private $label  = 'label';
     private $active  = 'active';
+    private $id_module = 'id_module';
 
     //Index: Página principal
     public function index(Request $request)
     {
         try {
             //Devuelve todos los modulos existentes
-            $modules = Module::query()->select(['id', 'name', 'description', 'label', 'active'])->get();
+            $options = Option::query()->select(['id', 'name', 'description', 'label', 'active', 'id_module'])->get();
 
-            return response()->json(['message' => $modules]);
+            return response()->json(['message' => $options]);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
         }
@@ -56,19 +58,20 @@ class ModuleQuery implements IModuleQuery
         
         try {
             //Recepción de datos y guardado en la BD
-            $module = new Module([
+            $option = new Option([
                 $this->name => $request->name,
                 $this->description => $request->description,
                 $this->label => $request->label,
                 $this->active => $request->active,
+                $this->id_module => $request->id_module,
             ]);
-            $module->save();
+            $option->save();
             
             return response()->json([
                 'data' => [
-                'module' => $module,
+                'option' => $option,
                 ],
-                'message' => 'Modulo creado correctamente!'
+                'message' => 'Option creado correctamente!'
             ], 201);
 
         } catch (\Exception $e) {
@@ -77,28 +80,28 @@ class ModuleQuery implements IModuleQuery
     }
 
     //Show: Obtener un registro de la tabla
-    public function showById(Request $request,  int $id)
+    public function showById(Request $request, int $id)
     {
 
         if ($id) {
             try {
-                $ml = Module::findOrFail($id);
+                $op = Option::findOrFail($id);
 
-                if ($ml) {
+                if ($op) {
                     //Select a la BD: TB_modules
-                    $module = DB::table('modules')
-                        ->select(['id', 'name', 'description', 'label', 'active'])
-                        ->where('modules.id', '=', $id)
+                    $option = DB::table('options')
+                        ->select(['id', 'name', 'description', 'label', 'active', 'id_module'])
+                        ->where('options.id', '=', $id)
                         ->get();
                     return response()->json([
                         'data' => [
-                            'module' => $module,
+                            'option' => $option,
                         ],
-                        'message' => 'Datos de modulos Consultados Correctamente!'
+                        'message' => 'Datos de option Consultados Correctamente!'
                     ]);
                 }
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Modulo con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Option con id {$id} no existe!", 'error' => $e->getMessage()], 403);
             }
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
@@ -128,22 +131,23 @@ class ModuleQuery implements IModuleQuery
 
             try {
                 //Consulta por Id
-                $module = Module::findOrFail($id);
+                $option = Option::findOrFail($id);
                 //Actualización de datos
-                $module->name = $request->name ?? $module->name;
-                $module->description = $request->description ?? $module->description;
-                $module->label = $request->label ?? $module->label;
-                $module->active = $request->active ?? $module->active;
-                $module->save();
+                $option->name = $request->name ?? $option->name;
+                $option->description = $request->description ?? $option->description;
+                $option->label = $request->label ?? $option->label;
+                $option->active = $request->active ?? $option->active;
+                $option->id_module = $request->id_module ?? $option->id_module;
+                $option->save();
 
                 return response()->json([
                     'data' => [
-                        'module' => $module,
+                        'option' => $option,
                     ],
-                    'message' => 'Modulo actualizado con éxito!'
+                    'message' => 'Option actualizado con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $ex) {
-                return response()->json(['message' => "Modulo con id {$id} no existe!", 'error' => $ex->getMessage()], 404);
+                return response()->json(['message' => "Option con id {$id} no existe!", 'error' => $ex->getMessage()], 404);
             } catch (\Exception $e) {
                 return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
             }
@@ -158,42 +162,68 @@ class ModuleQuery implements IModuleQuery
         if ($id) {
             try {
                 //Delete por id
-                $module = Module::findOrFail($id);
-                $module->delete();
+                $option = Option::findOrFail($id);
+                $option->delete();
                 return response()->json([
                     'data' => [
-                        'module' => $module,
+                        'option' => $option,
                     ],
-                    'message' => 'Modulo eliminado con éxito!'
+                    'message' => 'Option eliminado con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Modulo con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Option con id {$id} no existe!", 'error' => $e->getMessage()], 403);
             }
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
         }
     }
 
-    public function showOptionById(Request $request, int $id)
+    public function showModuleById(Request $request, int $id)
     {
+        
         if ($id) {
             try {
-                //Comprobar existencia
-                $existencia = Option::where('id_module', '=', $id)->firstOrFail();
-                //Devuelve todas las OPTIONS relacionadas a un MODULE
-                $options = Option::query()->where('id_module',$id)->get();
+                //Devuelve la OPTION relacionada a un MODULE
+                $module = Module::query()->where('id',$id)->get();
     
                 return response()->json([
                     'data' => [
-                        'options' => $options,
+                        'module' => $module,
                     ],
-                    'message' => 'Options consultadas con éxito!'
+                    'message' => 'Module consultado con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Options relacionadas al module con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Module relacionado a la option con id {$id} no existe!", 'error' => $e->getMessage()], 403);
             }
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
         }
+        
     }
+
+    public function showRolById(Request $request, int $id)
+    {
+        
+        if ($id) {
+            try {
+                //Comprobar existencia
+                $existencia = OptionRol::where('id_option', '=', $id)->firstOrFail();
+                //Devuelve los ROLS relacionados a un OPTION
+                $rols = OptionRol::query()->where('id_option',$id)->get();
+    
+                return response()->json([
+                    'data' => [
+                        'rols' => $rols,
+                    ],
+                    'message' => 'Rols consultados con éxito!'
+                ], 201);
+            } catch (ModelNotFoundException $e) {
+                return response()->json(['message' => "Rols relacionados a la Option con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+            }
+        } else {
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+        }
+        
+    }
+
 }

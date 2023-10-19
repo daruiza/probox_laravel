@@ -5,17 +5,26 @@ namespace App\Model\Core;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Rol extends Model
+class Option extends Model
 {
-    protected $table = 'rols';
+    protected $table = 'options';
     protected $fillable = [
         'id',
         'name',
         'description',
-        'active'
+        'label',
+        'active',
+        'id_module'
     ];
 
-    public function options()
+    //belongsTo: Varios OPTIONS le pertenecen a un MODULE.
+    public function module()
+    {
+        return $this->belongsTo(Module::class);
+    }
+
+    //belongsToMany: Varios OPTIONS le pertenecen a varios ROLS.
+    public function rols()
     {
         return $this->belongsToMany(OptionRol::class);
     }
@@ -37,11 +46,13 @@ class Rol extends Model
         return is_null($description) ?  $query : $query->where('description', 'LIKE', '%' . $description . '%');
     }
 
-    public function scopeIdRol($query, $idRol)
+    public function scopeLabel($query, $label)
     {
-        return $idRol ?
-            $query->where('id', '!=', intval($idRol)) :
-            $query->where('id', '!=', 1);
+        return is_null($label) ?  $query : $query->where('label', 'LIKE', '%' . $label . '%');
     }
 
+    public function scopeId_module($query, $idmodule)
+    {
+        return is_null($idmodule) ?  $query : $query->where('id_module', $idmodule);
+    }
 }

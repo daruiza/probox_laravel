@@ -4,6 +4,7 @@ namespace App\Query\Request;
 
 use Illuminate\Support\Facades\DB;
 use App\Model\Core\Rol;
+use App\Model\Core\OptionRol;
 
 use App\User;
 use Illuminate\Http\Request;
@@ -36,36 +37,67 @@ class RolQuery implements IRolQuery
     //Store: Guardar datos en la BD
     public function store(Request $request)
     {
-        try {
-            return response()->json(['message' => $request->input()]);
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => $e], 403);
+       //Rules: Especificaciones a validar
+       $rules = [
+        $this->name    => 'required|string|min:1|max:128|',
+        $this->description   => 'required|string|min:1|max:128|',
+    ];
+    try {
+        // Ejecutamos el validador y en caso de que falle devolvemos la respuesta
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            throw (new ValidationException($validator->errors()->getMessages()));
         }
+    } catch (\Exception $e) {
+        return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
+    }
+    
+    try {
+        //Recepción de datos y guardado en la BD
+        $rol = new Rol([
+            $this->name => $request->name,
+            $this->description => $request->description,
+            $this->active => $request->active,
+        ]);
+        $rol->save();
+        
+        return response()->json([
+            'data' => [
+            'rol' => $rol,
+            ],
+            'message' => 'Rol creado correctamente!'
+        ], 201);
+
+    } catch (\Exception $e) {
+        return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
+    }
     }
 
     //Show: Obtener un registro de la tabla
-    public function showByRolId(Request $request,  int $id)
+    public function showById(Request $request,  int $id)
     {
-        try {
+        if ($id) {
+            try {
+                $rl = Rol::findOrFail($id);
 
-            //*** Falta validar que $id sea valido para iniciar a operar con el
-
-
-            $rl = Rol::findOrFail($id);
-            if ($rl) {
-                $rol = DB::table('rols')
-                    ->select(['id', 'name', 'description', 'active'])
-                    ->where('rols.id', '=', $id)
-                    ->get();
-                return response()->json([
-                    'data' => [
-                        'rols' => $rol,
-                    ],
-                    'message' => 'Datos de roles Consultados Correctamente!'
-                ]);
+                if ($rl) {
+                    //Select a la BD: TB_rols
+                    $rol = DB::table('rols')
+                        ->select(['id', 'name', 'description', 'active'])
+                        ->where('rols.id', '=', $id)
+                        ->get();
+                    return response()->json([
+                        'data' => [
+                            'rol' => $rol,
+                        ],
+                        'message' => 'Datos de rol Consultados Correctamente!'
+                    ]);
+                }
+            } catch (ModelNotFoundException $e) {
+                return response()->json(['message' => "Rol con id {$id} no existe!", 'error' => $e->getMessage()], 403);
             }
-        } catch (ModelNotFoundException $e) {
-            return response()->json(['message' => "Rol con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+        } else {
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
         }
     }
 
@@ -73,19 +105,25 @@ class RolQuery implements IRolQuery
     public function update(Request $request, int $id)
     {
         if ($id) {
+
+            //Rules: Especificaciones a validar
+            $rules = [
+                $this->name    => 'required|string|min:1|max:128|',
+                $this->description   => 'required|string|min:1|max:128|',
+            ];
             try {
-                //Consulta por Id
-                $rol = Rol::findOrFail($id);
-                //Rules: Especificaciones a validar
-                $rules = [
-                    $this->name    => 'required|string|min:1|max:128|',
-                    $this->description   => 'required|string|min:1|max:128|',
-                ];
-                //Validación de rules
+                // Ejecutamos el validador y en caso de que falle devolvemos la respuesta
                 $validator = Validator::make($request->all(), $rules);
                 if ($validator->fails()) {
                     throw (new ValidationException($validator->errors()->getMessages()));
                 }
+            } catch (\Exception $e) {
+                return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
+            }
+
+            try {
+                //Consulta por Id
+                $rol = Rol::findOrFail($id);
                 //Actualización de datos
                 $rol->name = $request->name ?? $rol->name;
                 $rol->description = $request->description ?? $rol->description;
@@ -104,7 +142,7 @@ class RolQuery implements IRolQuery
                 return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
             }
         } else {
-            //*** Que pasa si no se recive el ID, deberia sacar un mensaje de errror
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
         }
     }
 
@@ -113,6 +151,7 @@ class RolQuery implements IRolQuery
     {
         if ($id) {
             try {
+                //Delete por id
                 $rol = Rol::findOrFail($id);
                 $rol->delete();
                 return response()->json([
@@ -122,10 +161,34 @@ class RolQuery implements IRolQuery
                     'message' => 'Rol eliminado con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Modulo con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Rol con id {$id} no existe!", 'error' => $e->getMessage()], 403);
             }
         } else {
-            //*** Que pasa si no se recive el ID, deberia sacar un mensaje de errror
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+        }
+    }
+
+    public function showOptionById(Request $request, int $id)
+    {
+        
+        if ($id) {
+            try {
+                //Comprobar existencia
+                $existencia = OptionRol::where('id_rol', '=', $id)->firstOrFail();
+                //Devuelve los ROLS relacionados a un OPTION
+                $options = OptionRol::query()->where('id_rol',$id)->get();
+    
+                return response()->json([
+                    'data' => [
+                        'options' => $options,
+                    ],
+                    'message' => 'Options consultados con éxito!'
+                ], 201);
+            } catch (ModelNotFoundException $e) {
+                return response()->json(['message' => "Options relacionados al Rol con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+            }
+        } else {
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
         }
     }
 }

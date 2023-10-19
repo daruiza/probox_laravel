@@ -76,7 +76,7 @@ class RolController extends Controller
 
     /**
      * @OA\Get(
-     *      path="/rol/showbyrolid/{id}",
+     *      path="/rol/showbyid/{id}",
      *      operationId="getRolById",
      *      tags={"Rol"},
      *      summary="Get One Rol By one Id",
@@ -105,9 +105,9 @@ class RolController extends Controller
      *      )
      *     )
      */
-     public function showByRolId(Request $request, $id)
+     public function showById(Request $request, $id)
      {
-         return $this->RolQuery->showByRolId($request, $id);
+         return $this->RolQuery->showById($request, $id);
      }
  
      /**
@@ -185,5 +185,42 @@ class RolController extends Controller
      {
          return $this->RolQuery->destroy($request, $id);
      }
+
+     /**
+     * @OA\Get(
+     *      path="/rol/showoptionbyid/{id}",
+     *      operationId="getShowOptionById",
+     *      tags={"Rol"},
+     *      summary="Get Options By one Id",
+     *      description="Return Options by Id",
+     *      security={ {"bearer": {} }},
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Show Option by Id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated"
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *     )
+     */
+    public function showOptionById(Request $request, int $id)
+    {
+        return $this->RolQuery->showOptionById($request, $id);
+    }
+
  }
  

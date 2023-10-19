@@ -14,7 +14,7 @@ class Rol
      * @OA\Property(
      *      title="name",
      *      description="Name of the Rol",
-     *      example="Rol Name"
+     *      example="Name Rol"
      * )
      *
      * @var string
@@ -25,7 +25,7 @@ class Rol
      * @OA\Property(
      *      title="description",
      *      description="Description of the Rol",
-     *      example="Rol Description"
+     *      example="Description Rol"
      * )
      *
      * @var string

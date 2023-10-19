@@ -25,5 +25,11 @@ class ModuleSeeder extends Seeder
             'label' => 'PPP_2',
         ));
 
+        DB::table('modules')->insert(array(
+            'name' => 'Projects_3',
+            'description' => 'project objectives_3',
+            'label' => 'PPP_3',
+        ));
+
     }
 }

@@ -5,20 +5,17 @@ namespace App\Model\Core;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Rol extends Model
+class OptionRol extends Model
 {
-    protected $table = 'rols';
+    protected $table = 'options_rols';
     protected $fillable = [
         'id',
         'name',
         'description',
-        'active'
+        'active',
+        'id_rol',
+        'id_option'
     ];
-
-    public function options()
-    {
-        return $this->belongsToMany(OptionRol::class);
-    }
 
     public function scopeActive($query, $active)
     {
@@ -37,11 +34,13 @@ class Rol extends Model
         return is_null($description) ?  $query : $query->where('description', 'LIKE', '%' . $description . '%');
     }
 
-    public function scopeIdRol($query, $idRol)
+    public function scopeId_rol($query, $idrol)
     {
-        return $idRol ?
-            $query->where('id', '!=', intval($idRol)) :
-            $query->where('id', '!=', 1);
+        return is_null($idrol) ?  $query : $query->where('id_rol', $idrol);
     }
 
+    public function scopeId_option($query, $idoption)
+    {
+        return is_null($idoption) ?  $query : $query->where('id_option', $idoption);
+    }
 }

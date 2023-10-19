@@ -4,26 +4,26 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Query\Abstraction\IModuleQuery;
+use App\Query\Abstraction\IOptionQuery;
 
-class ModuleController extends Controller
+class OptionController extends Controller
 {
 
-    private $ModuleQuery;
+    private $OptionQuery;
 
-    public function __construct(IModuleQuery $ModuleQuery)
+    public function __construct(IOptionQuery $OptionQuery)
     {
-        $this->ModuleQuery = $ModuleQuery;
+        $this->OptionQuery = $OptionQuery;
     }
 
     /**
-     * Listado de todos los Modulos
+     * Listado de todos los Options
      * @OA\Get(
-     *      path="/module/index",
-     *      operationId="getModule",
-     *      tags={"Module"},
-     *      summary="Get All Module",
-     *      description="Return Module",
+     *      path="/option/index",
+     *      operationId="getOption",
+     *      tags={"Option"},
+     *      summary="Get All Option",
+     *      description="Return Option",
      *      security={ {"bearer": {} }},
      *      @OA\Response(
      *          response=200,
@@ -41,20 +41,20 @@ class ModuleController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->ModuleQuery->index($request);
+        return $this->OptionQuery->index($request);
     }
 
     /**
      * @OA\Post(
-     *      path="/module/store",
-     *      operationId="storeModule",
-     *      tags={"Module"},
-     *      summary="Store Module",
-     *      description="Store Module",
+     *      path="/option/store",
+     *      operationId="storeOption",
+     *      tags={"Option"},
+     *      summary="Store Option",
+     *      description="Store Option",
      *      security={ {"bearer": {} }},
      *      @OA\RequestBody(
      *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/Module")
+     *          @OA\JsonContent(ref="#/components/schemas/Option")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -72,20 +72,20 @@ class ModuleController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->ModuleQuery->store($request);
+        return $this->OptionQuery->store($request);
     }
 
     /**
      * @OA\Get(
-     *      path="/module/showbyid/{id}",
-     *      operationId="getModuleById",
-     *      tags={"Module"},
-     *      summary="Get One Module By one Id",
-     *      description="Return One Module",
+     *      path="/option/showbyid/{id}",
+     *      operationId="getOptionById",
+     *      tags={"Option"},
+     *      summary="Get One Option By one Id",
+     *      description="Return One Option",
      *      security={ {"bearer": {} }},
      *      @OA\Parameter(
      *          name="id",
-     *          description="Module Id",
+     *          description="Option Id",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -108,20 +108,20 @@ class ModuleController extends Controller
      */
      public function showById(Request $request, $id)
      {
-         return $this->ModuleQuery->showById($request, $id);
+         return $this->OptionQuery->showById($request, $id);
      }
  
      /**
      * @OA\Put(
-     *      path="/module/update/{id}",
-     *      operationId="getUpdateModuleById",
-     *      tags={"Module"},
-     *      summary="Update One Module By one Id",
-     *      description="Update One Module",
+     *      path="/option/update/{id}",
+     *      operationId="getUpdateOptionById",
+     *      tags={"Option"},
+     *      summary="Update One Option By one Id",
+     *      description="Update One Option",
      *      security={ {"bearer": {} }},
      *      @OA\Parameter(
      *          name="id",
-     *          description="Module Id",
+     *          description="Option Id",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -130,7 +130,7 @@ class ModuleController extends Controller
      *      ),
      *       @OA\RequestBody(
      *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/Module")
+     *          @OA\JsonContent(ref="#/components/schemas/Option")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -148,20 +148,20 @@ class ModuleController extends Controller
      */
      public function update(Request $request, $id)
      {
-         return $this->ModuleQuery->update($request, $id);
+         return $this->OptionQuery->update($request, $id);
      }
  
      /**
       * @OA\Delete(
-      *      path="/module/destroy/{id}",
-      *      operationId="getDestroyModuleById",
-      *      tags={"Module"},
-      *      summary="Delete One Module By one Id",
-      *      description="Delete One Module",
+      *      path="/option/destroy/{id}",
+      *      operationId="getDestroyOptionById",
+      *      tags={"Option"},
+      *      summary="Delete One Option By one Id",
+      *      description="Delete One Option",
       *      security={ {"bearer": {} }},
       *      @OA\Parameter(
       *          name="id",
-      *          description="Module Id",
+      *          description="Option Id",
       *          required=true,
       *          in="path",
       *          @OA\Schema(
@@ -184,20 +184,20 @@ class ModuleController extends Controller
       */
      public function destroy(Request $request, $id)
      {
-         return $this->ModuleQuery->destroy($request, $id);
+         return $this->OptionQuery->destroy($request, $id);
      }
 
      /**
      * @OA\Get(
-     *      path="/module/showoptionbyid/{id}",
-     *      operationId="getShowOptionById",
-     *      tags={"Module"},
-     *      summary="Get Options By one Id",
-     *      description="Return Options by Id",
+     *      path="/option/showmodulebyid/{id}",
+     *      operationId="getShowModuleById",
+     *      tags={"Option"},
+     *      summary="Get One Module By one Id",
+     *      description="Return One Module by Id",
      *      security={ {"bearer": {} }},
      *      @OA\Parameter(
      *          name="id",
-     *          description="Show Option by Id",
+     *          description="Show Module by Id",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -218,9 +218,46 @@ class ModuleController extends Controller
      *      )
      *     )
      */
-     public function showOptionById(Request $request, $id)
-     {
-         return $this->ModuleQuery->showOptionById($request, $id);
-     }
+    public function showModuleById(Request $request, int $id)
+    {
+        return $this->OptionQuery->showModuleById($request, $id);
+    }
+
+    /**
+     * @OA\Get(
+     *      path="/option/showrolbyid/{id}",
+     *      operationId="getShowRolById",
+     *      tags={"Option"},
+     *      summary="Get Rols By one Id",
+     *      description="Return Rols by Id",
+     *      security={ {"bearer": {} }},
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Show Rol by Id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated"
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *     )
+     */
+    public function showRolById(Request $request, int $id)
+    {
+        return $this->OptionQuery->showRolById($request, $id);
+    }
+
  }
  
