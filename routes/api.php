@@ -50,9 +50,10 @@ Route::group(['prefix' => 'module'], function () {
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('index', 'Api\ModuleController@index');
         Route::post('store', 'Api\ModuleController@store');
-        Route::get('showbymoduleid/{id}', 'Api\ModuleController@showByModuleId');
+        Route::get('showbyid/{id}', 'Api\ModuleController@showById');
         Route::put('update/{id}', 'Api\ModuleController@update');
         Route::delete('destroy/{id}', 'Api\ModuleController@destroy');
+        Route::get('showoptionbyid/{id}', 'Api\ModuleController@showOptionById');
     });
 });
 
@@ -60,8 +61,31 @@ Route::group(['prefix' => 'rol'], function () {
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('index', 'Api\RolController@index');
         Route::post('store', 'Api\RolController@store');
-        Route::get('showbyrolid/{id}', 'Api\RolController@showByRolId');
+        Route::get('showbyid/{id}', 'Api\RolController@showById');
         Route::put('update/{id}', 'Api\RolController@update');
         Route::delete('destroy/{id}', 'Api\RolController@destroy');
+        Route::get('showoptionbyid/{id}', 'Api\RolController@showOptionById');
     });
+});
+
+Route::group(['prefix' => 'option'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('index', 'Api\OptionController@index');
+        Route::post('store', 'Api\OptionController@store');
+        Route::get('showbyid/{id}', 'Api\OptionController@showById');
+        Route::put('update/{id}', 'Api\OptionController@update');
+        Route::delete('destroy/{id}', 'Api\OptionController@destroy');
+        Route::get('showmodulebyid/{id}', 'Api\OptionController@showModuleById');
+        Route::get('showrolbyid/{id}', 'Api\OptionController@showRolById');
+    });
+});
+
+Route::group(['prefix' => 'optionrol'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('index', 'Api\OptionRolController@index');
+        Route::post('store', 'Api\OptionRolController@store');
+        Route::get('showbyoptionrolid/{id}', 'Api\OptionRolController@showByOptionRolId');
+        Route::put('update/{id}', 'Api\OptionRolController@update');
+        Route::delete('destroy/{id}', 'Api\OptionRolController@destroy');
+        });
 });

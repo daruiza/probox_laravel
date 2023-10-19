@@ -14,7 +14,7 @@ class Module
      * @OA\Property(
      *      title="name",
      *      description="Name of the Module",
-     *      example="Tags"
+     *      example="Name Module"
      * )
      *
      * @var string
@@ -25,7 +25,7 @@ class Module
      * @OA\Property(
      *      title="description",
      *      description="Description of the Module",
-     *      example="Description tags"
+     *      example="Description Module"
      * )
      *
      * @var string
@@ -36,7 +36,7 @@ class Module
      * @OA\Property(
      *      title="label",
      *      description="Label of the Module",
-     *      example="Example"
+     *      example="Label Module"
      * )
      *
      * @var string
