@@ -4,6 +4,7 @@ namespace App\Query\Request;
 
 use Illuminate\Support\Facades\DB;
 use App\Model\Core\Rol;
+use App\Model\Core\OptionRol;
 
 use App\User;
 use Illuminate\Http\Request;
@@ -73,7 +74,7 @@ class RolQuery implements IRolQuery
     }
 
     //Show: Obtener un registro de la tabla
-    public function showByRolId(Request $request,  int $id)
+    public function showById(Request $request,  int $id)
     {
         if ($id) {
             try {
@@ -166,5 +167,28 @@ class RolQuery implements IRolQuery
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
         }
     }
+
+    public function showOptionById(Request $request, int $id)
+    {
+        
+        if ($id) {
+            try {
+                //Comprobar existencia
+                $existencia = OptionRol::where('id_rol', '=', $id)->firstOrFail();
+                //Devuelve los ROLS relacionados a un OPTION
+                $options = OptionRol::query()->where('id_rol',$id)->get();
     
+                return response()->json([
+                    'data' => [
+                        'options' => $options,
+                    ],
+                    'message' => 'Options consultados con éxito!'
+                ], 201);
+            } catch (ModelNotFoundException $e) {
+                return response()->json(['message' => "Options relacionados al Rol con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+            }
+        } else {
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+        }
+    }
 }

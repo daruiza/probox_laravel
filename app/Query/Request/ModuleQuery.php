@@ -4,6 +4,7 @@ namespace App\Query\Request;
 
 use Illuminate\Support\Facades\DB;
 use App\Model\Core\Module;
+use App\Model\Core\Option;
 
 use App\User;
 use Illuminate\Http\Request;
@@ -76,7 +77,7 @@ class ModuleQuery implements IModuleQuery
     }
 
     //Show: Obtener un registro de la tabla
-    public function showByModuleId(Request $request,  int $id)
+    public function showById(Request $request,  int $id)
     {
 
         if ($id) {
@@ -167,6 +168,29 @@ class ModuleQuery implements IModuleQuery
                 ], 201);
             } catch (ModelNotFoundException $e) {
                 return response()->json(['message' => "Modulo con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+            }
+        } else {
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+        }
+    }
+
+    public function showOptionById(Request $request, int $id)
+    {
+        if ($id) {
+            try {
+                //Comprobar existencia
+                $existencia = Option::where('id_module', '=', $id)->firstOrFail();
+                //Devuelve todas las OPTIONS relacionadas a un MODULE
+                $options = Option::query()->where('id_module',$id)->get();
+    
+                return response()->json([
+                    'data' => [
+                        'options' => $options,
+                    ],
+                    'message' => 'Options consultadas con éxito!'
+                ], 201);
+            } catch (ModelNotFoundException $e) {
+                return response()->json(['message' => "Options relacionadas al module con id {$id} no existe!", 'error' => $e->getMessage()], 403);
             }
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);

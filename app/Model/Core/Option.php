@@ -17,11 +17,16 @@ class Option extends Model
         'id_module'
     ];
 
-    //belongsTo: Varios OPTION le pertenecen a un MODULE.
-    public function options()
+    //belongsTo: Varios OPTIONS le pertenecen a un MODULE.
+    public function module()
     {
-        //TODO: Falta modelo option
-        
+        return $this->belongsTo(Module::class);
+    }
+
+    //belongsToMany: Varios OPTIONS le pertenecen a varios ROLS.
+    public function rols()
+    {
+        return $this->belongsToMany(OptionRol::class);
     }
 
     public function scopeActive($query, $active)

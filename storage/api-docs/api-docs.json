@@ -418,7 +418,7 @@
                 ]
             }
         },
-        "/module/showbymoduleid/{id}": {
+        "/module/showbyid/{id}": {
             "get": {
                 "tags": [
                     "Module"
@@ -539,6 +539,43 @@
                 ]
             }
         },
+        "/module/showoptionbyid/{id}": {
+            "get": {
+                "tags": [
+                    "Module"
+                ],
+                "summary": "Get Options By one Id",
+                "description": "Return Options by Id",
+                "operationId": "getShowOptionById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Show Option by Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/option/index": {
             "get": {
                 "tags": [
@@ -601,7 +638,7 @@
                 ]
             }
         },
-        "/option/showbyoptionid/{id}": {
+        "/option/showbyid/{id}": {
             "get": {
                 "tags": [
                     "Option"
@@ -722,19 +759,56 @@
                 ]
             }
         },
-        "/option/showoptionbymoduleid/{id_module}": {
+        "/option/showmodulebyid/{id}": {
             "get": {
                 "tags": [
                     "Option"
                 ],
-                "summary": "Get One Option By one Id Module",
-                "description": "Return One Option by Id Module",
-                "operationId": "getOptionByModuleId",
+                "summary": "Get One Module By one Id",
+                "description": "Return One Module by Id",
+                "operationId": "getShowModuleById",
                 "parameters": [
                     {
-                        "name": "id_module",
+                        "name": "id",
                         "in": "path",
-                        "description": "Option by Id Module",
+                        "description": "Show Module by Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/option/showrolbyid/{id}": {
+            "get": {
+                "tags": [
+                    "Option"
+                ],
+                "summary": "Get Rols By one Id",
+                "description": "Return Rols by Id",
+                "operationId": "getShowRolById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Show Rol by Id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -942,80 +1016,6 @@
                 ]
             }
         },
-        "/optionrol/showoptionrolbyrolid/{id_rol}": {
-            "get": {
-                "tags": [
-                    "OptionRol"
-                ],
-                "summary": "Get One OptionRol By one Id Rol",
-                "description": "Return One OptionRol by Id Rol",
-                "operationId": "getOptionRolByRolId",
-                "parameters": [
-                    {
-                        "name": "id_rol",
-                        "in": "path",
-                        "description": "OptionRol by Id Rol",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
-            }
-        },
-        "/optionrol/showoptionrolbyoptionid/{id_option}": {
-            "get": {
-                "tags": [
-                    "OptionRol"
-                ],
-                "summary": "Get One OptionRol By one Id Option",
-                "description": "Return One OptionRol by Id Option",
-                "operationId": "getOptionRolByOptionId",
-                "parameters": [
-                    {
-                        "name": "id_option",
-                        "in": "path",
-                        "description": "OptionRol by Id Option",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
-            }
-        },
         "/rol/index": {
             "get": {
                 "tags": [
@@ -1078,7 +1078,7 @@
                 ]
             }
         },
-        "/rol/showbyrolid/{id}": {
+        "/rol/showbyid/{id}": {
             "get": {
                 "tags": [
                     "Rol"
@@ -1175,6 +1175,43 @@
                         "name": "id",
                         "in": "path",
                         "description": "Rol Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/rol/showoptionbyid/{id}": {
+            "get": {
+                "tags": [
+                    "Rol"
+                ],
+                "summary": "Get Options By one Id",
+                "description": "Return Options by Id",
+                "operationId": "getShowOptionById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Show Option by Id",
                         "required": true,
                         "schema": {
                             "type": "integer"

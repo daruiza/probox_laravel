@@ -16,11 +16,10 @@ class Module extends Model
         'active'
     ];
 
-    //HasMany: Un MODULE le pertenece a varios OPTION.
+    //HasMany: Varios MODULE le pertenece a varios OPTIONS.
     public function options()
     {
-        //TODO: Falta modelo option
-        
+        return $this->hasMany(Option::class);
     }
 
     public function scopeActive($query, $active)

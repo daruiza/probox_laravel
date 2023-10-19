@@ -15,10 +15,9 @@ class Rol extends Model
         'active'
     ];
 
-    //HasMany: Un Rol le pertenece a varios usuarios.
     public function options()
     {
-        //TODO: Falta modelo option
+        return $this->belongsToMany(OptionRol::class);
     }
 
     public function scopeActive($query, $active)

@@ -11,6 +11,4 @@ interface IOptionRolQuery
     public function showByOptionRolId(Request $request, int $id);
     public function update(Request $request, int $id);
     public function destroy(Request $request, int $id);
-    public function showOptionRolByRolId(Request $request, int $id_rol);
-    public function showOptionRolByOptionId(Request $request, int $id_option);
 }

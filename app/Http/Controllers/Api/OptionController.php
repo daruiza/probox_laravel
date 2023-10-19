@@ -77,7 +77,7 @@ class OptionController extends Controller
 
     /**
      * @OA\Get(
-     *      path="/option/showbyoptionid/{id}",
+     *      path="/option/showbyid/{id}",
      *      operationId="getOptionById",
      *      tags={"Option"},
      *      summary="Get One Option By one Id",
@@ -106,9 +106,9 @@ class OptionController extends Controller
      *      )
      *     )
      */
-     public function showByOptionId(Request $request, $id)
+     public function showById(Request $request, $id)
      {
-         return $this->OptionQuery->showByOptionId($request, $id);
+         return $this->OptionQuery->showById($request, $id);
      }
  
      /**
@@ -189,15 +189,15 @@ class OptionController extends Controller
 
      /**
      * @OA\Get(
-     *      path="/option/showoptionbymoduleid/{id_module}",
-     *      operationId="getOptionByModuleId",
+     *      path="/option/showmodulebyid/{id}",
+     *      operationId="getShowModuleById",
      *      tags={"Option"},
-     *      summary="Get One Option By one Id Module",
-     *      description="Return One Option by Id Module",
+     *      summary="Get One Module By one Id",
+     *      description="Return One Module by Id",
      *      security={ {"bearer": {} }},
      *      @OA\Parameter(
-     *          name="id_module",
-     *          description="Option by Id Module",
+     *          name="id",
+     *          description="Show Module by Id",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -218,9 +218,46 @@ class OptionController extends Controller
      *      )
      *     )
      */
-    public function showOptionByModuleId(Request $request, $id)
+    public function showModuleById(Request $request, int $id)
     {
-        return $this->OptionQuery->showOptionByModuleId($request, $id);
+        return $this->OptionQuery->showModuleById($request, $id);
     }
+
+    /**
+     * @OA\Get(
+     *      path="/option/showrolbyid/{id}",
+     *      operationId="getShowRolById",
+     *      tags={"Option"},
+     *      summary="Get Rols By one Id",
+     *      description="Return Rols by Id",
+     *      security={ {"bearer": {} }},
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Show Rol by Id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated"
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *     )
+     */
+    public function showRolById(Request $request, int $id)
+    {
+        return $this->OptionQuery->showRolById($request, $id);
+    }
+
  }
  

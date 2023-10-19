@@ -17,13 +17,6 @@ class OptionRol extends Model
         'id_option'
     ];
 
-    //-------: Varios OPTIONS le pertenecen a varios ROLS.
-    public function options()
-    {
-        //TODO: Falta modelo option
-        
-    }
-
     public function scopeActive($query, $active)
     {
         return isset($active) ?

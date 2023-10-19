@@ -42,6 +42,8 @@ class OptionRolQuery implements IOptionRolQuery
         $rules = [
             $this->name    => 'required|string|min:1|max:128|',
             $this->description   => 'required|string|min:1|max:128|',
+            $this->id_option => 'required',
+            $this->id_rol => 'required',
         ];
         try {
             // Ejecutamos el validador y en caso de que falle devolvemos la respuesta
@@ -58,7 +60,7 @@ class OptionRolQuery implements IOptionRolQuery
             $optionrol = new OptionRol([
                 $this->name => $request->name,
                 $this->description => $request->description,
-                $this->active => $request->active,
+                $this->active => $request->active ?? 1,
                 $this->id_rol => $request->id_rol,
                 $this->id_option => $request->id_option,
             ]);
@@ -174,57 +176,4 @@ class OptionRolQuery implements IOptionRolQuery
         }
     }
 
-    public function showOptionRolByRolId(Request $request, int $id_rol){
-
-        if ($id_rol) {
-            try {
-                $opr = OptionRol::where('id_rol', '=', $id_rol)->firstOrFail();
-
-                if (isset($opr)) {
-                    //Select a la BD: TB_modules
-                    $optionrol = DB::table('options_rols')
-                        ->select(['id', 'name', 'description', 'active', 'id_rol', 'id_option'])
-                        ->where('options_rols.id_rol', '=', $id_rol)
-                        ->get();
-                    return response()->json([
-                        'data' => [
-                            'optionrol' => $optionrol,
-                        ],
-                        'message' => 'Datos de OptionRol Consultados Correctamente!'
-                    ]);
-                }
-            } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "OptionRol con id_rol {$id_rol} no existe!", 'error' => $e->getMessage()], 403);
-            }
-        } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
-        }
-    }
-
-    public function showOptionRolByOptionId(Request $request, int $id_option){
-
-        if ($id_option) {
-            try {
-                $opo = OptionRol::where('id_option', '=', $id_option)->firstOrFail();
-
-                if ($opo) {
-                    //Select a la BD: TB_modules
-                    $optionrol = DB::table('options_rols')
-                        ->select(['id', 'name', 'description', 'active', 'id_rol', 'id_option'])
-                        ->where('options_rols.id_option', '=', $id_option)
-                        ->get();
-                    return response()->json([
-                        'data' => [
-                            'optionrol' => $optionrol,
-                        ],
-                        'message' => 'Datos de OptionRol Consultados Correctamente!'
-                    ]);
-                }
-            } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "OptionRol con id_option {$id_option} no existe!", 'error' => $e->getMessage()], 403);
-            }
-        } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
-        }
-    }
 }

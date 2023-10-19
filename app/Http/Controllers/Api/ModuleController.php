@@ -77,7 +77,7 @@ class ModuleController extends Controller
 
     /**
      * @OA\Get(
-     *      path="/module/showbymoduleid/{id}",
+     *      path="/module/showbyid/{id}",
      *      operationId="getModuleById",
      *      tags={"Module"},
      *      summary="Get One Module By one Id",
@@ -106,9 +106,9 @@ class ModuleController extends Controller
      *      )
      *     )
      */
-     public function showByModuleId(Request $request, $id)
+     public function showById(Request $request, $id)
      {
-         return $this->ModuleQuery->showByModuleId($request, $id);
+         return $this->ModuleQuery->showById($request, $id);
      }
  
      /**
@@ -185,6 +185,42 @@ class ModuleController extends Controller
      public function destroy(Request $request, $id)
      {
          return $this->ModuleQuery->destroy($request, $id);
+     }
+
+     /**
+     * @OA\Get(
+     *      path="/module/showoptionbyid/{id}",
+     *      operationId="getShowOptionById",
+     *      tags={"Module"},
+     *      summary="Get Options By one Id",
+     *      description="Return Options by Id",
+     *      security={ {"bearer": {} }},
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Show Option by Id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated"
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *     )
+     */
+     public function showOptionById(Request $request, $id)
+     {
+         return $this->ModuleQuery->showOptionById($request, $id);
      }
  }
  
