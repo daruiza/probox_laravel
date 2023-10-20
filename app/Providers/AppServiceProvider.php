@@ -9,6 +9,9 @@ use App\Http\Controllers\Api\AuthController;
 use App\Query\Abstraction\IAuthQuery;
 use App\Query\Request\AuthQuery;
 
+use App\Http\Controllers\Api\UploadController;
+use App\Query\Abstraction\IUploadQuery;
+use App\Query\Request\UploadQuery;
 
 use App\Http\Controllers\Api\UserController;
 use App\Query\Abstraction\IUserQuery;
@@ -46,11 +49,14 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(IAuthQuery::class, AuthQuery::class);
         $this->app->make(AuthController::class);
 
-        $this->app->bind(IUserQuery::class, UserQuery::class);
-        $this->app->make(UserController::class);
+        $this->app->bind(IUploadQuery::class, UploadQuery::class);
+        $this->app->make(UploadController::class);
 
         $this->app->bind(IGeneralListQuery::class, GeneralListQuery::class);
         $this->app->make(GeneralListController::class);
+
+        $this->app->bind(IUserQuery::class, UserQuery::class);
+        $this->app->make(UserController::class);
 
         $this->app->bind(IModuleQuery::class, ModuleQuery::class);
         $this->app->make(ModuleController::class);
