@@ -53,7 +53,7 @@ class ModuleQuery implements IModuleQuery
         } catch (\Exception $e) {
             return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
         }
-        
+
         try {
             //Recepción de datos y guardado en la BD
             $module = new Module([
@@ -63,14 +63,13 @@ class ModuleQuery implements IModuleQuery
                 $this->active => $request->active,
             ]);
             $module->save();
-            
+
             return response()->json([
                 'data' => [
-                'module' => $module,
+                    'module' => $module,
                 ],
                 'message' => 'Modulo creado correctamente!'
             ], 201);
-
         } catch (\Exception $e) {
             return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
         }
@@ -178,11 +177,9 @@ class ModuleQuery implements IModuleQuery
     {
         if ($id) {
             try {
-                //Comprobar existencia
-                $existencia = Option::where('id_module', '=', $id)->firstOrFail();
                 //Devuelve todas las OPTIONS relacionadas a un MODULE
-                $options = Option::query()->where('id_module',$id)->get();
-    
+                $options = Option::query()->where('id_module', $id)->get();
+
                 return response()->json([
                     'data' => [
                         'options' => $options,
@@ -190,7 +187,10 @@ class ModuleQuery implements IModuleQuery
                     'message' => 'Options consultadas con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Options relacionadas al module con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json([
+                    'message' => "Options relacionadas al module con id {$id} no existe!",
+                    'error' => $e->getMessage()
+                ], 403);
             }
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
