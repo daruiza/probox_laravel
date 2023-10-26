@@ -328,4 +328,40 @@ class UserController extends Controller
     {
         return $this->UserQuery->destroy($id);
     }
+
+    /**
+     * @OA\Get(
+     *      path="/user/showrolbyid/{id}",
+     *      operationId="getShowRolById",
+     *      tags={"User"},
+     *      summary="Get Rols By one Id",
+     *      description="Return Rols by Id",
+     *      security={ {"bearer": {} }},
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Show Rol by Id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated"
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *     )
+     */
+    public function showRolById(Request $request, int $id)
+    {
+        return $this->UserQuery->showRolById($request, $id);
+    }
 }

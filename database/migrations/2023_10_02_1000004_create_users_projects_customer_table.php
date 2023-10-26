@@ -18,11 +18,11 @@ class CreateUsersProjectsCustomerTable extends Migration
             $table->boolean('is_owner')->default(true);
             $table->timestamps();
 
-            $table->unsignedBigInteger('id_user')->nullable();
-            $table->unsignedBigInteger('id_project')->nullable();
-            $table->foreign('id_user')->references('id')->on('users')->onDelete('set null')
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('project_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null')
                 ->onUpdate('cascade');
-            $table->foreign('id_project')->references('id')->on('projects')->onDelete('set null')
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('set null')
                 ->onUpdate('cascade');
 
         });

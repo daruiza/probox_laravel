@@ -177,8 +177,12 @@ class ModuleQuery implements IModuleQuery
     {
         if ($id) {
             try {
-                //Devuelve todas las OPTIONS relacionadas a un MODULE
-                $options = Option::query()->where('id_module', $id)->get();
+                //Comprobar existencia
+                //$existencia = OptionRol::where('option_id', '=', $id)->firstOrFail();
+                //Consultar option
+                $module = Module::find($id);
+                //Aplicar relación
+                $options = $module->options;
 
                 return response()->json([
                     'data' => [

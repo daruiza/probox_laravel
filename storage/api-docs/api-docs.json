@@ -1648,6 +1648,43 @@
                     }
                 ]
             }
+        },
+        "/user/showrolbyid/{id}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get Rols By one Id",
+                "description": "Return Rols by Id",
+                "operationId": "getShowRolById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Show Rol by Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -1730,9 +1767,9 @@
                         "type": "boolean",
                         "example": true
                     },
-                    "id_module": {
-                        "title": "id_module",
-                        "description": "id_module of the Option",
+                    "module_id": {
+                        "title": "module_id",
+                        "description": "module_id of the Option",
                         "example": 1
                     }
                 },
@@ -1760,14 +1797,14 @@
                         "type": "boolean",
                         "example": true
                     },
-                    "id_rol": {
-                        "title": "id_rol",
-                        "description": "id_rol of the OptionRol",
+                    "rol_id": {
+                        "title": "rol_id",
+                        "description": "rol_id of the OptionRol",
                         "example": 1
                     },
-                    "id_option": {
-                        "title": "id_option",
-                        "description": "id_option of the OptionRol",
+                    "option_id": {
+                        "title": "option_id",
+                        "description": "option_id of the OptionRol",
                         "example": 1
                     }
                 },

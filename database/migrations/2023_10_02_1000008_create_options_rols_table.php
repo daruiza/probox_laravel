@@ -20,11 +20,11 @@ class CreateOptionsRolsTable extends Migration
             $table->boolean('active')->default(true);
             $table->timestamps();
 
-            $table->unsignedBigInteger('id_rol')->nullable();
-            $table->unsignedBigInteger('id_option')->nullable();
-            $table->foreign('id_rol')->references('id')->on('rols')->onDelete('set null')
+            $table->unsignedBigInteger('rol_id')->nullable();
+            $table->unsignedBigInteger('option_id')->nullable();
+            $table->foreign('rol_id')->references('id')->on('rols')->onDelete('set null')
                 ->onUpdate('cascade');
-            $table->foreign('id_option')->references('id')->on('options')->onDelete('set null')
+            $table->foreign('option_id')->references('id')->on('options')->onDelete('set null')
                 ->onUpdate('cascade');
 
         });

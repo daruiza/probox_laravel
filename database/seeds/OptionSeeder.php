@@ -17,21 +17,21 @@ class OptionSeeder extends Seeder
             'name' => 'Option1',
             'description' => 'Description Option1',
             'label' => 'OP1',
-            'id_module' => '1',
+            'module_id' => '1',
         ));
 
         DB::table('options')->insert(array(
             'name' => 'Option2',
             'description' => 'Description Option2',
             'label' => 'OP2',
-            'id_module' => '2',
+            'module_id' => '2',
         ));
 
         DB::table('options')->insert(array(
             'name' => 'Option3',
             'description' => 'Description Option3',
             'label' => 'OP3',
-            'id_module' => '2',
+            'module_id' => '2',
         ));
 
     }

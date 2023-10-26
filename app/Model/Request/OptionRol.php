@@ -45,24 +45,24 @@ class OptionRol
 
     /**
      * @OA\Property(
-     *      title="id_rol",
-     *      description="id_rol of the OptionRol",
+     *      title="rol_id",
+     *      description="rol_id of the OptionRol",
      *      example=1
      * )
      *
      * @var numeric
      */
-    public $id_rol;
+    public $rol_id;
 
     /**
      * @OA\Property(
-     *      title="id_option",
-     *      description="id_option of the OptionRol",
+     *      title="option_id",
+     *      description="option_id of the OptionRol",
      *      example=1
      * )
      *
      * @var numeric
      */
-    public $id_option;
+    public $option_id;
 
 }

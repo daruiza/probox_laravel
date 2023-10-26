@@ -22,14 +22,14 @@ class OptionQuery implements IOptionQuery
     private $description = 'description';
     private $label  = 'label';
     private $active  = 'active';
-    private $id_module = 'id_module';
+    private $module_id = 'module_id';
 
     //Index: Página principal
     public function index(Request $request)
     {
         try {
             //Devuelve todos los modulos existentes
-            $options = Option::query()->select(['id', 'name', 'description', 'label', 'active', 'id_module'])->get();
+            $options = Option::query()->select(['id', 'name', 'description', 'label', 'active', 'module_id'])->get();
 
             return response()->json(['message' => $options]);
         } catch (\Exception $e) {
@@ -63,7 +63,7 @@ class OptionQuery implements IOptionQuery
                 $this->description => $request->description,
                 $this->label => $request->label,
                 $this->active => $request->active,
-                $this->id_module => $request->id_module,
+                $this->module_id => $request->module_id,
             ]);
             $option->save();
             
@@ -90,7 +90,7 @@ class OptionQuery implements IOptionQuery
                 if ($op) {
                     //Select a la BD: TB_modules
                     $option = DB::table('options')
-                        ->select(['id', 'name', 'description', 'label', 'active', 'id_module'])
+                        ->select(['id', 'name', 'description', 'label', 'active', 'module_id'])
                         ->where('options.id', '=', $id)
                         ->get();
                     return response()->json([
@@ -137,7 +137,7 @@ class OptionQuery implements IOptionQuery
                 $option->description = $request->description ?? $option->description;
                 $option->label = $request->label ?? $option->label;
                 $option->active = $request->active ?? $option->active;
-                $option->id_module = $request->id_module ?? $option->id_module;
+                $option->module_id = $request->module_id ?? $option->module_id;
                 $option->save();
 
                 return response()->json([
@@ -183,9 +183,13 @@ class OptionQuery implements IOptionQuery
         
         if ($id) {
             try {
-                //Devuelve la OPTION relacionada a un MODULE
-                $module = Module::query()->where('id',$id)->get();
-    
+                ////Comprobar existencia
+                //$existencia = Option::find($id)->firstOrFail();
+                //Consultar option
+                $option = Option::find($id);
+                //Aplicar relación
+                $module = $option->module;
+
                 return response()->json([
                     'data' => [
                         'module' => $module,
@@ -207,10 +211,12 @@ class OptionQuery implements IOptionQuery
         if ($id) {
             try {
                 //Comprobar existencia
-                $existencia = OptionRol::where('id_option', '=', $id)->firstOrFail();
-                //Devuelve los ROLS relacionados a un OPTION
-                $rols = OptionRol::query()->where('id_option',$id)->get();
-    
+                //$existencia = OptionRol::where('option_id', '=', $id)->firstOrFail();
+                //Consultar option
+                $option = Option::find($id);
+                //Aplicar relación
+                $rols = $option->rols;
+
                 return response()->json([
                     'data' => [
                         'rols' => $rols,
