@@ -173,8 +173,6 @@ class RolQuery implements IRolQuery
         
         if ($id) {
             try {
-                //Comprobar existencia
-                $existencia = OptionRol::where('id_rol', '=', $id)->firstOrFail();
                 //Devuelve los ROLS relacionados a un OPTION
                 $options = OptionRol::query()->where('id_rol',$id)->get();
     
