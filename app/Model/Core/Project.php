@@ -29,8 +29,6 @@ class Project extends Model
         return $this->hasMany(Task::class);
     }
 
-    
-
     public function scopeActive($query, $active)
     {
         return isset($active) ?

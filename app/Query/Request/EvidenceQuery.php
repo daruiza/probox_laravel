@@ -208,5 +208,30 @@ class EvidenceQuery implements IEvidenceQuery
         }
     }
 
-    
+    public function showTaskById(Request $request, int $id)
+    {
+        
+        if ($id) {
+            try {
+                ////Comprobar existencia
+                //$existencia = Option::find($id)->firstOrFail();
+                //Consultar option
+                $evidence = Evidence::find($id);
+                //Aplicar relación
+                $task = $evidence->task;
+
+                return response()->json([
+                    'data' => [
+                        'task' => $task,
+                    ],
+                    'message' => 'Task consultado con éxito!'
+                ], 201);
+            } catch (ModelNotFoundException $e) {
+                return response()->json(['message' => "Task relacionado a la evidence con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+            }
+        } else {
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+        }
+        
+    }
 }

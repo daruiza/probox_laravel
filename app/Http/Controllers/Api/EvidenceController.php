@@ -187,5 +187,41 @@ class EvidenceController extends Controller
          return $this->EvidenceQuery->destroy($request, $id);
      }
 
+     /**
+     * @OA\Get(
+     *      path="/evidence/showtaskbyid/{id}",
+     *      operationId="getShowTaskById",
+     *      tags={"Evidence"},
+     *      summary="Get One Task By one Id",
+     *      description="Return One Task by Id",
+     *      security={ {"bearer": {} }},
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Show Task by Id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated"
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *     )
+     */
+    public function showTaskById(Request $request, int $id)
+    {
+        return $this->EvidenceQuery->showTaskById($request, $id);
+    }
+
  }
  

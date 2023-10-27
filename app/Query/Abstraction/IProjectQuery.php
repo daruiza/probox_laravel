@@ -12,5 +12,5 @@ interface IProjectQuery
     public function update(Request $request, int $id);
     public function destroy(Request $request, int $id);
 
-    public function showTasksById(Request $request, int $id);
+    public function showTaskById(Request $request, int $id);
 }

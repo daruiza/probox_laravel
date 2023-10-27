@@ -106,7 +106,7 @@ Route::group(['prefix' => 'project'], function () {
         Route::get('showbyid/{id}', 'Api\ProjectController@showById');
         Route::put('update/{id}', 'Api\ProjectController@update');
         Route::delete('destroy/{id}', 'Api\ProjectController@destroy');
-        Route::get('showtasksbyid/{id}', 'Api\ProjectController@showTasksById');
+        Route::get('showtaskbyid/{id}', 'Api\ProjectController@showTaskById');
     });
 });
 
@@ -117,6 +117,7 @@ Route::group(['prefix' => 'evidence'], function () {
         Route::get('showbyid/{id}', 'Api\EvidenceController@showById');
         Route::put('update/{id}', 'Api\EvidenceController@update');
         Route::delete('destroy/{id}', 'Api\EvidenceController@destroy');
+        Route::get('showtaskbyid/{id}', 'Api\EvidenceController@showTaskById');
     });
 });
 
@@ -127,5 +128,7 @@ Route::group(['prefix' => 'task'], function () {
         Route::get('showbyid/{id}', 'Api\TaskController@showById');
         Route::put('update/{id}', 'Api\TaskController@update');
         Route::delete('destroy/{id}', 'Api\TaskController@destroy');
+        Route::get('showevidencebyid/{id}', 'Api\TaskController@showEvidenceById');
+        Route::get('showprojectbyid/{id}', 'Api\TaskController@showProjectById');
     });
 });

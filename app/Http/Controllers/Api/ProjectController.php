@@ -189,8 +189,8 @@ class ProjectController extends Controller
 
      /**
      * @OA\Get(
-     *      path="/project/showtasksbyid/{id}",
-     *      operationId="getShowTasksById",
+     *      path="/project/showtaskbyid/{id}",
+     *      operationId="getShowTaskById",
      *      tags={"Project"},
      *      summary="Get Tasks By one Id",
      *      description="Return Tasks by Id",
@@ -218,9 +218,9 @@ class ProjectController extends Controller
      *      )
      *     )
      */
-    public function showTasksById(Request $request, $id)
+    public function showTaskById(Request $request, $id)
     {
-        return $this->ProjectQuery->showTasksById($request, $id);
+        return $this->ProjectQuery->showTaskById($request, $id);
     }
 
  }

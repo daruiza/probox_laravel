@@ -206,5 +206,59 @@ class TaskQuery implements ITaskQuery
         }
     }
 
-    
+    public function showEvidenceById(Request $request, int $id)
+    {
+        if ($id) {
+            try {
+                //Comprobar existencia
+                //$existencia = OptionRol::where('option_id', '=', $id)->firstOrFail();
+                //Consultar option
+                $task = Task::find($id);
+                //Aplicar relación
+                $evidences = $task->evidences;
+
+                return response()->json([
+                    'data' => [
+                        'evidence' => $evidences,
+                    ],
+                    'message' => 'Evidences consultadas con éxito!'
+                ], 201);
+            } catch (ModelNotFoundException $e) {
+                return response()->json([
+                    'message' => "Evidence relacionadas al Task con id {$id} no existe!",
+                    'error' => $e->getMessage()
+                ], 403);
+            }
+        } else {
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+        }
+    }
+
+    public function showProjectById(Request $request, int $id)
+    {
+        
+        if ($id) {
+            try {
+                ////Comprobar existencia
+                //$existencia = Option::find($id)->firstOrFail();
+                //Consultar option
+                $task = Task::find($id);
+                //Aplicar relación
+                $project = $task->project;
+
+                return response()->json([
+                    'data' => [
+                        'project' => $project,
+                    ],
+                    'message' => 'Project consultado con éxito!'
+                ], 201);
+            } catch (ModelNotFoundException $e) {
+                return response()->json(['message' => "Project relacionado a la task con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+            }
+        } else {
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+        }
+        
+    }
+
 }

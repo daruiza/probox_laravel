@@ -187,5 +187,77 @@ class TaskController extends Controller
          return $this->TaskQuery->destroy($request, $id);
      }
 
+     /**
+     * @OA\Get(
+     *      path="/task/showevidencebyid/{id}",
+     *      operationId="getShowEvidenceById",
+     *      tags={"Task"},
+     *      summary="Get One Evidence By one Id",
+     *      description="Return One Evidence by Id",
+     *      security={ {"bearer": {} }},
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Show Evidence by Id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated"
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *     )
+     */
+    public function showEvidenceById(Request $request, int $id)
+    {
+        return $this->TaskQuery->showEvidenceById($request, $id);
+    }
+
+    /**
+     * @OA\Get(
+     *      path="/task/showprojectbyid/{id}",
+     *      operationId="getShowProjectById",
+     *      tags={"Task"},
+     *      summary="Get One Project By one Id",
+     *      description="Return One Project by Id",
+     *      security={ {"bearer": {} }},
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Show Project by Id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated"
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *     )
+     */
+    public function showProjectkById(Request $request, int $id)
+    {
+        return $this->TaskQuery->showProjectById($request, $id);
+    }
+
  }
  

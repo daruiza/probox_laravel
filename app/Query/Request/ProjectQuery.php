@@ -234,7 +234,7 @@ class ProjectQuery implements IProjectQuery
         }
     }
 
-    public function showTasksById(Request $request, int $id)
+    public function showTaskById(Request $request, int $id)
     {
         if ($id) {
             try {
