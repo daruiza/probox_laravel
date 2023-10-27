@@ -14,7 +14,7 @@ class CreateEvidencesTable extends Migration
     public function up()
     {
         Schema::create('evidences', function (Blueprint $table) {
-            $table->id();
+            $table->id('id');
             $table->string('name', 32)->unique();
             $table->string('file')->nullable();
             $table->string('type')->nullable();

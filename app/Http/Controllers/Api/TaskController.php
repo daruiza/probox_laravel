@@ -4,26 +4,26 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Query\Abstraction\IProjectQuery;
+use App\Query\Abstraction\ITaskQuery;
 
-class ProjectController extends Controller
+class TaskController extends Controller
 {
 
-    private $ProjectQuery;
+    private $TaskQuery;
 
-    public function __construct(IProjectQuery $ProjectQuery)
+    public function __construct(ITaskQuery $TaskQuery)
     {
-        $this->ProjectQuery = $ProjectQuery;
+        $this->TaskQuery = $TaskQuery;
     }
 
     /**
-     * Listado de todos los Project
+     * Listado de todos los Task
      * @OA\Get(
-     *      path="/project/index",
-     *      operationId="getProject",
-     *      tags={"Project"},
-     *      summary="Get All Project",
-     *      description="Return Project",
+     *      path="/task/index",
+     *      operationId="getTask",
+     *      tags={"Task"},
+     *      summary="Get All Task",
+     *      description="Return Task",
      *      security={ {"bearer": {} }},
      *      @OA\Response(
      *          response=200,
@@ -41,20 +41,20 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->ProjectQuery->index($request);
+        return $this->TaskQuery->index($request);
     }
 
     /**
      * @OA\Post(
-     *      path="/project/store",
-     *      operationId="storeProject",
-     *      tags={"Project"},
-     *      summary="Store Project",
-     *      description="Store Project",
+     *      path="/task/store",
+     *      operationId="storeTask",
+     *      tags={"Task"},
+     *      summary="Store Task",
+     *      description="Store Task",
      *      security={ {"bearer": {} }},
      *      @OA\RequestBody(
      *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/Project")
+     *          @OA\JsonContent(ref="#/components/schemas/Task")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -72,20 +72,20 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->ProjectQuery->store($request);
+        return $this->TaskQuery->store($request);
     }
 
     /**
      * @OA\Get(
-     *      path="/project/showbyid/{id}",
-     *      operationId="getProjectById",
-     *      tags={"Project"},
-     *      summary="Get One Project By one Id",
-     *      description="Return One Project",
+     *      path="/task/showbyid/{id}",
+     *      operationId="getTaskById",
+     *      tags={"Task"},
+     *      summary="Get One Task By one Id",
+     *      description="Return One Task",
      *      security={ {"bearer": {} }},
      *      @OA\Parameter(
      *          name="id",
-     *          description="Project Id",
+     *          description="Task Id",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -108,20 +108,20 @@ class ProjectController extends Controller
      */
      public function showById(Request $request, $id)
      {
-         return $this->ProjectQuery->showById($request, $id);
+         return $this->TaskQuery->showById($request, $id);
      }
  
      /**
      * @OA\Put(
-     *      path="/project/update/{id}",
-     *      operationId="getUpdateProjectById",
-     *      tags={"Project"},
-     *      summary="Update One Project By one Id",
-     *      description="Update One Project",
+     *      path="/task/update/{id}",
+     *      operationId="getUpdateTaskById",
+     *      tags={"Task"},
+     *      summary="Update One Task By one Id",
+     *      description="Update One Task",
      *      security={ {"bearer": {} }},
      *      @OA\Parameter(
      *          name="id",
-     *          description="Project Id",
+     *          description="Task Id",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -130,7 +130,7 @@ class ProjectController extends Controller
      *      ),
      *       @OA\RequestBody(
      *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/Project")
+     *          @OA\JsonContent(ref="#/components/schemas/Task")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -148,20 +148,20 @@ class ProjectController extends Controller
      */
      public function update(Request $request, $id)
      {
-         return $this->ProjectQuery->update($request, $id);
+         return $this->TaskQuery->update($request, $id);
      }
  
      /**
       * @OA\Delete(
-      *      path="/project/destroy/{id}",
-      *      operationId="getDestroyProjectById",
-      *      tags={"Project"},
-      *      summary="Delete One Project By one Id",
-      *      description="Delete One Project",
+      *      path="/task/destroy/{id}",
+      *      operationId="getDestroyTaskById",
+      *      tags={"Task"},
+      *      summary="Delete One Task By one Id",
+      *      description="Delete One Task",
       *      security={ {"bearer": {} }},
       *      @OA\Parameter(
       *          name="id",
-      *          description="Project Id",
+      *          description="Task Id",
       *          required=true,
       *          in="path",
       *          @OA\Schema(
@@ -184,44 +184,8 @@ class ProjectController extends Controller
       */
      public function destroy(Request $request, $id)
      {
-         return $this->ProjectQuery->destroy($request, $id);
+         return $this->TaskQuery->destroy($request, $id);
      }
-
-     /**
-     * @OA\Get(
-     *      path="/project/showtasksbyid/{id}",
-     *      operationId="getShowTasksById",
-     *      tags={"Project"},
-     *      summary="Get Tasks By one Id",
-     *      description="Return Tasks by Id",
-     *      security={ {"bearer": {} }},
-     *      @OA\Parameter(
-     *          name="id",
-     *          description="Show Tasks by Id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *       ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated"
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      )
-     *     )
-     */
-    public function showTasksById(Request $request, $id)
-    {
-        return $this->ProjectQuery->showTasksById($request, $id);
-    }
 
  }
  

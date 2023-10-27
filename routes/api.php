@@ -98,3 +98,34 @@ Route::group(['prefix' => 'optionrol'], function () {
         Route::delete('destroy/{id}', 'Api\OptionRolController@destroy');
         });
 });
+
+Route::group(['prefix' => 'project'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('index', 'Api\ProjectController@index');
+        Route::post('store', 'Api\ProjectController@store');
+        Route::get('showbyid/{id}', 'Api\ProjectController@showById');
+        Route::put('update/{id}', 'Api\ProjectController@update');
+        Route::delete('destroy/{id}', 'Api\ProjectController@destroy');
+        Route::get('showtasksbyid/{id}', 'Api\ProjectController@showTasksById');
+    });
+});
+
+Route::group(['prefix' => 'evidence'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('index', 'Api\EvidenceController@index');
+        Route::post('store', 'Api\EvidenceController@store');
+        Route::get('showbyid/{id}', 'Api\EvidenceController@showById');
+        Route::put('update/{id}', 'Api\EvidenceController@update');
+        Route::delete('destroy/{id}', 'Api\EvidenceController@destroy');
+    });
+});
+
+Route::group(['prefix' => 'task'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('index', 'Api\TaskController@index');
+        Route::post('store', 'Api\TaskController@store');
+        Route::get('showbyid/{id}', 'Api\TaskController@showById');
+        Route::put('update/{id}', 'Api\TaskController@update');
+        Route::delete('destroy/{id}', 'Api\TaskController@destroy');
+    });
+});

@@ -4,26 +4,26 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Query\Abstraction\IProjectQuery;
+use App\Query\Abstraction\IEvidenceQuery;
 
-class ProjectController extends Controller
+class EvidenceController extends Controller
 {
 
-    private $ProjectQuery;
+    private $EvidenceQuery;
 
-    public function __construct(IProjectQuery $ProjectQuery)
+    public function __construct(IEvidenceQuery $EvidenceQuery)
     {
-        $this->ProjectQuery = $ProjectQuery;
+        $this->EvidenceQuery = $EvidenceQuery;
     }
 
     /**
-     * Listado de todos los Project
+     * Listado de todos los EVIDENCE
      * @OA\Get(
-     *      path="/project/index",
-     *      operationId="getProject",
-     *      tags={"Project"},
-     *      summary="Get All Project",
-     *      description="Return Project",
+     *      path="/evidence/index",
+     *      operationId="getEvidence",
+     *      tags={"Evidence"},
+     *      summary="Get All Evidence",
+     *      description="Return Evidence",
      *      security={ {"bearer": {} }},
      *      @OA\Response(
      *          response=200,
@@ -41,20 +41,20 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->ProjectQuery->index($request);
+        return $this->EvidenceQuery->index($request);
     }
 
     /**
      * @OA\Post(
-     *      path="/project/store",
-     *      operationId="storeProject",
-     *      tags={"Project"},
-     *      summary="Store Project",
-     *      description="Store Project",
+     *      path="/evidence/store",
+     *      operationId="storeEvidence",
+     *      tags={"Evidence"},
+     *      summary="Store Evidence",
+     *      description="Store Evidence",
      *      security={ {"bearer": {} }},
      *      @OA\RequestBody(
      *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/Project")
+     *          @OA\JsonContent(ref="#/components/schemas/Evidence")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -72,20 +72,20 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->ProjectQuery->store($request);
+        return $this->EvidenceQuery->store($request);
     }
 
     /**
      * @OA\Get(
-     *      path="/project/showbyid/{id}",
-     *      operationId="getProjectById",
-     *      tags={"Project"},
-     *      summary="Get One Project By one Id",
-     *      description="Return One Project",
+     *      path="/evidence/showbyid/{id}",
+     *      operationId="getEvidenceById",
+     *      tags={"Evidence"},
+     *      summary="Get One Evidence By one Id",
+     *      description="Return One Evidence",
      *      security={ {"bearer": {} }},
      *      @OA\Parameter(
      *          name="id",
-     *          description="Project Id",
+     *          description="Evidence Id",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -108,20 +108,20 @@ class ProjectController extends Controller
      */
      public function showById(Request $request, $id)
      {
-         return $this->ProjectQuery->showById($request, $id);
+         return $this->EvidenceQuery->showById($request, $id);
      }
  
      /**
      * @OA\Put(
-     *      path="/project/update/{id}",
-     *      operationId="getUpdateProjectById",
-     *      tags={"Project"},
-     *      summary="Update One Project By one Id",
-     *      description="Update One Project",
+     *      path="/evidence/update/{id}",
+     *      operationId="getUpdateEvidenceById",
+     *      tags={"Evidence"},
+     *      summary="Update One Evidence By one Id",
+     *      description="Update One Evidence",
      *      security={ {"bearer": {} }},
      *      @OA\Parameter(
      *          name="id",
-     *          description="Project Id",
+     *          description="Evidence Id",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -130,7 +130,7 @@ class ProjectController extends Controller
      *      ),
      *       @OA\RequestBody(
      *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/Project")
+     *          @OA\JsonContent(ref="#/components/schemas/Evidence")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -148,20 +148,20 @@ class ProjectController extends Controller
      */
      public function update(Request $request, $id)
      {
-         return $this->ProjectQuery->update($request, $id);
+         return $this->EvidenceQuery->update($request, $id);
      }
  
      /**
       * @OA\Delete(
-      *      path="/project/destroy/{id}",
-      *      operationId="getDestroyProjectById",
-      *      tags={"Project"},
-      *      summary="Delete One Project By one Id",
-      *      description="Delete One Project",
+      *      path="/evidence/destroy/{id}",
+      *      operationId="getDestroyEvidenceById",
+      *      tags={"Evidence"},
+      *      summary="Delete One Evidence By one Id",
+      *      description="Delete One Evidence",
       *      security={ {"bearer": {} }},
       *      @OA\Parameter(
       *          name="id",
-      *          description="Project Id",
+      *          description="Evidence Id",
       *          required=true,
       *          in="path",
       *          @OA\Schema(
@@ -184,44 +184,8 @@ class ProjectController extends Controller
       */
      public function destroy(Request $request, $id)
      {
-         return $this->ProjectQuery->destroy($request, $id);
+         return $this->EvidenceQuery->destroy($request, $id);
      }
-
-     /**
-     * @OA\Get(
-     *      path="/project/showtasksbyid/{id}",
-     *      operationId="getShowTasksById",
-     *      tags={"Project"},
-     *      summary="Get Tasks By one Id",
-     *      description="Return Tasks by Id",
-     *      security={ {"bearer": {} }},
-     *      @OA\Parameter(
-     *          name="id",
-     *          description="Show Tasks by Id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *       ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated"
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      )
-     *     )
-     */
-    public function showTasksById(Request $request, $id)
-    {
-        return $this->ProjectQuery->showTasksById($request, $id);
-    }
 
  }
  

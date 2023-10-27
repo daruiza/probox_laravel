@@ -37,6 +37,18 @@ use App\Http\Controllers\Api\OptionRolController;
 use App\Query\Abstraction\IOptionRolQuery;
 use App\Query\Request\OptionRolQuery;
 
+use App\Http\Controllers\Api\ProjectController;
+use App\Query\Abstraction\IProjectQuery;
+use App\Query\Request\ProjectQuery;
+
+use App\Http\Controllers\Api\EvidenceController;
+use App\Query\Abstraction\IEvidenceQuery;
+use App\Query\Request\EvidenceQuery;
+
+use App\Http\Controllers\Api\TaskController;
+use App\Query\Abstraction\ITaskQuery;
+use App\Query\Request\TaskQuery;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -69,6 +81,15 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(IOptionRolQuery::class, OptionRolQuery::class);
         $this->app->make(OptionRolController::class);
+
+        $this->app->bind(IProjectQuery::class, ProjectQuery::class);
+        $this->app->make(ProjectController::class);
+
+        $this->app->bind(IEvidenceQuery::class, EvidenceQuery::class);
+        $this->app->make(EvidenceController::class);
+
+        $this->app->bind(ITaskQuery::class, TaskQuery::class);
+        $this->app->make(TaskController::class);
     }
 
     /**
