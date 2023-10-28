@@ -19,15 +19,15 @@ class OptionRolQuery implements IOptionRolQuery
     private $name   = 'name';
     private $description = 'description';
     private $active  = 'active';
-    private $id_rol = 'id_rol';
-    private $id_option = 'id_option';
+    private $rol_id = 'rol_id';
+    private $option_id = 'option_id';
 
     //Index: Página principal
     public function index(Request $request)
     {
         try {
             //Devuelve todos los modulos existentes
-            $optionsrols = OptionRol::query()->select(['id', 'name', 'description', 'active', 'id_rol', 'id_option'])->get();
+            $optionsrols = OptionRol::query()->select(['id', 'name', 'description', 'active', 'rol_id', 'option_id'])->get();
 
             return response()->json(['message' => $optionsrols]);
         } catch (\Exception $e) {
@@ -42,8 +42,8 @@ class OptionRolQuery implements IOptionRolQuery
         $rules = [
             $this->name    => 'required|string|min:1|max:128|',
             $this->description   => 'required|string|min:1|max:128|',
-            $this->id_option => 'required',
-            $this->id_rol => 'required',
+            $this->option_id => 'required',
+            $this->rol_id => 'required',
         ];
         try {
             // Ejecutamos el validador y en caso de que falle devolvemos la respuesta
@@ -61,8 +61,8 @@ class OptionRolQuery implements IOptionRolQuery
                 $this->name => $request->name,
                 $this->description => $request->description,
                 $this->active => $request->active ?? 1,
-                $this->id_rol => $request->id_rol,
-                $this->id_option => $request->id_option,
+                $this->rol_id => $request->rol_id,
+                $this->option_id => $request->option_id,
             ]);
             $optionrol->save();
             
@@ -89,7 +89,7 @@ class OptionRolQuery implements IOptionRolQuery
                 if ($opr) {
                     //Select a la BD: TB_modules
                     $optionrol = DB::table('options_rols')
-                        ->select(['id', 'name', 'description', 'active', 'id_rol', 'id_option'])
+                        ->select(['id', 'name', 'description', 'active', 'rol_id', 'option_id'])
                         ->where('options_rols.id', '=', $id)
                         ->get();
                     return response()->json([
@@ -134,8 +134,8 @@ class OptionRolQuery implements IOptionRolQuery
                 $optionrol->name = $request->name ?? $optionrol->name;
                 $optionrol->description = $request->description ?? $optionrol->description;
                 $optionrol->active = $request->active ?? $optionrol->active;
-                $optionrol->id_rol = $request->id_rol ?? $optionrol->id_rol;
-                $optionrol->id_option = $request->id_option ?? $optionrol->id_option;
+                $optionrol->rol_id = $request->rol_id ?? $optionrol->rol_id;
+                $optionrol->option_id = $request->option_id ?? $optionrol->option_id;
                 $optionrol->save();
 
                 return response()->json([

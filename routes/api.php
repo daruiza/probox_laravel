@@ -39,6 +39,7 @@ Route::group(['prefix' => 'user'], function () {
         Route::get('showbyuserid/{user_id}', 'Api\UserController@showByUserId');
         Route::get('showbyrolid/{rol_id}', 'Api\UserController@showByRolId');
         Route::delete('destroy/{user_id}', 'Api\UserController@destroy');
+        Route::get('showrolbyid/{id}', 'Api\UserController@showRolById');
     });
 });
 
@@ -96,4 +97,38 @@ Route::group(['prefix' => 'optionrol'], function () {
         Route::put('update/{id}', 'Api\OptionRolController@update');
         Route::delete('destroy/{id}', 'Api\OptionRolController@destroy');
         });
+});
+
+Route::group(['prefix' => 'project'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('index', 'Api\ProjectController@index');
+        Route::post('store', 'Api\ProjectController@store');
+        Route::get('showbyid/{id}', 'Api\ProjectController@showById');
+        Route::put('update/{id}', 'Api\ProjectController@update');
+        Route::delete('destroy/{id}', 'Api\ProjectController@destroy');
+        Route::get('showtaskbyid/{id}', 'Api\ProjectController@showTaskById');
+    });
+});
+
+Route::group(['prefix' => 'evidence'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('index', 'Api\EvidenceController@index');
+        Route::post('store', 'Api\EvidenceController@store');
+        Route::get('showbyid/{id}', 'Api\EvidenceController@showById');
+        Route::put('update/{id}', 'Api\EvidenceController@update');
+        Route::delete('destroy/{id}', 'Api\EvidenceController@destroy');
+        Route::get('showtaskbyid/{id}', 'Api\EvidenceController@showTaskById');
+    });
+});
+
+Route::group(['prefix' => 'task'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('index', 'Api\TaskController@index');
+        Route::post('store', 'Api\TaskController@store');
+        Route::get('showbyid/{id}', 'Api\TaskController@showById');
+        Route::put('update/{id}', 'Api\TaskController@update');
+        Route::delete('destroy/{id}', 'Api\TaskController@destroy');
+        Route::get('showevidencebyid/{id}', 'Api\TaskController@showEvidenceById');
+        Route::get('showprojectbyid/{id}', 'Api\TaskController@showProjectById');
+    });
 });

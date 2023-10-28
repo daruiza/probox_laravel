@@ -99,6 +99,226 @@
                 ]
             }
         },
+        "/evidence/index": {
+            "get": {
+                "tags": [
+                    "Evidence"
+                ],
+                "summary": "Get All Evidence",
+                "description": "Return Evidence",
+                "operationId": "getEvidence",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/evidence/store": {
+            "post": {
+                "tags": [
+                    "Evidence"
+                ],
+                "summary": "Store Evidence",
+                "description": "Store Evidence",
+                "operationId": "storeEvidence",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Evidence"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/evidence/showbyid/{id}": {
+            "get": {
+                "tags": [
+                    "Evidence"
+                ],
+                "summary": "Get One Evidence By one Id",
+                "description": "Return One Evidence",
+                "operationId": "getEvidenceById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Evidence Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/evidence/update/{id}": {
+            "put": {
+                "tags": [
+                    "Evidence"
+                ],
+                "summary": "Update One Evidence By one Id",
+                "description": "Update One Evidence",
+                "operationId": "getUpdateEvidenceById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Evidence Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Evidence"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/evidence/destroy/{id}": {
+            "delete": {
+                "tags": [
+                    "Evidence"
+                ],
+                "summary": "Delete One Evidence By one Id",
+                "description": "Delete One Evidence",
+                "operationId": "getDestroyEvidenceById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Evidence Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/evidence/showtaskbyid/{id}": {
+            "get": {
+                "tags": [
+                    "Evidence"
+                ],
+                "summary": "Get One Task By one Id",
+                "description": "Return One Task by Id",
+                "operationId": "getShowTaskById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Show Task by Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/generallist/index": {
             "get": {
                 "tags": [
@@ -1016,6 +1236,226 @@
                 ]
             }
         },
+        "/project/index": {
+            "get": {
+                "tags": [
+                    "Project"
+                ],
+                "summary": "Get All Project",
+                "description": "Return Project",
+                "operationId": "getProject",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/project/store": {
+            "post": {
+                "tags": [
+                    "Project"
+                ],
+                "summary": "Store Project",
+                "description": "Store Project",
+                "operationId": "storeProject",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Project"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/project/showbyid/{id}": {
+            "get": {
+                "tags": [
+                    "Project"
+                ],
+                "summary": "Get One Project By one Id",
+                "description": "Return One Project",
+                "operationId": "getProjectById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Project Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/project/update/{id}": {
+            "put": {
+                "tags": [
+                    "Project"
+                ],
+                "summary": "Update One Project By one Id",
+                "description": "Update One Project",
+                "operationId": "getUpdateProjectById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Project Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Project"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/project/destroy/{id}": {
+            "delete": {
+                "tags": [
+                    "Project"
+                ],
+                "summary": "Delete One Project By one Id",
+                "description": "Delete One Project",
+                "operationId": "getDestroyProjectById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Project Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/project/showtaskbyid/{id}": {
+            "get": {
+                "tags": [
+                    "Project"
+                ],
+                "summary": "Get Tasks By one Id",
+                "description": "Return Tasks by Id",
+                "operationId": "getShowTaskById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Show Tasks by Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/rol/index": {
             "get": {
                 "tags": [
@@ -1212,6 +1652,263 @@
                         "name": "id",
                         "in": "path",
                         "description": "Show Option by Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/task/index": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Get All Task",
+                "description": "Return Task",
+                "operationId": "getTask",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/task/store": {
+            "post": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Store Task",
+                "description": "Store Task",
+                "operationId": "storeTask",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Task"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/task/showbyid/{id}": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Get One Task By one Id",
+                "description": "Return One Task",
+                "operationId": "getTaskById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Task Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/task/update/{id}": {
+            "put": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Update One Task By one Id",
+                "description": "Update One Task",
+                "operationId": "getUpdateTaskById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Task Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Task"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/task/destroy/{id}": {
+            "delete": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Delete One Task By one Id",
+                "description": "Delete One Task",
+                "operationId": "getDestroyTaskById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Task Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/task/showevidencebyid/{id}": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Get One Evidence By one Id",
+                "description": "Return One Evidence by Id",
+                "operationId": "getShowEvidenceById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Show Evidence by Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/task/showprojectbyid/{id}": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Get One Project By one Id",
+                "description": "Return One Project by Id",
+                "operationId": "getShowProjectById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Show Project by Id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -1648,10 +2345,95 @@
                     }
                 ]
             }
+        },
+        "/user/showrolbyid/{id}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get Rols By one Id",
+                "description": "Return Rols by Id",
+                "operationId": "getShowRolById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Show Rol by Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
         }
     },
     "components": {
         "schemas": {
+            "Evidence": {
+                "title": "Evidence",
+                "description": "Evidence body data",
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Name of the Evidence",
+                        "type": "string",
+                        "example": "Name Evidence"
+                    },
+                    "file": {
+                        "title": "file",
+                        "description": "File of the Evidence",
+                        "type": "string",
+                        "example": "File Evidence"
+                    },
+                    "type": {
+                        "title": "type",
+                        "description": "Type of the Evidence",
+                        "type": "string",
+                        "example": "Type Evidence"
+                    },
+                    "description": {
+                        "title": "description",
+                        "description": "Description of the Evidence",
+                        "type": "string",
+                        "example": "Description Evidence"
+                    },
+                    "approved": {
+                        "title": "approved",
+                        "description": "Approved of the Evidence",
+                        "type": "boolean",
+                        "example": "Approved Evidence"
+                    },
+                    "focus": {
+                        "title": "focus",
+                        "description": "Focus of the Evidence",
+                        "type": "boolean",
+                        "example": "Focus Evidence"
+                    },
+                    "task_id": {
+                        "title": "task_id",
+                        "description": "Task_id of the Evidence",
+                        "example": "Task_id Evidence"
+                    }
+                },
+                "type": "object"
+            },
             "GeneralList": {
                 "title": "GeneralList",
                 "description": "GeneralList body data",
@@ -1730,9 +2512,9 @@
                         "type": "boolean",
                         "example": true
                     },
-                    "id_module": {
-                        "title": "id_module",
-                        "description": "id_module of the Option",
+                    "module_id": {
+                        "title": "module_id",
+                        "description": "module_id of the Option",
                         "example": 1
                     }
                 },
@@ -1760,15 +2542,89 @@
                         "type": "boolean",
                         "example": true
                     },
-                    "id_rol": {
-                        "title": "id_rol",
-                        "description": "id_rol of the OptionRol",
+                    "rol_id": {
+                        "title": "rol_id",
+                        "description": "rol_id of the OptionRol",
                         "example": 1
                     },
-                    "id_option": {
-                        "title": "id_option",
-                        "description": "id_option of the OptionRol",
+                    "option_id": {
+                        "title": "option_id",
+                        "description": "option_id of the OptionRol",
                         "example": 1
+                    }
+                },
+                "type": "object"
+            },
+            "Project": {
+                "title": "Project",
+                "description": "Project body data",
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Name of the Module",
+                        "type": "string",
+                        "example": "Name Module"
+                    },
+                    "price": {
+                        "title": "price",
+                        "description": "Price of the Project",
+                        "example": "Price Project"
+                    },
+                    "date_init": {
+                        "title": "date_init",
+                        "description": "Date_init of the Project",
+                        "type": "string",
+                        "format": "date",
+                        "example": "Date_init Project"
+                    },
+                    "date_closed": {
+                        "title": "date_closed",
+                        "description": "Date_closed of the Project",
+                        "type": "string",
+                        "format": "date",
+                        "example": "Date_closed Project"
+                    },
+                    "address": {
+                        "title": "address",
+                        "description": "Address of the Project",
+                        "type": "string",
+                        "example": "Address Project"
+                    },
+                    "quotion": {
+                        "title": "quotion",
+                        "description": "Quotion of the Project",
+                        "type": "string",
+                        "example": "Quotion Project"
+                    },
+                    "goal": {
+                        "title": "goal",
+                        "description": "Goal of the Project",
+                        "type": "string",
+                        "example": "Goal Project"
+                    },
+                    "photo": {
+                        "title": "photo",
+                        "description": "photo of the Project",
+                        "type": "string",
+                        "example": "photo Project"
+                    },
+                    "description": {
+                        "title": "description",
+                        "description": "Description of the Project",
+                        "type": "string",
+                        "example": "Description Project"
+                    },
+                    "focus": {
+                        "title": "focus",
+                        "description": "Focus of the Project",
+                        "type": "boolean",
+                        "example": "Focus Project"
+                    },
+                    "active": {
+                        "title": "active",
+                        "description": "Active of the Project",
+                        "type": "boolean",
+                        "example": true
                     }
                 },
                 "type": "object"
@@ -1794,6 +2650,55 @@
                         "description": "Active of the Rol",
                         "type": "boolean",
                         "example": true
+                    }
+                },
+                "type": "object"
+            },
+            "Task": {
+                "title": "Task",
+                "description": "Task body data",
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Name of the Task",
+                        "type": "string",
+                        "example": "Name Task"
+                    },
+                    "description": {
+                        "title": "description",
+                        "description": "Description of the Task",
+                        "type": "string",
+                        "example": "Description Task"
+                    },
+                    "date_init": {
+                        "title": "date_init",
+                        "description": "Date_init of the Task",
+                        "type": "string",
+                        "format": "date",
+                        "example": "Date_init Task"
+                    },
+                    "date_closed": {
+                        "title": "date_closed",
+                        "description": "Date_closed of the Task",
+                        "type": "string",
+                        "format": "date",
+                        "example": "Date_closed Task"
+                    },
+                    "focus": {
+                        "title": "focus",
+                        "description": "Focus of the Task",
+                        "type": "boolean",
+                        "example": "Focus Task"
+                    },
+                    "id_task": {
+                        "title": "id_task",
+                        "description": "Id_task of the Task",
+                        "example": "Id_task Task"
+                    },
+                    "project_id": {
+                        "title": "project_id",
+                        "description": "Project_id of the Task",
+                        "example": "Project_id Task"
                     }
                 },
                 "type": "object"

@@ -13,8 +13,8 @@ class OptionRol extends Model
         'name',
         'description',
         'active',
-        'id_rol',
-        'id_option'
+        'rol_id',
+        'option_id'
     ];
 
     public function scopeActive($query, $active)
@@ -34,13 +34,13 @@ class OptionRol extends Model
         return is_null($description) ?  $query : $query->where('description', 'LIKE', '%' . $description . '%');
     }
 
-    public function scopeId_rol($query, $idrol)
+    public function scopeRol_id($query, $rolid)
     {
-        return is_null($idrol) ?  $query : $query->where('id_rol', $idrol);
+        return is_null($rolid) ?  $query : $query->where('rol_id', $rolid);
     }
 
-    public function scopeId_option($query, $idoption)
+    public function scopeOption_id($query, $optionid)
     {
-        return is_null($idoption) ?  $query : $query->where('id_option', $idoption);
+        return is_null($optionid) ?  $query : $query->where('option_id', $optionid);
     }
 }

@@ -3,9 +3,7 @@
 namespace App\Query\Request;
 
 use Illuminate\Support\Facades\DB;
-use App\Model\Core\Option;
-use App\Model\Core\OptionRol;
-use App\Model\Core\Module;
+use App\Model\Core\Evidence;
 
 use App\User;
 use Illuminate\Http\Request;
@@ -13,25 +11,36 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use App\Query\Abstraction\IOptionQuery;
-use OpenApi\Annotations\Options;
+use App\Query\Abstraction\IEvidenceQuery;
 
-class OptionQuery implements IOptionQuery
+
+class EvidenceQuery implements IEvidenceQuery
 {
     private $name   = 'name';
-    private $description = 'description';
-    private $label  = 'label';
-    private $active  = 'active';
-    private $module_id = 'module_id';
+    private $file  = 'file';
+    private $type  = 'type';
+    private $description  = 'description';
+    private $approved  = 'approved';
+    private $focus  = 'focus';
+    private $task_id  = 'task_id';
 
     //Index: Página principal
     public function index(Request $request)
     {
         try {
-            //Devuelve todos los modulos existentes
-            $options = Option::query()->select(['id', 'name', 'description', 'label', 'active', 'module_id'])->get();
+            //Devuelve todos los EVIDENCES existentes
+            $evidence = Evidence::query()
+                ->select(['id',
+                    'name',
+                    'file',
+                    'type',
+                    'description',
+                    'approved',
+                    'focus',
+                    'task_id'
+                ])->get();
 
-            return response()->json(['message' => $options]);
+            return response()->json(['message' => $evidence]);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
         }
@@ -43,8 +52,12 @@ class OptionQuery implements IOptionQuery
         //Rules: Especificaciones a validar
         $rules = [
             $this->name    => 'required|string|min:1|max:128|',
-            $this->description   => 'required|string|min:1|max:128|',
-            $this->label   => 'required|string|min:1|max:128|',
+            $this->file    => 'required|string|min:1|max:128|',
+            $this->type    => 'required|string|min:1|max:128|',
+            $this->description    => 'required|string|min:1|max:128|',
+            $this->approved    => 'required',
+            $this->focus    => 'required',
+            $this->task_id    => 'required',
         ];
         try {
             // Ejecutamos el validador y en caso de que falle devolvemos la respuesta
@@ -55,53 +68,63 @@ class OptionQuery implements IOptionQuery
         } catch (\Exception $e) {
             return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
         }
-        
+
         try {
             //Recepción de datos y guardado en la BD
-            $option = new Option([
+            $evidence = new Evidence([
                 $this->name => $request->name,
+                $this->file => $request->file,
+                $this->type => $request->type,
                 $this->description => $request->description,
-                $this->label => $request->label,
-                $this->active => $request->active,
-                $this->module_id => $request->module_id,
+                $this->approved => $request->approved,
+                $this->focus => $request->focus,
+                $this->task_id => $request->task_id,
             ]);
-            $option->save();
-            
+
+            $evidence->save();
+
             return response()->json([
                 'data' => [
-                'option' => $option,
+                    'evidence' => $evidence,
                 ],
-                'message' => 'Option creado correctamente!'
+                'message' => 'Evidence creado correctamente!'
             ], 201);
-
         } catch (\Exception $e) {
             return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
         }
     }
 
     //Show: Obtener un registro de la tabla
-    public function showById(Request $request, int $id)
+    public function showById(Request $request,  int $id)
     {
 
         if ($id) {
             try {
-                $op = Option::findOrFail($id);
+                $ev = Evidence::findOrFail($id);
 
-                if ($op) {
-                    //Select a la BD: TB_modules
-                    $option = DB::table('options')
-                        ->select(['id', 'name', 'description', 'label', 'active', 'module_id'])
-                        ->where('options.id', '=', $id)
+                if ($ev) {
+                    //Select a la BD: TB_evidences
+                    $evidence = DB::table('evidences')
+                        ->select(['id',
+                        'name',
+                        'file',
+                        'type',
+                        'description',
+                        'approved',
+                        'focus',
+                        'task_id'
+                        ])
+                        ->where('evidences.id', '=', $id)
                         ->get();
                     return response()->json([
                         'data' => [
-                            'option' => $option,
+                            'evidence' => $evidence,
                         ],
-                        'message' => 'Datos de option Consultados Correctamente!'
+                        'message' => 'Datos de evidence Consultados Correctamente!'
                     ]);
                 }
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Option con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Evidence con id {$id} no existe!", 'error' => $e->getMessage()], 403);
             }
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
@@ -116,8 +139,12 @@ class OptionQuery implements IOptionQuery
             //Rules: Especificaciones a validar
             $rules = [
                 $this->name    => 'required|string|min:1|max:128|',
-                $this->description   => 'required|string|min:1|max:128|',
-                $this->label   => 'required|string|min:1|max:128|',
+                $this->file    => 'required|string|min:1|max:128|',
+                $this->type    => 'required|string|min:1|max:128|',
+                $this->description    => 'required|string|min:1|max:128|',
+                $this->approved    => 'required',
+                $this->focus    => 'required',
+                $this->task_id    => 'required',
             ];
             try {
                 // Ejecutamos el validador y en caso de que falle devolvemos la respuesta
@@ -131,23 +158,26 @@ class OptionQuery implements IOptionQuery
 
             try {
                 //Consulta por Id
-                $option = Option::findOrFail($id);
+                $evidence = Evidence::findOrFail($id);
                 //Actualización de datos
-                $option->name = $request->name ?? $option->name;
-                $option->description = $request->description ?? $option->description;
-                $option->label = $request->label ?? $option->label;
-                $option->active = $request->active ?? $option->active;
-                $option->module_id = $request->module_id ?? $option->module_id;
-                $option->save();
+                $evidence->name = $request->name ?? $evidence->name;
+                $evidence->file = $request->file ?? $evidence->file;
+                $evidence->type = $request->type ?? $evidence->type;
+                $evidence->description = $request->description ?? $evidence->description;
+                $evidence->approved = $request->approved ?? $evidence->approved;
+                $evidence->focus = $request->focus ?? $evidence->focus;
+                $evidence->task_id = $request->task_id ?? $evidence->task_id;
+
+                $evidence->save();
 
                 return response()->json([
                     'data' => [
-                        'option' => $option,
+                        'evidence' => $evidence,
                     ],
-                    'message' => 'Option actualizado con éxito!'
+                    'message' => 'Evidence actualizado con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $ex) {
-                return response()->json(['message' => "Option con id {$id} no existe!", 'error' => $ex->getMessage()], 404);
+                return response()->json(['message' => "Evidence con id {$id} no existe!", 'error' => $ex->getMessage()], 404);
             } catch (\Exception $e) {
                 return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
             }
@@ -162,23 +192,23 @@ class OptionQuery implements IOptionQuery
         if ($id) {
             try {
                 //Delete por id
-                $option = Option::findOrFail($id);
-                $option->delete();
+                $evidence = Evidence::findOrFail($id);
+                $evidence->delete();
                 return response()->json([
                     'data' => [
-                        'option' => $option,
+                        'evidence' => $evidence,
                     ],
-                    'message' => 'Option eliminado con éxito!'
+                    'message' => 'Evidence eliminado con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Option con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Evidence con id {$id} no existe!", 'error' => $e->getMessage()], 403);
             }
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
         }
     }
 
-    public function showModuleById(Request $request, int $id)
+    public function showTaskById(Request $request, int $id)
     {
         
         if ($id) {
@@ -186,50 +216,22 @@ class OptionQuery implements IOptionQuery
                 ////Comprobar existencia
                 //$existencia = Option::find($id)->firstOrFail();
                 //Consultar option
-                $option = Option::find($id);
+                $evidence = Evidence::find($id);
                 //Aplicar relación
-                $module = $option->module;
+                $task = $evidence->task;
 
                 return response()->json([
                     'data' => [
-                        'module' => $module,
+                        'task' => $task,
                     ],
-                    'message' => 'Module consultado con éxito!'
+                    'message' => 'Task consultado con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Module relacionado a la option con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Task relacionado a la evidence con id {$id} no existe!", 'error' => $e->getMessage()], 403);
             }
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
         }
         
     }
-
-    public function showRolById(Request $request, int $id)
-    {
-        
-        if ($id) {
-            try {
-                //Comprobar existencia
-                //$existencia = OptionRol::where('option_id', '=', $id)->firstOrFail();
-                //Consultar option
-                $option = Option::find($id);
-                //Aplicar relación
-                $rols = $option->rols;
-
-                return response()->json([
-                    'data' => [
-                        'rols' => $rols,
-                    ],
-                    'message' => 'Rols consultados con éxito!'
-                ], 201);
-            } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Rols relacionados a la Option con id {$id} no existe!", 'error' => $e->getMessage()], 403);
-            }
-        } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
-        }
-        
-    }
-
 }

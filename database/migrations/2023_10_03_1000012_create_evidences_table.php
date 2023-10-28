@@ -14,7 +14,7 @@ class CreateEvidencesTable extends Migration
     public function up()
     {
         Schema::create('evidences', function (Blueprint $table) {
-            $table->id();
+            $table->id('id');
             $table->string('name', 32)->unique();
             $table->string('file')->nullable();
             $table->string('type')->nullable();
@@ -23,8 +23,8 @@ class CreateEvidencesTable extends Migration
             $table->boolean('focus')->default(true);
             $table->timestamps();
 
-            $table->unsignedBigInteger('id_task')->nullable();
-                $table->foreign('id_task')->references('id')->on('tasks')->onDelete('set null')
+            $table->unsignedBigInteger('task_id')->nullable();
+                $table->foreign('task_id')->references('id')->on('tasks')->onDelete('set null')
                 ->onUpdate('cascade');
 
         });

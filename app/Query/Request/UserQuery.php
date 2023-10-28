@@ -3,7 +3,8 @@
 namespace App\Query\Request;
 
 use App\User;
-use App\Model\Admin\Rol;
+use App\Model\Core\Rol;
+
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
@@ -259,5 +260,35 @@ class UserQuery implements IUserQuery
         } else {
             return response()->json(['message' => 'Necesita permisos de super-administrador!'], 403);
         }
+    }
+
+    public function showRolById(Request $request, int $id)
+    {
+        
+        if ($id) {
+            try {
+                //Devuelve el ROL_ID relacionado a un USER
+                $consulta_id = User::query()->where('id',$id)->select('rol_id');
+                $rol_id = (int)$consulta_id;
+                
+                //Comprobar existencia
+                $existencia = Rol::where('rol_id', '=', $rol_id)->firstOrFail();
+
+                //Consulto el rol
+                $rol = Rol::query()->where('id',$rol_id);
+
+                return response()->json([
+                    'data' => [
+                        'rol' => $rol,
+                    ],
+                    'message' => 'Rol consultado con éxito!'
+                ], 201);
+            } catch (ModelNotFoundException $e) {
+                return response()->json(['message' => "Rol relacionado al user con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+            }
+        } else {
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+        }
+        
     }
 }

@@ -21,8 +21,8 @@ class CreateOptionsTable extends Migration
             $table->boolean('active')->default(true);
             $table->timestamps();
 
-            $table->unsignedBigInteger('id_module')->nullable();
-            $table->foreign('id_module')->references('id')->on('modules')->onDelete('set null')
+            $table->unsignedBigInteger('module_id')->nullable();
+            $table->foreign('module_id')->references('id')->on('modules')->onDelete('set null')
                 ->onUpdate('cascade');
 
         });

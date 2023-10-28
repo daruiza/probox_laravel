@@ -14,7 +14,7 @@ class CreateGeneralListsTable extends Migration
     public function up()
     {
         Schema::create('general_lists', function (Blueprint $table) {
-            $table->id();
+            $table->id('id');
             $table->string('name', 64);
             $table->unsignedInteger('index')->default(0);
             $table->string('value', 64);

@@ -16,7 +16,7 @@ class Module extends Model
         'active'
     ];
 
-    //HasMany: Varios MODULE le pertenece a varios OPTIONS.
+    //HasMany: Un MODULE le pertenece a varios OPTIONS.
     public function options()
     {
         return $this->hasMany(Option::class);
