@@ -56,13 +56,13 @@ class Option
 
     /**
      * @OA\Property(
-     *      title="id_module",
-     *      description="id_module of the Option",
+     *      title="module_id",
+     *      description="module_id of the Option",
      *      example=1
      * )
      *
      * @var numeric
      */
-    public $id_module;
+    public $module_id;
 
 }

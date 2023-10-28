@@ -75,9 +75,9 @@ class User extends Authenticatable
         return is_null($rolid) ?  $query : $query->where('rol_id', $rolid);
     }
 
-    //un usuario posee/pertenece un rol
+    //BelongsTo (1-1): Un USER le pertenece un ROL
     public function rol()
     {
-        return $this->belongsTo(Model\Core\Rol::class);
+        return $this->belongsTo(Rol::class);
     }
 }

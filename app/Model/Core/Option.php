@@ -14,19 +14,30 @@ class Option extends Model
         'description',
         'label',
         'active',
-        'id_module'
+        'module_id'
     ];
 
     //belongsTo: Varios OPTIONS le pertenecen a un MODULE.
     public function module()
     {
+        /*
+        1er argumento: Modelo relacionado
+        2do argumento: FK modelo relacionado
+        3er argumento: PK de este modelo padre
+        */
         return $this->belongsTo(Module::class);
+    }
+
+    //TABLA INTERMEDIA: Relación Options_Rols
+    public function optionsrols()
+    {
+        return $this->belongsToMany(OptionRol::class);
     }
 
     //belongsToMany: Varios OPTIONS le pertenecen a varios ROLS.
     public function rols()
     {
-        return $this->belongsToMany(OptionRol::class);
+        return $this->belongsToMany(Rol::class);
     }
 
     public function scopeActive($query, $active)
@@ -51,8 +62,8 @@ class Option extends Model
         return is_null($label) ?  $query : $query->where('label', 'LIKE', '%' . $label . '%');
     }
 
-    public function scopeId_module($query, $idmodule)
+    public function scopeModule_id($query, $moduleid)
     {
-        return is_null($idmodule) ?  $query : $query->where('id_module', $idmodule);
+        return is_null($moduleid) ?  $query : $query->where('module_id', $moduleid);
     }
 }
