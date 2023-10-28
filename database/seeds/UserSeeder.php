@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
             'photo' => null,
             'rol_id' => '1',
             'chexk_digit' => '3',
-            'nacionality' => 'Venezolano',
+            'nacionality' => 'Venezuela',
             'birthdate' => '2002-10-12',
             'active' => '1',
         ));
@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
             'photo' => null,
             'rol_id' => '2',
             'chexk_digit' => '3',
-            'nacionality' => 'Venezolano',
+            'nacionality' => 'Venezuela',
             'birthdate' => '2002-10-12',
             'active' => '1',
         ));
@@ -53,7 +53,7 @@ class UserSeeder extends Seeder
             'photo' => null,
             'rol_id' => '3',
             'chexk_digit' => '3',
-            'nacionality' => 'Venezolano',
+            'nacionality' => 'Venezuela',
             'birthdate' => '2002-10-12',
             'active' => '1',
         ));
@@ -68,7 +68,7 @@ class UserSeeder extends Seeder
             'photo' => null,
             'rol_id' => '3',
             'chexk_digit' => '3',
-            'nacionality' => 'Venezolano',
+            'nacionality' => 'Venezuela',
             'birthdate' => '2002-10-12',
             'active' => '1',
         ));
@@ -83,7 +83,7 @@ class UserSeeder extends Seeder
             'photo' => null,
             'rol_id' => '2',
             'chexk_digit' => '3',
-            'nacionality' => 'Venezolano',
+            'nacionality' => 'Venezuela',
             'birthdate' => '2002-10-12',
             'active' => '1',
         ));
