@@ -25,21 +25,20 @@ class UserQuery implements IUserQuery
     private $chexk_digit = 'chexk_digit';
     private $nacionality = 'nacionality';
     private $birthdate = 'birthdate';
+    private $address = 'address';
 
     public function index(Request $request)
     {
         $user = User::query()
-            ->select(['id', 'name', 'lastname', 'phone', 'email', 'photo', 'theme', 'rol_id', 'chexk_digit', 'nacionality', 'birthdate'])
+            ->select(['id', 'name', 'lastname', 'phone', 'email', 'address','photo', 'theme', 'rol_id', 'chexk_digit', 'nacionality', 'birthdate'])
             ->where('rol_id', '!=', 1)
             ->where('id', '!=', $request->user()->id)
             ->with(['rol:id,name,description,active'])
-            // ->with(['commerce:id,name,nit,user_id'])
             ->name($request->name)
             ->lastname($request->lastname)
             ->phone($request->phone)
             ->email($request->email)
             ->rol_id($request->rol_id)
-            ->responsible_id($request->user()->rol_id)
             ->orderBy('id', $request->sort ?? 'DESC')
             ->paginate($request->limit ?? 8, ['*'], '', $request->page ?? 1);
 
@@ -56,7 +55,6 @@ class UserQuery implements IUserQuery
         $rules = [
             $this->name     => 'required|string|min:1|max:128',
             $this->email    => 'required|string|max:128|email|unique:users',
-            // $this->password => 'required|string',
             $this->phone    => 'numeric|digits_between:7,10',
             $this->rol_id   => 'required|numeric',
         ];
@@ -80,12 +78,16 @@ class UserQuery implements IUserQuery
                     $user = new User([
                         $this->name     => $request->name,
                         $this->email    => $request->email,
+                        $this->address => $request->address,
                         $this->lastname => $request->lastname ?? '',
                         $this->phone    => $request->phone ?? 0,
                         $this->password => bcrypt($request->password ?? '0000'),
                         $this->theme    => $request->theme ?? 'skyblue',
                         $this->photo    => $request->photo ?? '',
                         $this->rol_id   => $request->rol_id,
+                        $this->chexk_digit => $request->chexk_digit, 
+                        $this->nacionality => $request->nacionality, 
+                        $this->birthdate => $request->birthdate, 
                     ]);
                     $user->save();
                     return response()->json([
@@ -107,12 +109,16 @@ class UserQuery implements IUserQuery
                     $user = new User([
                         $this->name     => $request->name,
                         $this->email    => $request->email,
+                        $this->address    => $request->address,
                         $this->lastname => $request->lastname ?? '',
                         $this->phone    => $request->phone ?? 0,
                         $this->password => bcrypt($request->password ?? '0000'),
                         $this->theme    => $request->theme ?? 'skyblue',
                         $this->photo    => $request->photo ?? '',
                         $this->rol_id   => $request->rol_id ?? 2,
+                        $this->chexk_digit => $request->chexk_digit, 
+                        $this->nacionality => $request->nacionality, 
+                        $this->birthdate => $request->birthdate, 
                     ]);
                     $user->save();
                     return response()->json([
@@ -150,8 +156,12 @@ class UserQuery implements IUserQuery
                 $user->lastname = $request->lastname ?? $user->lastname;
                 $user->phone    = $request->phone ?? $user->phone;
                 $user->email    = $request->email ?? $user->email;
+                $user->address = $request->address ?? $user->address; 
                 $user->theme    = $request->theme ?? $user->theme;
                 $user->photo    = $request->photo ?? $user->photo;
+                $user->chexk_digit = $request->chexk_digit ?? $user->chexk_digit; 
+                $user->nacionality = $request->nacionality ?? $user->nacionality; 
+                $user->birthdate = $request->birthdate ?? $user->birthdate; 
                 $user->save();
                 return response()->json([
                     'data' => [
@@ -183,8 +193,12 @@ class UserQuery implements IUserQuery
                 $user->lastname     = $request->lastname ?? $user->lastname;
                 $user->phone        = $request->phone ?? $user->phone;
                 $user->email        = $request->email ?? $user->email;
+                $user->address      = $request->address ?? $user->address;
                 $user->password     = $request->password ? bcrypt($request->password) : $user->password;
                 $user->theme        = $request->theme ?? $user->theme;
+                $user->chexk_digit  = $request->chexk_digit ?? $user->chexk_digit;
+                $user->nacionality  = $request->nacionality ?? $user->nacionality;
+                $user->birthdate    = $request->birthdate ?? $user->birthdate;
                 $user->rol_id       = $request->rol_id ?? $user->rol_id;
                 $user->save();
                 return response()->json([
@@ -225,7 +239,7 @@ class UserQuery implements IUserQuery
             $role = Rol::findOrFail($id);
             if ($role) {
                 $users = User::query()
-                ->select(['id', 'name', 'lastname', 'phone', 'email', 'photo', 'theme', 'rol_id'])
+                ->select(['id', 'name', 'lastname', 'phone', 'email','address', 'photo', 'theme','chexk_digit', 'nacionality','birthdate', 'rol_id'])
                 ->where('rol_id', '!=', 1)
                 ->where('rol_id', '=', $id)
                 ->with(['rol:id,name,description,active'])

@@ -2762,6 +2762,12 @@
                         "type": "string",
                         "example": "super@yopmail.com"
                     },
+                    "address": {
+                        "title": "address",
+                        "description": "Address of the user",
+                        "type": "string",
+                        "example": "Cll1#1-1"
+                    },
                     "password": {
                         "title": "password",
                         "description": "Password of the user",
@@ -2791,6 +2797,24 @@
                         "type": "string",
                         "example": "avatar"
                     },
+                    "chexk_digit": {
+                        "title": "chexk_digit",
+                        "description": "chexk_digit of the user",
+                        "example": 2
+                    },
+                    "nacionality": {
+                        "title": "nacionality",
+                        "description": "nacionality of the user",
+                        "type": "string",
+                        "example": "Venezuela"
+                    },
+                    "birthdate": {
+                        "title": "birthdate",
+                        "description": "birthdate of the user",
+                        "type": "string",
+                        "format": "date",
+                        "example": "1980-01-01"
+                    },
                     "rol_id": {
                         "title": "rol_id",
                         "description": "rol_id of the user",
@@ -2803,6 +2827,12 @@
                 "title": "UserUpdate",
                 "description": "UserUpdate body data",
                 "properties": {
+                    "id": {
+                        "title": "id",
+                        "description": "Id of the user",
+                        "type": "number",
+                        "example": 1
+                    },
                     "name": {
                         "title": "name",
                         "description": "Name of the user",
@@ -2814,6 +2844,12 @@
                         "description": "Email of the user",
                         "type": "string",
                         "example": "super@yopmail.com"
+                    },
+                    "address": {
+                        "title": "address",
+                        "description": "Address of the user",
+                        "type": "string",
+                        "example": "Cll1#1-1"
                     },
                     "lastname": {
                         "title": "lastname",
@@ -2837,6 +2873,24 @@
                         "description": "photo of the user",
                         "type": "string",
                         "example": "avatar"
+                    },
+                    "chexk_digit": {
+                        "title": "chexk_digit",
+                        "description": "chexk_digit of the user",
+                        "example": 2
+                    },
+                    "nacionality": {
+                        "title": "nacionality",
+                        "description": "nacionality of the user",
+                        "type": "string",
+                        "example": "Venezuela"
+                    },
+                    "birthdate": {
+                        "title": "birthdate",
+                        "description": "birthdate of the user",
+                        "type": "string",
+                        "format": "date",
+                        "example": "1980-01-01"
                     },
                     "rol_id": {
                         "title": "rol_id",
