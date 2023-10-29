@@ -33,6 +33,17 @@ class UserStore
 
     /**
      * @OA\Property(
+     *      title="address",
+     *      description="Address of the user",
+     *      example="Cll1#1-1"
+     * )
+     *
+     * @var string
+     */
+    public $address;
+
+    /**
+     * @OA\Property(
      *      title="password",
      *      description="Password of the user",
      *      example="0000"
@@ -85,6 +96,39 @@ class UserStore
      * @var string
      */
     public $photo;
+
+    /**
+     * @OA\Property(
+     *      title="chexk_digit",
+     *      description="chexk_digit of the user",
+     *      example=2
+     * )
+     *
+     * @var numeric
+     */
+    public $chexk_digit;
+
+    /**
+     * @OA\Property(
+     *      title="nacionality",
+     *      description="nacionality of the user",
+     *      example="Venezuela"
+     * )
+     *
+     * @var string
+     */
+    public $nacionality;
+
+    /**
+     * @OA\Property(
+     *      title="birthdate",
+     *      description="birthdate of the user",
+     *      example="1980-01-01"
+     * )
+     *
+     * @var date
+     */
+    public $birthdate;
 
     /**
      * @OA\Property(
