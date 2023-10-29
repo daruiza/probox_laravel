@@ -20,17 +20,20 @@ class UserQuery implements IUserQuery
     private $email      = 'email';
     private $password   = 'password';
     private $theme      = 'theme';
-    private $photo      = 'photo';
+    private $photo      = 'photo';  
     private $rol_id     = 'rol_id';
+    private $chexk_digit = 'chexk_digit';
+    private $nacionality = 'nacionality';
+    private $birthdate = 'birthdate';
 
     public function index(Request $request)
     {
         $user = User::query()
-            ->select(['id', 'name', 'lastname', 'phone', 'email', 'photo', 'theme', 'rol_id'])
+            ->select(['id', 'name', 'lastname', 'phone', 'email', 'photo', 'theme', 'rol_id', 'chexk_digit', 'nacionality', 'birthdate'])
             ->where('rol_id', '!=', 1)
             ->where('id', '!=', $request->user()->id)
             ->with(['rol:id,name,description,active'])
-            ->with(['commerce:id,name,nit,user_id'])
+            // ->with(['commerce:id,name,nit,user_id'])
             ->name($request->name)
             ->lastname($request->lastname)
             ->phone($request->phone)
