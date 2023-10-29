@@ -146,7 +146,8 @@ class UserQuery implements IUserQuery
                 $rules = [
                     $this->name     => 'required|string|min:1|max:128',
                     $this->email    => 'required|string|max:128|email|', Rule::unique('users')->ignore($user->id),
-                    $this->phone    => 'numeric|digits_between:7,10|'
+                    $this->phone    => 'numeric|digits_between:7,10|',
+                    $this->rol_id   => 'required|numeric',
                 ];
                 $validator = Validator::make($request->all(), $rules);
                 if ($validator->fails()) {
