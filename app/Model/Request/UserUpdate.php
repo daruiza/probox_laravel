@@ -54,6 +54,17 @@ class UserUpdate
      */
     public $address;
 
+    /**
+     * @OA\Property(
+     *      title="location",
+     *      description="location of the address user",
+     *      example="{}"
+     * )
+     *
+     * @var string
+     */
+    public $location;
+
 
     /**
      * @OA\Property(
