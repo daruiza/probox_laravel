@@ -2768,6 +2768,12 @@
                         "type": "string",
                         "example": "Cll1#1-1"
                     },
+                    "location": {
+                        "title": "location",
+                        "description": "location of the address user",
+                        "type": "string",
+                        "example": "{}"
+                    },
                     "password": {
                         "title": "password",
                         "description": "Password of the user",
@@ -2850,6 +2856,12 @@
                         "description": "Address of the user",
                         "type": "string",
                         "example": "Cll1#1-1"
+                    },
+                    "location": {
+                        "title": "location",
+                        "description": "location of the address user",
+                        "type": "string",
+                        "example": "{}"
                     },
                     "lastname": {
                         "title": "lastname",
