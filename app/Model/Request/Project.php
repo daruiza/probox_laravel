@@ -25,7 +25,7 @@ class Project
      * @OA\Property(
      *      title="price",
      *      description="Price of the Project",
-     *      example="Price Project"
+     *      example=1500
      * )
      *
      * @var numeric
@@ -36,7 +36,7 @@ class Project
      * @OA\Property(
      *      title="date_init",
      *      description="Date_init of the Project",
-     *      example="Date_init Project"
+     *      example="1980-01-01"
      * )
      *
      * @var date
@@ -47,7 +47,7 @@ class Project
      * @OA\Property(
      *      title="date_closed",
      *      description="Date_closed of the Project",
-     *      example="Date_closed Project"
+     *      example="1980-07-01"
      * )
      *
      * @var date
@@ -58,7 +58,7 @@ class Project
      * @OA\Property(
      *      title="address",
      *      description="Address of the Project",
-     *      example="Address Project"
+     *      example="Avenu15#45-78"
      * )
      *
      * @var string
@@ -67,14 +67,14 @@ class Project
 
     /**
      * @OA\Property(
-     *      title="quotion",
-     *      description="Quotion of the Project",
-     *      example="Quotion Project"
+     *      title="quotation",
+     *      description="quotation of the Project",
+     *      example="quotation Project"
      * )
      *
      * @var string
      */
-    public $quotion;
+    public $quotation;
 
     /**
      * @OA\Property(
@@ -113,7 +113,7 @@ class Project
      * @OA\Property(
      *      title="focus",
      *      description="Focus of the Project",
-     *      example="Focus Project"
+     *      example=false
      * )
      *
      * @var boolean
@@ -124,7 +124,7 @@ class Project
      * @OA\Property(
      *      title="active",
      *      description="Active of the Project",
-     *      example=true
+     *      example=false
      * )
      *
      * @var boolean
