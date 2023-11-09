@@ -19,13 +19,14 @@ class CreateProjectsTable extends Migration
             $table->unsignedBigInteger('price')->unsigned()->nullable();
             $table->date('date_init')->nullable()->default(null);
             $table->date('date_closed')->nullable()->default(null);
-            $table->string('address')->unique();
-            $table->string('quotion', 512)->nullable();
-            $table->string('goal')->nullable();
+            $table->string('address', 512)->nullable();
+            $table->string('location', 128)->nullable()->default('{}');
+            $table->string('quotation', 512)->nullable();
+            $table->string('goal', 1024)->nullable();
             $table->string('photo')->nullable();
-            $table->string('description')->nullable();
-            $table->boolean('focus')->default(true);
-            $table->boolean('active')->default(true);
+            $table->string('description',1024)->nullable();
+            $table->boolean('focus')->default(false);
+            $table->boolean('active')->default(false);
             $table->timestamps();
 
         });

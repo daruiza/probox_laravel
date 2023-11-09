@@ -15,7 +15,7 @@ class Project extends Model
         'date_init',
         'date_closed',
         'address',
-        'quotion',
+        'quotation',
         'goal',
         'photo',
         'description',
@@ -61,9 +61,9 @@ class Project extends Model
         return is_null($address) ?  $query : $query->where('address', 'LIKE', '%' . $address . '%');
     }
 
-        public function scopeQuotion($query, $quotion)
+        public function scopequotation($query, $quotation)
     {
-        return is_null($quotion) ?  $query : $query->where('quotion', 'LIKE', '%' . $quotion . '%');
+        return is_null($quotation) ?  $query : $query->where('quotation', 'LIKE', '%' . $quotation . '%');
     }
 
         public function scopeGoal($query, $goal)
