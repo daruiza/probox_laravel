@@ -2568,33 +2568,33 @@
                     "price": {
                         "title": "price",
                         "description": "Price of the Project",
-                        "example": "Price Project"
+                        "example": 1500
                     },
                     "date_init": {
                         "title": "date_init",
                         "description": "Date_init of the Project",
                         "type": "string",
                         "format": "date",
-                        "example": "Date_init Project"
+                        "example": "1980-01-01"
                     },
                     "date_closed": {
                         "title": "date_closed",
                         "description": "Date_closed of the Project",
                         "type": "string",
                         "format": "date",
-                        "example": "Date_closed Project"
+                        "example": "1980-07-01"
                     },
                     "address": {
                         "title": "address",
                         "description": "Address of the Project",
                         "type": "string",
-                        "example": "Address Project"
+                        "example": "Avenu15#45-78"
                     },
-                    "quotion": {
-                        "title": "quotion",
-                        "description": "Quotion of the Project",
+                    "quotation": {
+                        "title": "quotation",
+                        "description": "quotation of the Project",
                         "type": "string",
-                        "example": "Quotion Project"
+                        "example": "quotation Project"
                     },
                     "goal": {
                         "title": "goal",
@@ -2618,13 +2618,13 @@
                         "title": "focus",
                         "description": "Focus of the Project",
                         "type": "boolean",
-                        "example": "Focus Project"
+                        "example": false
                     },
                     "active": {
                         "title": "active",
                         "description": "Active of the Project",
                         "type": "boolean",
-                        "example": true
+                        "example": false
                     }
                 },
                 "type": "object"
@@ -2768,6 +2768,12 @@
                         "type": "string",
                         "example": "Cll1#1-1"
                     },
+                    "location": {
+                        "title": "location",
+                        "description": "location of the address user",
+                        "type": "string",
+                        "example": "{}"
+                    },
                     "password": {
                         "title": "password",
                         "description": "Password of the user",
@@ -2850,6 +2856,12 @@
                         "description": "Address of the user",
                         "type": "string",
                         "example": "Cll1#1-1"
+                    },
+                    "location": {
+                        "title": "location",
+                        "description": "location of the address user",
+                        "type": "string",
+                        "example": "{}"
                     },
                     "lastname": {
                         "title": "lastname",

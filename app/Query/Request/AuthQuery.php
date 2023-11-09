@@ -58,8 +58,8 @@ class AuthQuery implements IAuthQuery
         try {
             $user = User::query()
                 ->select([
-                    'id', 'name', 'lastname', 'phone', 'email',
-                    'photo', 'theme', 'rol_id', 'chexk_digit',
+                    'id', 'name', 'lastname', 'phone', 'email', 'address',
+                    'location' , 'photo', 'theme', 'rol_id', 'chexk_digit',
                     'nacionality', 'birthdate', 'active'
                 ])
                 ->where('id', '=', $request->user()->id)

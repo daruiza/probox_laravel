@@ -44,6 +44,19 @@ class UserStore
 
     /**
      * @OA\Property(
+     *      title="location",
+     *      description="location of the address user",
+     *      example="{}"
+     * )
+     *
+     * @var string
+     */
+    public $location;
+
+    
+
+    /**
+     * @OA\Property(
      *      title="password",
      *      description="Password of the user",
      *      example="0000"

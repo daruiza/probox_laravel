@@ -20,17 +20,18 @@ class UserQuery implements IUserQuery
     private $email      = 'email';
     private $password   = 'password';
     private $theme      = 'theme';
-    private $photo      = 'photo';  
+    private $photo      = 'photo';
     private $rol_id     = 'rol_id';
     private $chexk_digit = 'chexk_digit';
     private $nacionality = 'nacionality';
     private $birthdate = 'birthdate';
     private $address = 'address';
+    private $location = 'location';
 
     public function index(Request $request)
     {
         $user = User::query()
-            ->select(['id', 'name', 'lastname', 'phone', 'email', 'address','photo', 'theme', 'rol_id', 'chexk_digit', 'nacionality', 'birthdate'])
+            ->select(['id', 'name', 'lastname', 'phone', 'email', 'address', 'location', 'photo', 'theme', 'rol_id', 'chexk_digit', 'nacionality', 'birthdate'])
             ->where('rol_id', '!=', 1)
             ->where('id', '!=', $request->user()->id)
             ->with(['rol:id,name,description,active'])
@@ -44,7 +45,7 @@ class UserQuery implements IUserQuery
 
         return response()->json([
             'data' => [
-                'users' => $user,                
+                'users' => $user,
             ],
             'message' => 'Usuarios consultados correctamente!'
         ], 200);
@@ -79,15 +80,16 @@ class UserQuery implements IUserQuery
                         $this->name     => $request->name,
                         $this->email    => $request->email,
                         $this->address => $request->address,
+                        $this->location => $request->location,
                         $this->lastname => $request->lastname ?? '',
                         $this->phone    => $request->phone ?? 0,
                         $this->password => bcrypt($request->password ?? '0000'),
                         $this->theme    => $request->theme ?? 'skyblue',
                         $this->photo    => $request->photo ?? '',
                         $this->rol_id   => $request->rol_id,
-                        $this->chexk_digit => $request->chexk_digit, 
-                        $this->nacionality => $request->nacionality, 
-                        $this->birthdate => $request->birthdate, 
+                        $this->chexk_digit => $request->chexk_digit,
+                        $this->nacionality => $request->nacionality,
+                        $this->birthdate => $request->birthdate,
                     ]);
                     $user->save();
                     return response()->json([
@@ -110,15 +112,16 @@ class UserQuery implements IUserQuery
                         $this->name     => $request->name,
                         $this->email    => $request->email,
                         $this->address    => $request->address,
+                        $this->location => $request->location,
                         $this->lastname => $request->lastname ?? '',
                         $this->phone    => $request->phone ?? 0,
                         $this->password => bcrypt($request->password ?? '0000'),
                         $this->theme    => $request->theme ?? 'skyblue',
                         $this->photo    => $request->photo ?? '',
                         $this->rol_id   => $request->rol_id ?? 2,
-                        $this->chexk_digit => $request->chexk_digit, 
-                        $this->nacionality => $request->nacionality, 
-                        $this->birthdate => $request->birthdate, 
+                        $this->chexk_digit => $request->chexk_digit,
+                        $this->nacionality => $request->nacionality,
+                        $this->birthdate => $request->birthdate,
                     ]);
                     $user->save();
                     return response()->json([
@@ -146,7 +149,8 @@ class UserQuery implements IUserQuery
                 $rules = [
                     $this->name     => 'required|string|min:1|max:128',
                     $this->email    => 'required|string|max:128|email|', Rule::unique('users')->ignore($user->id),
-                    $this->phone    => 'numeric|digits_between:7,10|'
+                    $this->phone    => 'numeric|digits_between:7,10|',
+                    $this->rol_id   => 'required|numeric',
                 ];
                 $validator = Validator::make($request->all(), $rules);
                 if ($validator->fails()) {
@@ -156,12 +160,13 @@ class UserQuery implements IUserQuery
                 $user->lastname = $request->lastname ?? $user->lastname;
                 $user->phone    = $request->phone ?? $user->phone;
                 $user->email    = $request->email ?? $user->email;
-                $user->address = $request->address ?? $user->address; 
+                $user->address  = $request->address ?? $user->address;
+                $user->location = $request->location ?? $user->location;
                 $user->theme    = $request->theme ?? $user->theme;
                 $user->photo    = $request->photo ?? $user->photo;
-                $user->chexk_digit = $request->chexk_digit ?? $user->chexk_digit; 
-                $user->nacionality = $request->nacionality ?? $user->nacionality; 
-                $user->birthdate = $request->birthdate ?? $user->birthdate; 
+                $user->chexk_digit = $request->chexk_digit ?? $user->chexk_digit;
+                $user->nacionality = $request->nacionality ?? $user->nacionality;
+                $user->birthdate = $request->birthdate ?? $user->birthdate;
                 $user->save();
                 return response()->json([
                     'data' => [
@@ -194,6 +199,7 @@ class UserQuery implements IUserQuery
                 $user->phone        = $request->phone ?? $user->phone;
                 $user->email        = $request->email ?? $user->email;
                 $user->address      = $request->address ?? $user->address;
+                $user->location     = $request->location ?? $user->location;
                 $user->password     = $request->password ? bcrypt($request->password) : $user->password;
                 $user->theme        = $request->theme ?? $user->theme;
                 $user->chexk_digit  = $request->chexk_digit ?? $user->chexk_digit;
@@ -239,11 +245,11 @@ class UserQuery implements IUserQuery
             $role = Rol::findOrFail($id);
             if ($role) {
                 $users = User::query()
-                ->select(['id', 'name', 'lastname', 'phone', 'email','address', 'photo', 'theme','chexk_digit', 'nacionality','birthdate', 'rol_id'])
-                ->where('rol_id', '!=', 1)
-                ->where('rol_id', '=', $id)
-                ->with(['rol:id,name,description,active'])
-                ->get();
+                    ->select(['id', 'name', 'lastname', 'phone', 'email', 'address', 'photo', 'theme', 'chexk_digit', 'nacionality', 'birthdate', 'rol_id'])
+                    ->where('rol_id', '!=', 1)
+                    ->where('rol_id', '=', $id)
+                    ->with(['rol:id,name,description,active'])
+                    ->get();
                 return response()->json([
                     'data' => [
                         'users' => $users,
@@ -281,18 +287,18 @@ class UserQuery implements IUserQuery
 
     public function showRolById(Request $request, int $id)
     {
-        
+
         if ($id) {
             try {
                 //Devuelve el ROL_ID relacionado a un USER
-                $consulta_id = User::query()->where('id',$id)->select('rol_id');
+                $consulta_id = User::query()->where('id', $id)->select('rol_id');
                 $rol_id = (int)$consulta_id;
-                
+
                 //Comprobar existencia
                 $existencia = Rol::where('rol_id', '=', $rol_id)->firstOrFail();
 
                 //Consulto el rol
-                $rol = Rol::query()->where('id',$rol_id);
+                $rol = Rol::query()->where('id', $rol_id);
 
                 return response()->json([
                     'data' => [
@@ -306,6 +312,5 @@ class UserQuery implements IUserQuery
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
         }
-        
     }
 }
