@@ -20,7 +20,7 @@ class CreateProjectsTable extends Migration
             $table->date('date_init')->nullable()->default(null);
             $table->date('date_closed')->nullable()->default(null);
             $table->string('address', 512)->nullable();
-            $table->string('location', 128)->nullable()->default('{}');
+            $table->string('location', 128)->nullable()->default(null);
             $table->string('quotation', 512)->nullable();
             $table->string('goal', 1024)->nullable();
             $table->string('photo')->nullable();

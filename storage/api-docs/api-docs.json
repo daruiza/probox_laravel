@@ -2590,6 +2590,12 @@
                         "type": "string",
                         "example": "Avenu15#45-78"
                     },
+                    "location": {
+                        "title": "location",
+                        "description": "Location of the Project",
+                        "type": "string",
+                        "example": "{lat:6.270445068984649, lng:-75.60970060629407}"
+                    },
                     "quotation": {
                         "title": "quotation",
                         "description": "quotation of the Project",

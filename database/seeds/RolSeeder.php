@@ -14,22 +14,29 @@ class RolSeeder extends Seeder
     {
         DB::table('rols')->insert(
             array(
-                'name' => 'superadmin',
-                'description' => 'Super-Administrador',
+                'name' => 'super',
+                'description' => 'super',
             )
         );
 
         DB::table('rols')->insert(
             array(
-                'name' => 'cliente',
-                'description' => 'Cliente',
+                'name' => 'admin',
+                'description' => 'admin',
             )
         );
 
         DB::table('rols')->insert(
             array(
-                'name' => 'agent',
-                'description' => 'Agente',
+                'name' => 'customer',
+                'description' => 'customer',
+            )
+        );
+
+        DB::table('rols')->insert(
+            array(
+                'name' => 'colaborator',
+                'description' => 'colaborator',
             )
         );
     }
