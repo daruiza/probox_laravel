@@ -2,6 +2,7 @@
 
 namespace App\Model\Core;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -28,6 +29,13 @@ class Project extends Model
     public function tasks()
     {
         return $this->hasMany(Task::class);
+    }
+
+    //varios Customers le Pertenece a varios projects
+    public function customers()
+    {
+        // return $this->belongsToMany(Customer::class);
+        return $this->belongsToMany(User::class, 'customers');
     }
 
     public function scopeActive($query, $active)

@@ -58,7 +58,7 @@ class Task
      * @OA\Property(
      *      title="focus",
      *      description="Focus of the Task",
-     *      example="Focus Task"
+     *      example=false
      * )
      *
      * @var boolean
@@ -69,7 +69,7 @@ class Task
      * @OA\Property(
      *      title="id_task",
      *      description="Id_task of the Task",
-     *      example="Id_task Task"
+     *      example=1
      * )
      *
      * @var numeric
@@ -80,7 +80,7 @@ class Task
      * @OA\Property(
      *      title="project_id",
      *      description="Project_id of the Task",
-     *      example="Project_id Task"
+     *      example=1
      * )
      *
      * @var numeric

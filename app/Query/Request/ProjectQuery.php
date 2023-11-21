@@ -48,9 +48,12 @@ class ProjectQuery implements IProjectQuery
                     'description',
                     'focus',
                     'active'
-                ])->get();
+                ])
+                ->with(['customers'])
+                ->name($request->name)
+                ->paginate($request->limit ?? 12, ['*'], '', $request->page ?? 1);
 
-            return response()->json(['message' => $project]);
+            return response()->json(['projects' => $project]);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
         }
@@ -62,7 +65,7 @@ class ProjectQuery implements IProjectQuery
         //Rules: Especificaciones a validar
         $rules = [
             $this->name    => 'required|string|min:1|max:128|',
-            $this->price    => 'number',
+            $this->price    => 'numeric',
             $this->date_init    => 'date',
             $this->date_closed    => 'date',
             $this->address    => 'string|min:1|max:512|',
@@ -78,7 +81,7 @@ class ProjectQuery implements IProjectQuery
                 throw (new ValidationException($validator->errors()->getMessages()));
             }
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
+            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e->getMessage()], 403);
         }
 
         try {
@@ -161,7 +164,7 @@ class ProjectQuery implements IProjectQuery
             //Rules: Especificaciones a validar
             $rules = [
                 $this->name    => 'required|string|min:1|max:128|',
-                $this->price    => 'number',
+                $this->price    => 'numeric',
                 $this->date_init    => 'date',
                 $this->date_closed    => 'date',
                 $this->address    => 'string|min:1|max:512|',
@@ -177,7 +180,7 @@ class ProjectQuery implements IProjectQuery
                     throw (new ValidationException($validator->errors()->getMessages()));
                 }
             } catch (\Exception $e) {
-                return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
+                return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e->getMessage()], 403);
             }
 
             try {

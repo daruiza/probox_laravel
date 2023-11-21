@@ -58,7 +58,7 @@ class Evidence
      * @OA\Property(
      *      title="approved",
      *      description="Approved of the Evidence",
-     *      example="Approved Evidence"
+     *      example=false
      * )
      *
      * @var boolean
@@ -69,7 +69,7 @@ class Evidence
      * @OA\Property(
      *      title="focus",
      *      description="Focus of the Evidence",
-     *      example="Focus Evidence"
+     *      example=false
      * )
      *
      * @var boolean
@@ -80,7 +80,7 @@ class Evidence
      * @OA\Property(
      *      title="task_id",
      *      description="Task_id of the Evidence",
-     *      example="Task_id Evidence"
+     *      example=1
      * )
      *
      * @var numeric
