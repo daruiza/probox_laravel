@@ -16,8 +16,8 @@ class ProjectSeeder extends Seeder
         DB::table('projects')->insert(array(
             'name' => 'Projects CO',
             'price' => '10000',
-            'date_init' => '2000-01-01',
-            'date_closed' => '2002-01-01',
+            'date_init' => '1998-02-05',
+            'date_closed' => '1999-10-12',
             'address' => 'Cll3#2145',
             'quotation' => 'quotation CO',
             'goal' => 'goal CO',
@@ -72,7 +72,7 @@ class ProjectSeeder extends Seeder
         DB::table('projects')->insert(array(
             'name' => 'Projects CO2',
             'price' => '10000',
-            'date_init' => '2000-01-01',
+            'date_init' => '2001-11-01',
             'date_closed' => '2002-01-01',
             'address' => 'Cll3#2145',
             'quotation' => 'quotation CO',
@@ -128,8 +128,8 @@ class ProjectSeeder extends Seeder
         DB::table('projects')->insert(array(
             'name' => 'Projects CO3',
             'price' => '10000',
-            'date_init' => '2000-01-01',
-            'date_closed' => '2002-01-01',
+            'date_init' => '2021-05-25',
+            'date_closed' => '2021-10-01',
             'address' => 'Cll3#2145',
             'quotation' => 'quotation CO',
             'goal' => 'goal CO',
@@ -212,8 +212,8 @@ class ProjectSeeder extends Seeder
         DB::table('projects')->insert(array(
             'name' => 'Projects ES4',
             'price' => '80000',
-            'date_init' => '2005-01-01',
-            'date_closed' => '2006-01-01',
+            'date_init' => '2022-04-01',
+            'date_closed' => '2024-10-05',
             'address' => 'address ES',
             'quotation' => 'quotation ES',
             'goal' => 'goal ES',

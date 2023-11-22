@@ -2,6 +2,8 @@
 
 namespace App\Model\Core;
 
+use Carbon\Carbon;
+
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -31,11 +33,11 @@ class Project extends Model
         return $this->hasMany(Task::class);
     }
 
-    //varios Customers le Pertenece a varios projects
+    //Un Proyecto le pertenece a varios Customes
     public function customers()
     {
         // return $this->belongsToMany(Customer::class);
-        return $this->belongsToMany(User::class, 'customers');
+        return $this->belongsToMany(User::class, 'customers', 'project_id', 'user_id');
     }
 
     public function scopeActive($query, $active)
@@ -50,6 +52,11 @@ class Project extends Model
         return is_null($name) ?  $query : $query->where('name', 'LIKE', '%' . $name . '%');
     }
 
+    public function scopeAddress($query, $address)
+    {
+        return is_null($address) ?  $query : $query->where('address', 'LIKE', '%' . $address . '%');
+    }
+
     public function scopePrice($query, $price)
     {
         return is_null($price) ?  $query : $query->where('price', $price);
@@ -57,18 +64,21 @@ class Project extends Model
 
     public function scopeDate_init($query, $date_init)
     {
-        return is_null($date_init) ?  $query : $query->where('date_init', $date_init);
+        return is_null($date_init) ?  $query : $query->where('date_init', '>', Carbon::create($date_init)->toDateTimeString());
     }
 
     public function scopeDate_closed($query, $date_closed)
     {
-        return is_null($date_closed) ?  $query : $query->where('date_closed', $date_closed);
+        return is_null($date_closed) ?  $query : $query->where('date_closed', '>', $date_closed);
     }
 
-    public function scopeAddress($query, $address)
+    public function scopeDate_between($query, $date, $date_start, $date_end)
     {
-        return is_null($address) ?  $query : $query->where('address', 'LIKE', '%' . $address . '%');
-    }
+        return 
+            is_null($date) ||
+            is_null($date_start) ||
+            is_null($date_end) ?  $query : $query->whereBetween($date, [$date_start, $date_end]);
+    }   
 
     public function scopequotation($query, $quotation)
     {

@@ -52,6 +52,33 @@ class ProjectController extends Controller
      *              type="string"
      *          )
      *      ),
+     *      @OA\Parameter(
+     *          name="date_init",
+     *          description="Project Init Date",
+     *          required=false,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="date"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="date_close",
+     *          description="Project Close Date",
+     *          required=false,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="date"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="address",
+     *          description="Project Address",
+     *          required=false,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",

@@ -13,7 +13,7 @@ class Customer extends Model
         'is_owner',
         'user_id',
         'project_id',
-    ];
+    ];    
 
     public function scopeId($query, $id)
     {

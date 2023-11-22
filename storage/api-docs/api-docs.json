@@ -1528,6 +1528,24 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "date_init",
+                        "in": "query",
+                        "description": "Project Init Date",
+                        "required": false,
+                        "schema": {
+                            "type": "date"
+                        }
+                    },
+                    {
+                        "name": "date_close",
+                        "in": "query",
+                        "description": "Project Close Date",
+                        "required": false,
+                        "schema": {
+                            "type": "date"
+                        }
                     }
                 ],
                 "responses": {
