@@ -228,6 +228,7 @@ class UserQuery implements IUserQuery
             try {
                 $user = User::findOrFail($id);
                 $user->rol;
+                $user->projects_customer;
                 return response()->json([
                     'data' => [
                         'user' => $user,
