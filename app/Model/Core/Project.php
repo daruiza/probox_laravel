@@ -2,6 +2,9 @@
 
 namespace App\Model\Core;
 
+use Carbon\Carbon;
+
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -15,6 +18,7 @@ class Project extends Model
         'date_init',
         'date_closed',
         'address',
+        'location',
         'quotation',
         'goal',
         'photo',
@@ -29,6 +33,13 @@ class Project extends Model
         return $this->hasMany(Task::class);
     }
 
+    //Un Proyecto le pertenece a varios Customes
+    public function customers()
+    {
+        // return $this->belongsToMany(Customer::class);
+        return $this->belongsToMany(User::class, 'customers', 'project_id', 'user_id');
+    }
+
     public function scopeActive($query, $active)
     {
         return isset($active) ?
@@ -41,41 +52,44 @@ class Project extends Model
         return is_null($name) ?  $query : $query->where('name', 'LIKE', '%' . $name . '%');
     }
 
-    public function scopePrice($query, $price)
-    {
-        return is_null($price) ?  $query : $query->where('price', 'LIKE', '%' . $price . '%');
-    }
-
-    public function scopeDate_init($query, $date_init)
-    {
-        return is_null($date_init) ?  $query : $query->where('date_init', 'LIKE', '%' . $date_init . '%');
-    }
-
-    public function scopeDate_closed($query, $date_closed)
-    {
-        return is_null($date_closed) ?  $query : $query->where('date_closed', 'LIKE', '%' . $date_closed . '%');
-    }
-
-        public function scopeAddress($query, $address)
+    public function scopeAddress($query, $address)
     {
         return is_null($address) ?  $query : $query->where('address', 'LIKE', '%' . $address . '%');
     }
 
-        public function scopequotation($query, $quotation)
+    public function scopePrice($query, $price)
+    {
+        return is_null($price) ?  $query : $query->where('price', $price);
+    }
+
+    public function scopeDate_init($query, $date_init)
+    {
+        return is_null($date_init) ?  $query : $query->where('date_init', '>', Carbon::create($date_init)->toDateTimeString());
+    }
+
+    public function scopeDate_closed($query, $date_closed)
+    {
+        return is_null($date_closed) ?  $query : $query->where('date_closed', '>', $date_closed);
+    }
+
+    public function scopeDate_between($query, $date, $date_start, $date_end)
+    {
+        return 
+            is_null($date) ||
+            is_null($date_start) ||
+            is_null($date_end) ?  $query : $query->whereBetween($date, [$date_start, $date_end]);
+    }   
+
+    public function scopequotation($query, $quotation)
     {
         return is_null($quotation) ?  $query : $query->where('quotation', 'LIKE', '%' . $quotation . '%');
     }
 
-        public function scopeGoal($query, $goal)
+    public function scopeGoal($query, $goal)
     {
         return is_null($goal) ?  $query : $query->where('goal', 'LIKE', '%' . $goal . '%');
     }
 
-        public function scopePhoto($query, $photo)
-    {
-        return is_null($photo) ?  $query : $query->where('photo', 'LIKE', '%' . $photo . '%');
-    }
-    
     public function scopeDescription($query, $description)
     {
         return is_null($description) ?  $query : $query->where('description', 'LIKE', '%' . $description . '%');
@@ -83,7 +97,6 @@ class Project extends Model
 
     public function scopeFocus($query, $focus)
     {
-        return is_null($focus) ?  $query : $query->where('focus', 'LIKE', '%' . $focus . '%');
+        return is_null($focus) ?  $query : $query->where('focus', $focus);
     }
-    
 }

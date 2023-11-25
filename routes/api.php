@@ -110,6 +110,18 @@ Route::group(['prefix' => 'project'], function () {
     });
 });
 
+Route::group(['prefix' => 'customer'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('index', 'Api\CustomerController@index');
+        Route::post('store', 'Api\CustomerController@store');
+        Route::get('showbyid/{id}', 'Api\CustomerController@showById');
+        Route::put('update/{id}', 'Api\CustomerController@update');
+        Route::delete('destroy/{id}', 'Api\CustomerController@destroy');
+        Route::get('showbyuserid/{id}', 'Api\CustomerController@showByUserId');
+        Route::get('showbyprojectid/{id}', 'Api\CustomerController@showByProjectId');
+    });
+});
+
 Route::group(['prefix' => 'evidence'], function () {
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('index', 'Api\EvidenceController@index');

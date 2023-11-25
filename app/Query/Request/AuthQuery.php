@@ -64,6 +64,7 @@ class AuthQuery implements IAuthQuery
                 ])
                 ->where('id', '=', $request->user()->id)
                 ->with(['rol:id,name,description,active'])
+                ->with(['projects_customer'])
                 ->first();
             return response()->json([
                 'data' => [

@@ -3,7 +3,7 @@
 namespace App;
 
 use App\Model\Core\Rol;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Model\Core\Project;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
@@ -82,5 +82,12 @@ class User extends Authenticatable
     public function rol()
     {
         return $this->belongsTo(Rol::class);
+    }
+
+    //Un Proyecto le pertenece a varios Customes
+    public function projects_customer()
+    {
+        // return $this->belongsToMany(Customer::class);
+        return $this->belongsToMany(Project::class, 'customers', 'user_id', 'project_id');
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Query\Request;
 
+use Carbon\Carbon;
+
 use Illuminate\Support\Facades\DB;
 use App\Model\Core\Project;
 
@@ -21,6 +23,7 @@ class ProjectQuery implements IProjectQuery
     private $date_init  = 'date_init';
     private $date_closed  = 'date_closed';
     private $address  = 'address';
+    private $location  = 'location';
     private $quotation  = 'quotation';
     private $goal  = 'goal';
     private $photo  = 'photo';
@@ -32,23 +35,56 @@ class ProjectQuery implements IProjectQuery
     public function index(Request $request)
     {
         try {
+            $rules = [
+                $this->name    => 'string|min:1|max:128|',
+                $this->address    => 'string|min:1|max:1024|',
+                $this->date_init    => 'date',
+                $this->date_closed    => 'date',
+            ];
+            // Ejecutamos el validador y en caso de que falle devolvemos la respuesta
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                throw (new ValidationException($validator->errors()->getMessages()));
+            }
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e->getMessage()], 403);
+        }
+
+        // return response()->json([
+        //     'request' => $request->input(),
+        //     // 'date_init'=> Carbon::create($request->date_init)->format('Y-m-d'),
+        //     'date_init'=> Carbon::create($request->date_init)->toDateTimeString(),
+        //     'now'=> Carbon::now()->toDateTimeString()
+        // ]);
+
+        try {
+
             //Devuelve todos los PROJECTS existentes
             $project = Project::query()
-                ->select(['id',
+                ->select([
+                    'id',
                     'name',
                     'price',
                     'date_init',
                     'date_closed',
                     'address',
+                    'location',
                     'quotation',
                     'goal',
                     'photo',
                     'description',
                     'focus',
                     'active'
-                ])->get();
+                ])
+                ->with(['customers'])
+                ->name($request->name)
+                ->adress($request->adress)
+                ->date_init($request->date_init)
+                ->date_closed($request->date_closed)
+                // ->date_between('date_init', Carbon::create($request->date_init)->toDateTimeString(), Carbon::now()->toDateTimeString())
+                ->paginate($request->limit ?? 12, ['*'], '', $request->page ?? 1);
 
-            return response()->json(['message' => $project]);
+            return response()->json(['projects' => $project]);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
         }
@@ -60,7 +96,7 @@ class ProjectQuery implements IProjectQuery
         //Rules: Especificaciones a validar
         $rules = [
             $this->name    => 'required|string|min:1|max:128|',
-            // $this->price    => 'required',
+            $this->price    => 'numeric',
             $this->date_init    => 'date',
             $this->date_closed    => 'date',
             $this->address    => 'string|min:1|max:512|',
@@ -68,7 +104,6 @@ class ProjectQuery implements IProjectQuery
             $this->goal    => 'string|min:1|max:1024|',
             $this->photo    => 'string',
             $this->description   => 'string|min:1|max:1024|',
-            // $this->focus   => 'required',
         ];
         try {
             // Ejecutamos el validador y en caso de que falle devolvemos la respuesta
@@ -77,7 +112,7 @@ class ProjectQuery implements IProjectQuery
                 throw (new ValidationException($validator->errors()->getMessages()));
             }
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
+            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e->getMessage()], 403);
         }
 
         try {
@@ -88,6 +123,7 @@ class ProjectQuery implements IProjectQuery
                 $this->date_init => $request->date_init,
                 $this->date_closed => $request->date_closed,
                 $this->address => $request->address,
+                $this->location => $request->location,
                 $this->quotation => $request->quotation,
                 $this->goal => $request->goal,
                 $this->photo => $request->photo,
@@ -120,12 +156,14 @@ class ProjectQuery implements IProjectQuery
                 if ($pj) {
                     //Select a la BD: TB_projects
                     $project = DB::table('projects')
-                        ->select(['id',
+                        ->select([
+                            'id',
                             'name',
                             'price',
                             'date_init',
                             'date_closed',
                             'address',
+                            'location',
                             'quotation',
                             'goal',
                             'photo',
@@ -158,15 +196,14 @@ class ProjectQuery implements IProjectQuery
             //Rules: Especificaciones a validar
             $rules = [
                 $this->name    => 'required|string|min:1|max:128|',
-                $this->price    => 'required',
-                $this->date_init    => 'required',
-                $this->date_closed    => 'required',
-                $this->address    => 'required|string|min:1|max:128|',
-                $this->quotation    => 'required|string|min:1|max:128|',
-                $this->goal    => 'required|string|min:1|max:128|',
-                $this->photo    => 'required|string|min:1|max:128|',
-                $this->description   => 'required|string|min:1|max:128|',
-                $this->focus   => 'required|string|min:1|max:128|',
+                $this->price    => 'numeric',
+                $this->date_init    => 'date',
+                $this->date_closed    => 'date',
+                $this->address    => 'string|min:1|max:512|',
+                $this->quotation    => 'string|min:1|max:512|',
+                $this->goal    => 'string|min:1|max:1024|',
+                $this->photo    => 'string',
+                $this->description   => 'string|min:1|max:1024|',
             ];
             try {
                 // Ejecutamos el validador y en caso de que falle devolvemos la respuesta
@@ -175,7 +212,7 @@ class ProjectQuery implements IProjectQuery
                     throw (new ValidationException($validator->errors()->getMessages()));
                 }
             } catch (\Exception $e) {
-                return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
+                return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e->getMessage()], 403);
             }
 
             try {
@@ -187,6 +224,7 @@ class ProjectQuery implements IProjectQuery
                 $project->date_init = $request->date_init ?? $project->date_init;
                 $project->date_closed = $request->date_closed ?? $project->date_closed;
                 $project->address = $request->address ?? $project->address;
+                $project->location = $request->location ?? $project->location;
                 $project->quotation = $request->quotation ?? $project->quotation;
                 $project->goal = $request->goal ?? $project->goal;
                 $project->photo = $request->photo ?? $project->photo;
