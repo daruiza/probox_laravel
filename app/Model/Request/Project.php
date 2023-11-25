@@ -65,6 +65,17 @@ class Project
      */
     public $address;
 
+     /**
+     * @OA\Property(
+     *      title="location",
+     *      description="Location of the Project",
+     *      example="{lat:6.270445068984649, lng:-75.60970060629407}"
+     * )
+     *
+     * @var string
+     */
+    public $location;
+
     /**
      * @OA\Property(
      *      title="quotation",

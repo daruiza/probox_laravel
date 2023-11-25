@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersProjectsColaboratorTable extends Migration
+class CreateCustomersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateUsersProjectsColaboratorTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_project_colaborator', function (Blueprint $table) {
+        Schema::create('customers', function (Blueprint $table) {
             $table->id('id');
-            $table->string('activity_rol', 32)->nullable();
-            $table->date('date_start')->nullable()->default(null);
-            $table->date('date_departure')->nullable()->default(null);
-            $table->string('recommended', 64)->nullable();
-            $table->string('boss_name', 64)->nullable();
+            $table->boolean('is_owner')->default(false);
             $table->timestamps();
 
             $table->unsignedBigInteger('user_id')->nullable();
@@ -39,6 +35,6 @@ class CreateUsersProjectsColaboratorTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_project_colaborator');
+        Schema::dropIfExists('customers');
     }
 }

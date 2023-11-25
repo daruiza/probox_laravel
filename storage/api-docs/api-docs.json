@@ -99,6 +99,263 @@
                 ]
             }
         },
+        "/customer/index": {
+            "get": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Get All Customers",
+                "description": "Return Customers",
+                "operationId": "getCustomer",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/customer/store": {
+            "post": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Store Customer",
+                "description": "Store Customer",
+                "operationId": "storeCustomer",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Customer"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/customer/update/{id}": {
+            "put": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Update One Customer By one Id",
+                "description": "Update One Customer",
+                "operationId": "getUpdateCustomerById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Customer Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Customer"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/customer/destroy/{id}": {
+            "delete": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Delete One Customer By one Id",
+                "description": "Delete One Customer",
+                "operationId": "getDestroyCustomerById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Customer Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/customer/showbyid/{id}": {
+            "get": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Get One Customer By one Id",
+                "description": "Return One Customer",
+                "operationId": "getCustomerById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Customer Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/customer/showbyuserid/{id}": {
+            "get": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Get One Customer By one User Id",
+                "description": "Return One Customer",
+                "operationId": "getCustomerByUserId",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Customer Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/customer/showbyprojectid/{id}": {
+            "get": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Get One Customer By one Project Id",
+                "description": "Return One Customer",
+                "operationId": "getCustomerByProjectId",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Customer Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/evidence/index": {
             "get": {
                 "tags": [
@@ -1244,6 +1501,53 @@
                 "summary": "Get All Project",
                 "description": "Return Project",
                 "operationId": "getProject",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Paginator Limit",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Pagiantor Page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Project Name",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "date_init",
+                        "in": "query",
+                        "description": "Project Init Date",
+                        "required": false,
+                        "schema": {
+                            "type": "date"
+                        }
+                    },
+                    {
+                        "name": "date_close",
+                        "in": "query",
+                        "description": "Project Close Date",
+                        "required": false,
+                        "schema": {
+                            "type": "date"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation"
@@ -2386,6 +2690,29 @@
     },
     "components": {
         "schemas": {
+            "Customer": {
+                "title": "Customer",
+                "description": "Customer body data",
+                "properties": {
+                    "is_owner": {
+                        "title": "is owner",
+                        "description": "is owner of the Customer",
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "user_id": {
+                        "title": "user_id",
+                        "description": "User Customer on the Proyect",
+                        "example": 1
+                    },
+                    "project_id": {
+                        "title": "project_id",
+                        "description": "Proyect of the Customer",
+                        "example": 1
+                    }
+                },
+                "type": "object"
+            },
             "Evidence": {
                 "title": "Evidence",
                 "description": "Evidence body data",
@@ -2418,18 +2745,18 @@
                         "title": "approved",
                         "description": "Approved of the Evidence",
                         "type": "boolean",
-                        "example": "Approved Evidence"
+                        "example": false
                     },
                     "focus": {
                         "title": "focus",
                         "description": "Focus of the Evidence",
                         "type": "boolean",
-                        "example": "Focus Evidence"
+                        "example": false
                     },
                     "task_id": {
                         "title": "task_id",
                         "description": "Task_id of the Evidence",
-                        "example": "Task_id Evidence"
+                        "example": 1
                     }
                 },
                 "type": "object"
@@ -2590,6 +2917,12 @@
                         "type": "string",
                         "example": "Avenu15#45-78"
                     },
+                    "location": {
+                        "title": "location",
+                        "description": "Location of the Project",
+                        "type": "string",
+                        "example": "{lat:6.270445068984649, lng:-75.60970060629407}"
+                    },
                     "quotation": {
                         "title": "quotation",
                         "description": "quotation of the Project",
@@ -2625,6 +2958,19 @@
                         "description": "Active of the Project",
                         "type": "boolean",
                         "example": false
+                    }
+                },
+                "type": "object"
+            },
+            "ProjectIndex": {
+                "title": "ProjectIndex",
+                "description": "ProjectIndex body data",
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Name of the Project",
+                        "type": "string",
+                        "example": "Name Project"
                     }
                 },
                 "type": "object"
@@ -2688,17 +3034,17 @@
                         "title": "focus",
                         "description": "Focus of the Task",
                         "type": "boolean",
-                        "example": "Focus Task"
+                        "example": false
                     },
                     "id_task": {
                         "title": "id_task",
                         "description": "Id_task of the Task",
-                        "example": "Id_task Task"
+                        "example": 1
                     },
                     "project_id": {
                         "title": "project_id",
                         "description": "Project_id of the Task",
-                        "example": "Project_id Task"
+                        "example": 1
                     }
                 },
                 "type": "object"
