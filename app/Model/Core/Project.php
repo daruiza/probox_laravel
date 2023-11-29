@@ -21,6 +21,7 @@ class Project extends Model
         'location',
         'quotation',
         'goal',
+        'logo',
         'photo',
         'description',
         'focus',

@@ -23,6 +23,7 @@ class CreateProjectsTable extends Migration
             $table->string('location', 128)->nullable()->default(null);
             $table->string('quotation', 512)->nullable();
             $table->string('goal', 1024)->nullable();
+            $table->string('logo')->nullable();
             $table->string('photo')->nullable();
             $table->string('description',1024)->nullable();
             $table->boolean('focus')->default(false);
