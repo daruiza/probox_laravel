@@ -43,6 +43,26 @@ class TagSeeder extends Seeder
             'name' => 'important',
         ));
 
+        DB::table('tags')->insert(array(
+            'category' => 'labour',
+            'name' => 'floor',
+        ));
+
+        DB::table('tags')->insert(array(
+            'category' => 'labour',
+            'name' => 'wall',
+        ));
+
+        DB::table('tags')->insert(array(
+            'category' => 'labour',
+            'name' => 'roof',
+        ));
+
+        DB::table('tags')->insert(array(
+            'category' => 'labour',
+            'name' => 'wood',
+        ));
+
     }
 
 }

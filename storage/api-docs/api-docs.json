@@ -1546,6 +1546,15 @@
                         "schema": {
                             "type": "date"
                         }
+                    },
+                    {
+                        "name": "address",
+                        "in": "query",
+                        "description": "Project Address",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -2934,6 +2943,12 @@
                         "description": "Goal of the Project",
                         "type": "string",
                         "example": "Goal Project"
+                    },
+                    "logo": {
+                        "title": "logo",
+                        "description": "logo of the Company Project",
+                        "type": "string",
+                        "example": "logo Project"
                     },
                     "photo": {
                         "title": "photo",

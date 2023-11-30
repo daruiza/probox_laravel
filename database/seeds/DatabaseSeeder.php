@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ProjectSeeder::class);
         $this->call(CustomerSeeder::class);        
         $this->call(TaskSeeder::class);
+        $this->call(TagSeeder::class);
+        $this->call(ProjectTagSeeder::class);        
         $this->call(EvidenceSeeder::class);
     }
 }

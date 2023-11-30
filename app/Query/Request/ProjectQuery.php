@@ -79,8 +79,9 @@ class ProjectQuery implements IProjectQuery
                     'active'
                 ])
                 ->with(['customers'])
+                ->with(['tags'])
                 ->name($request->name)
-                ->adress($request->adress)
+                ->address($request->address)
                 ->date_init($request->date_init)
                 ->date_closed($request->date_closed)
                 // ->date_between('date_init', Carbon::create($request->date_init)->toDateTimeString(), Carbon::now()->toDateTimeString())
