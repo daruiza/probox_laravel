@@ -8,21 +8,21 @@ use App\Query\Abstraction\IColaboratorQuery;
 
 class ColaboratorController extends Controller
 {
-    private $ColabroatorQuery;
+    private $ColaboratorQuery;
 
     public function __construct(IColaboratorQuery $ColaboratorQuery)
     {
-        $this->ColabroatorQuery = $ColaboratorQuery;
+        $this->ColaboratorQuery = $ColaboratorQuery;
     }
 
     /**
-     * Listado de todos los Customers
+     * Listado de todos los Colaborators
      * @OA\Get(
-     *      path="/customer/index",
+     *      path="/colaborator/index",
      *      operationId="getCustomer",
-     *      tags={"Customer"},
-     *      summary="Get All Customers",
-     *      description="Return Customers",
+     *      tags={"Colaborator"},
+     *      summary="Get All Colaborators",
+     *      description="Return Colaborators",
      *      security={ {"bearer": {} }},
      *      @OA\Response(
      *          response=200,
@@ -40,20 +40,20 @@ class ColaboratorController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->ColabroatorQuery->index($request);
+        return $this->ColaboratorQuery->index($request);
     }
 
     /**
      * @OA\Post(
-     *      path="/customer/store",
-     *      operationId="storeCustomer",
-     *      tags={"Customer"},
-     *      summary="Store Customer",
-     *      description="Store Customer",
+     *      path="/colaborator/store",
+     *      operationId="storeColaborator",
+     *      tags={"Colaborator"},
+     *      summary="Store Colaborator",
+     *      description="Store Colaborator",
      *      security={ {"bearer": {} }},
      *      @OA\RequestBody(
      *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/Customer")
+     *          @OA\JsonContent(ref="#/components/schemas/Colaborator")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -71,21 +71,21 @@ class ColaboratorController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->ColabroatorQuery->store($request);
+        return $this->ColaboratorQuery->store($request);
     }
 
 
     /**
      * @OA\Put(
-     *      path="/customer/update/{id}",
-     *      operationId="getUpdateCustomerById",
-     *      tags={"Customer"},
-     *      summary="Update One Customer By one Id",
-     *      description="Update One Customer",
+     *      path="/colaborator/update/{id}",
+     *      operationId="getUpdateColaboratorById",
+     *      tags={"Colaborator"},
+     *      summary="Update One Colaborator By one Id",
+     *      description="Update One Colaborator",
      *      security={ {"bearer": {} }},
      *      @OA\Parameter(
      *          name="id",
-     *          description="Customer Id",
+     *          description="Colaborator Id",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -94,7 +94,7 @@ class ColaboratorController extends Controller
      *      ),
      *       @OA\RequestBody(
      *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/Customer")
+     *          @OA\JsonContent(ref="#/components/schemas/Colaborator")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -112,20 +112,20 @@ class ColaboratorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $this->ColabroatorQuery->update($request, $id);
+        return $this->ColaboratorQuery->update($request, $id);
     }
 
     /**
      * @OA\Delete(
-     *      path="/customer/destroy/{id}",
-     *      operationId="getDestroyCustomerById",
-     *      tags={"Customer"},
-     *      summary="Delete One Customer By one Id",
-     *      description="Delete One Customer",
+     *      path="/colaborator/destroy/{id}",
+     *      operationId="getDestroyColaboratorById",
+     *      tags={"Colaborator"},
+     *      summary="Delete One Colaborator By one Id",
+     *      description="Delete One Colaborator",
      *      security={ {"bearer": {} }},
      *      @OA\Parameter(
      *          name="id",
-     *          description="Customer Id",
+     *          description="Colaborator Id",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -148,20 +148,20 @@ class ColaboratorController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        return $this->ColabroatorQuery->destroy($request, $id);
+        return $this->ColaboratorQuery->destroy($request, $id);
     }
 
-     /**
+    /**
      * @OA\Get(
-     *      path="/customer/showbyid/{id}",
-     *      operationId="getCustomerById",
-     *      tags={"Customer"},
-     *      summary="Get One Customer By one Id",
-     *      description="Return One Customer",
+     *      path="/colaborator/showbyid/{id}",
+     *      operationId="getColaboratorById",
+     *      tags={"Colaborator"},
+     *      summary="Get One Colaborator By one Id",
+     *      description="Return One Colaborator",
      *      security={ {"bearer": {} }},
      *      @OA\Parameter(
      *          name="id",
-     *          description="Customer Id",
+     *          description="Colaborator Id",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -184,20 +184,20 @@ class ColaboratorController extends Controller
      */
     public function showById(Request $request, $id)
     {
-        return $this->ColabroatorQuery->showById($request, $id);
+        return $this->ColaboratorQuery->showById($request, $id);
     }
 
-     /**
+    /**
      * @OA\Get(
-     *      path="/customer/showbyuserid/{id}",
-     *      operationId="getCustomerByUserId",
-     *      tags={"Customer"},
-     *      summary="Get One Customer By one User Id",
-     *      description="Return One Customer",
+     *      path="/colaborator/showbyuserid/{id}",
+     *      operationId="getColaboratorByUserId",
+     *      tags={"Colaborator"},
+     *      summary="Get One Colaborator By one User Id",
+     *      description="Return One Colaborator",
      *      security={ {"bearer": {} }},
      *      @OA\Parameter(
      *          name="id",
-     *          description="Customer Id",
+     *          description="Colaborator Id",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -220,20 +220,20 @@ class ColaboratorController extends Controller
      */
     public function showByUserId(Request $request, $id)
     {
-        return $this->ColabroatorQuery->showByUserId($request, $id);
+        return $this->ColaboratorQuery->showByUserId($request, $id);
     }
 
-     /**
+    /**
      * @OA\Get(
-     *      path="/customer/showbyprojectid/{id}",
-     *      operationId="getCustomerByProjectId",
-     *      tags={"Customer"},
-     *      summary="Get One Customer By one Project Id",
-     *      description="Return One Customer",
+     *      path="/colaborator/showbyprojectid/{id}",
+     *      operationId="getColaboratorByProjectId",
+     *      tags={"Colaborator"},
+     *      summary="Get One Colaborator By one Project Id",
+     *      description="Return One Colaborator",
      *      security={ {"bearer": {} }},
      *      @OA\Parameter(
      *          name="id",
-     *          description="Customer Id",
+     *          description="Colaborator Id",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -256,6 +256,6 @@ class ColaboratorController extends Controller
      */
     public function showByProjectId(Request $request, $id)
     {
-        return $this->ColabroatorQuery->showByProjectId($request, $id);
+        return $this->ColaboratorQuery->showByProjectId($request, $id);
     }
 }

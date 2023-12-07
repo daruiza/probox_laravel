@@ -13,18 +13,18 @@ class Colaborator
      * @OA\Property(
      *      title="activity rol",
      *      description="activity rol of the Colaborator",
-     *      example='workman'
+     *      example="workman"
      * )
      *
      * @var string
      */
     public $activity_rol;
 
-    /**
+     /**
      * @OA\Property(
      *      title="date_start",
      *      description="date_start of the Colaborator",
-     *      example='2020-07-01'
+     *      example="2020-07-01"
      * )
      *
      * @var date
@@ -35,7 +35,7 @@ class Colaborator
      * @OA\Property(
      *      title="date_departure",
      *      description="date_departure of the Colaborator",
-     *      example='2021-07-01'
+     *      example="2021-07-01"
      * )
      *
      * @var date
@@ -46,7 +46,7 @@ class Colaborator
      * @OA\Property(
      *      title="recommended",
      *      description="recommended of the Colaborator",
-     *      example='Recoemndación'
+     *      example="Recoemndación"
      * )
      *
      * @var string
@@ -57,7 +57,7 @@ class Colaborator
      * @OA\Property(
      *      title="boss_name",
      *      description="boss_name of the Colaborator",
-     *      example='Pedro'
+     *      example="Pedro"
      * )
      *
      * @var string
@@ -85,6 +85,4 @@ class Colaborator
      * @var numeric
      */
     public $project_id;
-
-
 }

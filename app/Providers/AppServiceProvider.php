@@ -45,6 +45,10 @@ use App\Http\Controllers\Api\CustomerController;
 use App\Query\Abstraction\ICustomerQuery;
 use App\Query\Request\CustomerQuery;
 
+use App\Http\Controllers\Api\ColaboratorController;
+use App\Query\Abstraction\IColaboratorQuery;
+use App\Query\Request\ColaboratorQuery;
+
 use App\Http\Controllers\Api\EvidenceController;
 use App\Query\Abstraction\IEvidenceQuery;
 use App\Query\Request\EvidenceQuery;
@@ -91,6 +95,9 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(ICustomerQuery::class, CustomerQuery::class);
         $this->app->make(CustomerController::class);
+
+        $this->app->bind(IColaboratorQuery::class, ColaboratorQuery::class);
+        $this->app->make(ColaboratorController::class);
 
         $this->app->bind(IEvidenceQuery::class, EvidenceQuery::class);
         $this->app->make(EvidenceController::class);
