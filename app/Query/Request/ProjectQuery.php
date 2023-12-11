@@ -26,6 +26,7 @@ class ProjectQuery implements IProjectQuery
     private $location  = 'location';
     private $quotation  = 'quotation';
     private $goal  = 'goal';
+    private $logo  = 'logo';
     private $photo  = 'photo';
     private $description = 'description';
     private $focus = 'focus';
@@ -71,14 +72,17 @@ class ProjectQuery implements IProjectQuery
                     'location',
                     'quotation',
                     'goal',
+                    'logo',
                     'photo',
                     'description',
                     'focus',
                     'active'
                 ])
                 ->with(['customers'])
+                ->with(['colaborators'])
+                ->with(['tags'])
                 ->name($request->name)
-                ->adress($request->adress)
+                ->address($request->address)
                 ->date_init($request->date_init)
                 ->date_closed($request->date_closed)
                 // ->date_between('date_init', Carbon::create($request->date_init)->toDateTimeString(), Carbon::now()->toDateTimeString())
@@ -102,6 +106,7 @@ class ProjectQuery implements IProjectQuery
             $this->address    => 'string|min:1|max:512|',
             $this->quotation    => 'string|min:1|max:512|',
             $this->goal    => 'string|min:1|max:1024|',
+            $this->logo    => 'string',
             $this->photo    => 'string',
             $this->description   => 'string|min:1|max:1024|',
         ];
@@ -126,6 +131,7 @@ class ProjectQuery implements IProjectQuery
                 $this->location => $request->location,
                 $this->quotation => $request->quotation,
                 $this->goal => $request->goal,
+                $this->logo => $request->logo,
                 $this->photo => $request->photo,
                 $this->description => $request->description,
                 $this->focus => $request->focus,
@@ -166,6 +172,7 @@ class ProjectQuery implements IProjectQuery
                             'location',
                             'quotation',
                             'goal',
+                            'logo',
                             'photo',
                             'description',
                             'focus',
@@ -202,6 +209,7 @@ class ProjectQuery implements IProjectQuery
                 $this->address    => 'string|min:1|max:512|',
                 $this->quotation    => 'string|min:1|max:512|',
                 $this->goal    => 'string|min:1|max:1024|',
+                $this->logo    => 'string',
                 $this->photo    => 'string',
                 $this->description   => 'string|min:1|max:1024|',
             ];
@@ -227,6 +235,7 @@ class ProjectQuery implements IProjectQuery
                 $project->location = $request->location ?? $project->location;
                 $project->quotation = $request->quotation ?? $project->quotation;
                 $project->goal = $request->goal ?? $project->goal;
+                $project->logo = $request->logo ?? $project->logo;
                 $project->photo = $request->photo ?? $project->photo;
                 $project->description = $request->description ?? $project->description;
                 $project->focus = $request->focus ?? $project->focus;

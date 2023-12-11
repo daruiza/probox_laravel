@@ -100,6 +100,17 @@ class Project
 
     /**
      * @OA\Property(
+     *      title="logo",
+     *      description="logo of the Company Project",
+     *      example="logo Project"
+     * )
+     *
+     * @var string
+     */
+    public $logo;
+
+    /**
+     * @OA\Property(
      *      title="photo",
      *      description="photo of the Project",
      *      example="photo Project"

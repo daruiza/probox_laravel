@@ -5,6 +5,7 @@ namespace App\Model\Core;
 use Carbon\Carbon;
 
 use App\User;
+use App\Model\Core\Tag;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -21,6 +22,7 @@ class Project extends Model
         'location',
         'quotation',
         'goal',
+        'logo',
         'photo',
         'description',
         'focus',
@@ -38,6 +40,20 @@ class Project extends Model
     {
         // return $this->belongsToMany(Customer::class);
         return $this->belongsToMany(User::class, 'customers', 'project_id', 'user_id');
+    }
+
+    //Un Proyecto le pertenece a varios Customes
+    public function colaborators()
+    {
+        // return $this->belongsToMany(Colaborator::class);
+        return $this->belongsToMany(User::class, 'colaborators', 'project_id', 'user_id');
+    }
+
+    //Un Proyecto posee varios tags
+    public function tags()
+    {
+        // return $this->belongsToMany(Customer::class);
+        return $this->belongsToMany(Tag::class, 'projects_tags', 'project_id', 'tag_id');
     }
 
     public function scopeActive($query, $active)

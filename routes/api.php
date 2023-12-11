@@ -122,6 +122,18 @@ Route::group(['prefix' => 'customer'], function () {
     });
 });
 
+Route::group(['prefix' => 'colaborator'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('index', 'Api\ColaboratorController@index');
+        Route::post('store', 'Api\ColaboratorController@store');
+        Route::get('showbyid/{id}', 'Api\ColaboratorController@showById');
+        Route::put('update/{id}', 'Api\ColaboratorController@update');
+        Route::delete('destroy/{id}', 'Api\ColaboratorController@destroy');
+        Route::get('showbyuserid/{id}', 'Api\ColaboratorController@showByUserId');
+        Route::get('showbyprojectid/{id}', 'Api\ColaboratorController@showByProjectId');
+    });
+});
+
 Route::group(['prefix' => 'evidence'], function () {
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('index', 'Api\EvidenceController@index');
