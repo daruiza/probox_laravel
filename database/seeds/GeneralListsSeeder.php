@@ -26,5 +26,15 @@ class GeneralListsSeeder extends Seeder
             'name' => 'theme',
             'value' => 'light-blue-theme'
         ));
+
+        DB::table('general_lists')->insert(array(
+            'name' => 'activityrol',
+            'value' => 'workman'
+        ));
+
+        DB::table('general_lists')->insert(array(
+            'name' => 'activityrol',
+            'value' => 'plumer'
+        ));
     }
 }

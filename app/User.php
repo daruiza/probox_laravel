@@ -84,10 +84,19 @@ class User extends Authenticatable
         return $this->belongsTo(Rol::class);
     }
 
-    //Un Proyecto le pertenece a varios Customes
+    //Un Proyecto le pertenece a varios Customer
+    // Trae los projectos en los que el es customer
     public function projects_customer()
     {
         // return $this->belongsToMany(Customer::class);
         return $this->belongsToMany(Project::class, 'customers', 'user_id', 'project_id');
     }
+
+     //Un Proyecto sera sustentado por varios Colaboradores
+     // Trae los projectos en los que el es colaborador
+     public function projects_colaborator()
+     {
+         // return $this->belongsToMany(Customer::class);
+         return $this->belongsToMany(Project::class, 'coalborators', 'user_id', 'project_id');
+     }
 }
