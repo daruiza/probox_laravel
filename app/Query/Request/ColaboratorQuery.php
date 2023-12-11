@@ -141,9 +141,77 @@ class ColaboratorQuery implements IColaboratorQuery
     }
     public function update(Request $request, int $id)
     {
+        if ($id) {
+            //Rules: Especificaciones a validar
+            $rules = [
+                $this->activity_rol  => 'string|min:1|max:128',
+                $this->date_start => 'date',
+                $this->date_departure => 'date',
+                $this->recommended  => 'string|min:1|max:128',
+                $this->boss_name  => 'string|min:1|max:128',
+                $this->user_id    => 'required|numeric',
+                $this->project_id    => 'required|numeric',
+            ];
+
+            try {
+                // Ejecutamos el validador y en caso de que falle devolvemos la respuesta
+                $validator = Validator::make($request->all(), $rules);
+                if ($validator->fails()) {
+                    throw (new ValidationException($validator->errors()->getMessages()));
+                }
+            } catch (\Exception $e) {
+                return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e->getMessage()], 403);
+            }
+
+            try {
+                //Consulta por Id
+                $colaborator = Colaborator::findOrFail($id);
+                //Actualización de datos
+                $colaborator->activity_rol = $request->name ?? $colaborator->activity_rol;
+                $colaborator->date_start = $request->price ?? $colaborator->date_start;
+                $colaborator->date_departure = $request->date_init ?? $colaborator->date_departure;
+                $colaborator->recomended = $request->date_closed ?? $colaborator->recomended;
+                $colaborator->boss_name = $request->address ?? $colaborator->boss_name;
+                $colaborator->user_id = $request->location ?? $colaborator->user_id;
+                $colaborator->project_id = $request->quotation ?? $colaborator->project_id;
+
+                $colaborator->save();
+
+                return response()->json([
+                    'data' => [
+                        'colaborator' => $colaborator,
+                    ],
+                    'message' => 'colaborador actualizado con éxito!'
+                ], 201);
+            } catch (ModelNotFoundException $ex) {
+                return response()->json(['message' => "Colaborador con id {$id} no existe!", 'error' => $ex->getMessage()], 404);
+            } catch (\Exception $e) {
+                return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
+            }
+        } else {
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+        }
     }
+
     public function destroy(Request $request, int $id)
     {
+        if ($id) {
+            try {
+                //Delete por id
+                $colaborator = Colaborator::findOrFail($id);
+                $colaborator->delete();
+                return response()->json([
+                    'data' => [
+                        'colaborator' => $colaborator,
+                    ],
+                    'message' => 'colaborador eliminado con éxito!'
+                ], 201);
+            } catch (ModelNotFoundException $e) {
+                return response()->json(['message' => "colaborador con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+            }
+        } else {
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+        }
     }
 
     public function showByUserId(Request $request, int $id)

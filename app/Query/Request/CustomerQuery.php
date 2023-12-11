@@ -121,9 +121,66 @@ class CustomerQuery implements ICustomerQuery
     }
     public function update(Request $request, int $id)
     {
+        if ($id) {
+            //Rules: Especificaciones a validar
+            $rules = [                
+                $this->is_owner    => 'required|boolean',
+                $this->project_id    => 'required|numeric',
+            ];
+
+            try {
+                // Ejecutamos el validador y en caso de que falle devolvemos la respuesta
+                $validator = Validator::make($request->all(), $rules);
+                if ($validator->fails()) {
+                    throw (new ValidationException($validator->errors()->getMessages()));
+                }
+            } catch (\Exception $e) {
+                return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e->getMessage()], 403);
+            }
+
+            try {
+                //Consulta por Id
+                $customer = Customer::findOrFail($id);
+                //Actualización de datos
+                $customer->is_owner = $request->location ?? $customer->is_owner;
+                $customer->project_id = $request->quotation ?? $customer->project_id;
+
+                $customer->save();
+
+                return response()->json([
+                    'data' => [
+                        'customer' => $customer,
+                    ],
+                    'message' => 'cliente actualizado con éxito!'
+                ], 201);
+            } catch (ModelNotFoundException $ex) {
+                return response()->json(['message' => "cleinte con id {$id} no existe!", 'error' => $ex->getMessage()], 404);
+            } catch (\Exception $e) {
+                return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
+            }
+        } else {
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+        }
     }
     public function destroy(Request $request, int $id)
     {
+        if ($id) {
+            try {
+                //Delete por id
+                $customer = Customer::findOrFail($id);
+                $customer->delete();
+                return response()->json([
+                    'data' => [
+                        'customer' => $customer,
+                    ],
+                    'message' => 'colaborador eliminado con éxito!'
+                ], 201);
+            } catch (ModelNotFoundException $e) {
+                return response()->json(['message' => "cliente con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+            }
+        } else {
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+        }
     }
 
     public function showByUserId(Request $request, int $id)
