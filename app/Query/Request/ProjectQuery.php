@@ -79,6 +79,7 @@ class ProjectQuery implements IProjectQuery
                     'active'
                 ])
                 ->with(['customers'])
+                ->with(['colaborators'])
                 ->with(['tags'])
                 ->name($request->name)
                 ->address($request->address)

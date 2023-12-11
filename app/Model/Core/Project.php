@@ -42,6 +42,13 @@ class Project extends Model
         return $this->belongsToMany(User::class, 'customers', 'project_id', 'user_id');
     }
 
+    //Un Proyecto le pertenece a varios Customes
+    public function colaborators()
+    {
+        // return $this->belongsToMany(Colaborator::class);
+        return $this->belongsToMany(User::class, 'colaborators', 'project_id', 'user_id');
+    }
+
     //Un Proyecto posee varios tags
     public function tags()
     {

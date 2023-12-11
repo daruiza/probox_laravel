@@ -96,14 +96,14 @@ class CustomerQuery implements ICustomerQuery
                 $ct = Customer::findOrFail($id);
                 if ($ct) {
                     //Select a la BD: TB_customer
-                    $customer = DB::table('customer')
+                    $customer = DB::table('customers')
                         ->select([
                             'id',
                             $this->is_owner,
                             $this->user_id,
                             $this->project_id
                         ])
-                        ->where('customer.id', '=', $id)
+                        ->where('customers.id', '=', $id)
                         ->get();
                     return response()->json([
                         'data' => [

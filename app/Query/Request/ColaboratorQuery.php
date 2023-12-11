@@ -17,7 +17,11 @@ use App\Query\Abstraction\IColaboratorQuery;
 class ColaboratorQuery implements IColaboratorQuery
 {
 
-    private $is_owner       = 'is_owner';
+    private $activity_rol       = 'activity_rol';
+    private $date_start       = 'date_start';
+    private $date_departure       = 'date_departure';
+    private $recommended       = 'recommended';
+    private $boss_name       = 'boss_name';
     private $user_id        = 'user_id';
     private $project_id     = 'project_id';
 
@@ -25,15 +29,19 @@ class ColaboratorQuery implements IColaboratorQuery
     {
         try {
             //Devuelve todos los PROJECTS existentes
-            $customers = Colaborator::query()
+            $colaborators = Colaborator::query()
                 ->select([
                     'id',
-                    $this->is_owner,
+                    $this->activity_rol,
+                    $this->date_start,
+                    $this->date_departure,
+                    $this->recommended,
+                    $this->boss_name,
                     $this->user_id,
                     $this->project_id,
                 ])->get();
 
-            return response()->json(['customers' => $customers]);
+            return response()->json(['colaborators' => $colaborators]);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
         }
@@ -42,7 +50,11 @@ class ColaboratorQuery implements IColaboratorQuery
     {
         //Rules: Especificaciones a validar
         $rules = [
-            $this->is_owner    => 'required|boolean',
+            $this->activity_rol  => 'string|min:1|max:128',
+            $this->date_start => 'date',
+            $this->date_departure => 'date',
+            $this->recommended  => 'string|min:1|max:128',
+            $this->boss_name  => 'string|min:1|max:128',
             $this->user_id    => 'required|numeric',
             $this->project_id    => 'required|numeric',
         ];
@@ -60,27 +72,31 @@ class ColaboratorQuery implements IColaboratorQuery
         try {
 
             // Validación unique
-            $customer_find = Colaborator::query()
+            $coalborator_find = Colaborator::query()
                 ->userId($request->user_id)
                 ->projectId($request->project_id)
                 ->get();
 
 
-            if (count($customer_find)) {
+            if (count($coalborator_find)) {
                 throw (new ValidationException('El usuario y el proyecto ya se hallan relacionados'));
             }
             //Recepción de datos y guardado en la BD
-            $customer = new Colaborator([
-                $this->is_owner => $request->is_owner,
+            $colaborator = new Colaborator([
+                $this->activity_rol => $request->activity_rol,
+                $this->date_start => $request->date_start,
+                $this->date_departure => $request->date_departure,
+                $this->recommended => $request->recommended,
+                $this->boss_name => $request->boss_name,
                 $this->user_id => $request->user_id,
                 $this->project_id => $request->project_id,
             ]);
 
-            $customer->save();
+            $colaborator->save();
 
             return response()->json([
                 'data' => [
-                    'customer' => $customer,
+                    'colaborator' => $colaborator,
                 ],
                 'message' => 'Colaborator creado correctamente!'
             ], 201);
@@ -96,20 +112,24 @@ class ColaboratorQuery implements IColaboratorQuery
                 $ct = Colaborator::findOrFail($id);
                 if ($ct) {
                     //Select a la BD: TB_customer
-                    $customer = DB::table('customer')
+                    $colaborator = DB::table('colaborators')
                         ->select([
                             'id',
-                            $this->is_owner,
+                            $this->activity_rol,
+                            $this->date_start,
+                            $this->date_departure,
+                            $this->recommended,
+                            $this->boss_name,
                             $this->user_id,
                             $this->project_id
                         ])
-                        ->where('customer.id', '=', $id)
+                        ->where('colaborators.id', '=', $id)
                         ->get();
                     return response()->json([
                         'data' => [
-                            'customer' => $customer,
+                            'colaborator' => $colaborator,
                         ],
-                        'message' => 'Datos de customer Consultados Correctamente!'
+                        'message' => 'Datos de colaborator Consultados Correctamente!'
                     ]);
                 }
             } catch (ModelNotFoundException $e) {
@@ -130,10 +150,14 @@ class ColaboratorQuery implements IColaboratorQuery
     {
         if ($id) {
             try {
-                $customer = Colaborator::query()
+                $colaborator = Colaborator::query()
                     ->select([
                         'id',
-                        $this->is_owner,
+                        $this->activity_rol,
+                        $this->date_start,
+                        $this->date_departure,
+                        $this->recommended,
+                        $this->boss_name,
                         $this->user_id,
                         $this->project_id
                     ])
@@ -142,9 +166,9 @@ class ColaboratorQuery implements IColaboratorQuery
 
                 return response()->json([
                     'data' => [
-                        'customer' => $customer,
+                        'colaborator' => $colaborator,
                     ],
-                    'message' => 'Datos de customer Consultados Correctamente!'
+                    'message' => 'Datos de colaborator Consultados Correctamente!'
                 ]);
             } catch (ModelNotFoundException $e) {
                 return response()->json(['message' => "Colaborator con id {$id} no existe!", 'error' => $e->getMessage()], 403);
@@ -157,10 +181,14 @@ class ColaboratorQuery implements IColaboratorQuery
     {
         if ($id) {
             try {
-                $customer = Colaborator::query()
+                $colaborator = Colaborator::query()
                     ->select([
                         'id',
-                        $this->is_owner,
+                        $this->activity_rol,
+                        $this->date_start,
+                        $this->date_departure,
+                        $this->recommended,
+                        $this->boss_name,
                         $this->user_id,
                         $this->project_id
                     ])
@@ -169,9 +197,9 @@ class ColaboratorQuery implements IColaboratorQuery
 
                 return response()->json([
                     'data' => [
-                        'customer' => $customer,
+                        'colaborator' => $colaborator,
                     ],
-                    'message' => 'Datos de customer Consultados Correctamente!'
+                    'message' => 'Datos de colaborator Consultados Correctamente!'
                 ]);
             } catch (ModelNotFoundException $e) {
                 return response()->json(['message' => "Colaborator con id {$id} no existe!", 'error' => $e->getMessage()], 403);

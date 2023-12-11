@@ -36,6 +36,7 @@ class UserQuery implements IUserQuery
             ->where('id', '!=', $request->user()->id)
             ->with(['rol:id,name,description,active'])
             ->with(['projects_customer'])
+            ->with(['projects_colaborator'])
             ->name($request->name)
             ->lastname($request->lastname)
             ->phone($request->phone)
@@ -229,6 +230,7 @@ class UserQuery implements IUserQuery
                 $user = User::findOrFail($id);
                 $user->rol;
                 $user->projects_customer;
+                $user->projects_colaborator;
                 return response()->json([
                     'data' => [
                         'user' => $user,
