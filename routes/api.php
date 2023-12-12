@@ -96,7 +96,7 @@ Route::group(['prefix' => 'optionrol'], function () {
         Route::get('showbyoptionrolid/{id}', 'Api\OptionRolController@showByOptionRolId');
         Route::put('update/{id}', 'Api\OptionRolController@update');
         Route::delete('destroy/{id}', 'Api\OptionRolController@destroy');
-        });
+    });
 });
 
 Route::group(['prefix' => 'project'], function () {
@@ -107,6 +107,17 @@ Route::group(['prefix' => 'project'], function () {
         Route::put('update/{id}', 'Api\ProjectController@update');
         Route::delete('destroy/{id}', 'Api\ProjectController@destroy');
         Route::get('showtaskbyid/{id}', 'Api\ProjectController@showTaskById');
+    });
+});
+
+Route::group(['prefix' => 'notes'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('index', 'Api\NoteController@index');
+        Route::post('store', 'Api\NoteController@store');
+        Route::get('showbyid/{id}', 'Api\NoteController@showById');
+        Route::put('update/{id}', 'Api\NoteController@update');
+        Route::delete('destroy/{id}', 'Api\NoteController@destroy');
+        Route::get('showbyprojectid/{id}', 'Api\NoteController@showByProjectId');
     });
 });
 

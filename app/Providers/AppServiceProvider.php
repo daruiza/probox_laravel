@@ -41,6 +41,10 @@ use App\Http\Controllers\Api\ProjectController;
 use App\Query\Abstraction\IProjectQuery;
 use App\Query\Request\ProjectQuery;
 
+use App\Http\Controllers\Api\NoteController;
+use App\Query\Abstraction\INoteQuery;
+use App\Query\Request\NoteQuery;
+
 use App\Http\Controllers\Api\CustomerController;
 use App\Query\Abstraction\ICustomerQuery;
 use App\Query\Request\CustomerQuery;
@@ -92,6 +96,9 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(IProjectQuery::class, ProjectQuery::class);
         $this->app->make(ProjectController::class);
+
+        $this->app->bind(INoteQuery::class, NoteQuery::class);
+        $this->app->make(NoteController::class);
 
         $this->app->bind(ICustomerQuery::class, CustomerQuery::class);
         $this->app->make(CustomerController::class);
