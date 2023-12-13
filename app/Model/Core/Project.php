@@ -6,6 +6,8 @@ use Carbon\Carbon;
 
 use App\User;
 use App\Model\Core\Tag;
+use App\Model\Core\Task;
+use App\Model\Core\Note;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -33,6 +35,12 @@ class Project extends Model
     public function tasks()
     {
         return $this->hasMany(Task::class);
+    }
+
+    //HasMany: Un PROJECT le pertenece a varios NOTES.
+    public function notes()
+    {
+        return $this->hasMany(Note::class);
     }
 
     //Un Proyecto le pertenece a varios Customes

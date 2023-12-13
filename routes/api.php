@@ -110,7 +110,7 @@ Route::group(['prefix' => 'project'], function () {
     });
 });
 
-Route::group(['prefix' => 'notes'], function () {
+Route::group(['prefix' => 'note'], function () {
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('index', 'Api\NoteController@index');
         Route::post('store', 'Api\NoteController@store');

@@ -2,6 +2,8 @@
 
 namespace App\Model\Core;
 
+use App\Model\Core\Project;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Note extends Model
@@ -15,6 +17,12 @@ class Note extends Model
         'focus',
         'project_id',
     ];
+
+    //BelongsTo (1-1): Una NOTE le pertenece un PROJECT
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
 
     public function scopeId($query, $id)
     {

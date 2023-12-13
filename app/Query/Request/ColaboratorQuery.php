@@ -109,8 +109,8 @@ class ColaboratorQuery implements IColaboratorQuery
     {
         if ($id) {
             try {
-                $ct = Colaborator::findOrFail($id);
-                if ($ct) {
+                $cl = Colaborator::findOrFail($id);
+                if ($cl) {
                     //Select a la BD: TB_customer
                     $colaborator = DB::table('colaborators')
                         ->select([
@@ -173,7 +173,7 @@ class ColaboratorQuery implements IColaboratorQuery
                 $colaborator->recomended = $request->date_closed ?? $colaborator->recomended;
                 $colaborator->boss_name = $request->address ?? $colaborator->boss_name;
                 $colaborator->user_id = $request->location ?? $colaborator->user_id;
-                $colaborator->project_id = $request->quotation ?? $colaborator->project_id;
+                $colaborator->project_id = $request->project_id ?? $colaborator->project_id;
 
                 $colaborator->save();
 

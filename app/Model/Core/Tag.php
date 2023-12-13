@@ -15,5 +15,11 @@ class Tag extends Model
         'active'
     ];
 
+    //BelongsTo (1-1): Una TAG le pertenece un PROJECT
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
+
    
 }

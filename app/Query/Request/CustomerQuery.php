@@ -142,8 +142,8 @@ class CustomerQuery implements ICustomerQuery
                 //Consulta por Id
                 $customer = Customer::findOrFail($id);
                 //Actualización de datos
-                $customer->is_owner = $request->location ?? $customer->is_owner;
-                $customer->project_id = $request->quotation ?? $customer->project_id;
+                $customer->is_owner = $request->is_owner ?? $customer->is_owner;
+                $customer->project_id = $request->project_id ?? $customer->project_id;
 
                 $customer->save();
 

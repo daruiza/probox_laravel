@@ -81,6 +81,7 @@ class ProjectQuery implements IProjectQuery
                 ->with(['customers'])
                 ->with(['colaborators'])
                 ->with(['tags'])
+                ->with(['notes'])
                 ->name($request->name)
                 ->address($request->address)
                 ->date_init($request->date_init)

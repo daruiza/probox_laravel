@@ -62,7 +62,7 @@ class NoteQuery implements INoteQuery
         }
 
         try {
-           
+
             //Recepción de datos y guardado en la BD
             $note = new Note([
                 $this->description => $request->description,
@@ -88,39 +88,43 @@ class NoteQuery implements INoteQuery
     {
         if ($id) {
             try {
-                $ct = Customer::findOrFail($id);
-                if ($ct) {
+                $nt = Note::findOrFail($id);
+                if ($nt) {
                     //Select a la BD: TB_customer
-                    $customer = DB::table('customers')
+                    $note = DB::table('notes')
                         ->select([
                             'id',
-                            $this->is_owner,
-                            $this->user_id,
+                            $this->description,
+                            $this->approved,
+                            $this->focus,
                             $this->project_id
                         ])
-                        ->where('customers.id', '=', $id)
+                        ->where('notes.id', '=', $id)
                         ->get();
                     return response()->json([
                         'data' => [
-                            'customer' => $customer,
+                            'note' => $note,
                         ],
-                        'message' => 'Datos de customer Consultados Correctamente!'
+                        'message' => 'Datos de Nota Consultados Correctamente!'
                     ]);
                 }
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Customer con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Nota con id {$id} no existe!", 'error' => $e->getMessage()], 403);
             }
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
         }
     }
+
     public function update(Request $request, int $id)
     {
         if ($id) {
             //Rules: Especificaciones a validar
             $rules = [
-                $this->is_owner    => 'required|boolean',
-                $this->project_id    => 'required|numeric',
+                $this->description  => 'required|string',
+                $this->approved     => 'boolean',
+                $this->focus        => 'boolean',
+                $this->project_id   => 'required|numeric',
             ];
 
             try {
@@ -135,21 +139,22 @@ class NoteQuery implements INoteQuery
 
             try {
                 //Consulta por Id
-                $customer = Customer::findOrFail($id);
+                $note = Note::findOrFail($id);
                 //Actualización de datos
-                $customer->is_owner = $request->location ?? $customer->is_owner;
-                $customer->project_id = $request->quotation ?? $customer->project_id;
+                $note->description = $request->description ?? $note->description;
+                $note->approved = $request->approved ?? $note->approved;
+                $note->focus = $request->focus ?? $note->focus;
 
-                $customer->save();
+                $note->save();
 
                 return response()->json([
                     'data' => [
-                        'customer' => $customer,
+                        'note' => $note,
                     ],
-                    'message' => 'cliente actualizado con éxito!'
+                    'message' => 'nota actualizada con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $ex) {
-                return response()->json(['message' => "cleinte con id {$id} no existe!", 'error' => $ex->getMessage()], 404);
+                return response()->json(['message' => "nota con id {$id} no existe!", 'error' => $ex->getMessage()], 404);
             } catch (\Exception $e) {
                 return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
             }
@@ -162,16 +167,16 @@ class NoteQuery implements INoteQuery
         if ($id) {
             try {
                 //Delete por id
-                $customer = Customer::findOrFail($id);
-                $customer->delete();
+                $note = Note::findOrFail($id);
+                $note->delete();
                 return response()->json([
                     'data' => [
-                        'customer' => $customer,
+                        'note' => $note,
                     ],
-                    'message' => 'colaborador eliminado con éxito!'
+                    'message' => 'nota eliminada con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "cliente con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "nota con id {$id} no existe!", 'error' => $e->getMessage()], 403);
             }
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
@@ -182,11 +187,12 @@ class NoteQuery implements INoteQuery
     {
         if ($id) {
             try {
-                $customer = Customer::query()
+                $note = Note::query()
                     ->select([
                         'id',
-                        $this->is_owner,
-                        $this->user_id,
+                        $this->description,
+                        $this->approved,
+                        $this->focus,
                         $this->project_id
                     ])
                     ->projectId($id)
@@ -194,12 +200,12 @@ class NoteQuery implements INoteQuery
 
                 return response()->json([
                     'data' => [
-                        'customer' => $customer,
+                        'note' => $note,
                     ],
-                    'message' => 'Datos de customer Consultados Correctamente!'
+                    'message' => 'Datos de nota Consultados Correctamente!'
                 ]);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Customer con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "nota con id {$id} no existe!", 'error' => $e->getMessage()], 403);
             }
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
