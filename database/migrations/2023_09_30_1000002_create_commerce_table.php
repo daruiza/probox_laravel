@@ -16,6 +16,7 @@ class CreateCommercesTable extends Migration
         Schema::create('commerces', function (Blueprint $table) {
             $table->id('id');
             $table->string('name', 60)->unique();
+            $table->string('description', 1024)->nullable();
             $table->string('logo', 255)->nullable();
             $table->boolean('active')->default(true);
             $table->timestamps();

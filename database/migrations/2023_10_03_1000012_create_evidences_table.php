@@ -18,7 +18,7 @@ class CreateEvidencesTable extends Migration
             $table->string('name', 32)->unique();
             $table->string('file')->nullable();
             $table->string('type')->nullable();
-            $table->string('description')->nullable();
+            $table->string('description', 1024)->nullable();
             $table->boolean('approved')->default(false);
             $table->boolean('focus')->default(true);
             $table->timestamps();

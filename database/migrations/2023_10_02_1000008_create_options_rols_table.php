@@ -16,7 +16,7 @@ class CreateOptionsRolsTable extends Migration
         Schema::create('options_rols', function (Blueprint $table) {
             $table->id('id');
             $table->string('name', 32)->nullable();
-            $table->string('description')->nullable();
+            $table->string('description',128)->nullable();
             $table->boolean('active')->default(true);
             $table->timestamps();
 
