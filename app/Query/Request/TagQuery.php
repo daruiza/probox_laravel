@@ -17,7 +17,6 @@ class TagQuery implements ITagQuery
     private $name   = 'name';
     private $category  = 'category';
     private $active  = 'active';
-    private $project_id  = 'project_id';
 
     //Index: Página principal
     public function index(Request $request)
@@ -30,7 +29,6 @@ class TagQuery implements ITagQuery
                     'name',
                     'category',
                     'active',
-                    'project_id'
                 ])->get();
 
             return response()->json(['message' => $tag]);
@@ -47,7 +45,6 @@ class TagQuery implements ITagQuery
             $this->name    => 'required|string|min:1|max:60|',
             $this->category    => 'required|string|min:1|max:60|',
             $this->active    => 'boolean',
-            $this->project_id   => 'required|numeric',
 
         ];
         try {
@@ -66,7 +63,6 @@ class TagQuery implements ITagQuery
                 $this->name => $request->name,
                 $this->category => $request->category,
                 $this->active => $request->active,
-                $this->project_id => $request->project_id
             ]);
 
             $tag->save();
@@ -98,7 +94,6 @@ class TagQuery implements ITagQuery
                             'name',
                             'category',
                             'active',
-                            'project_id'
                         ])
                         ->where('tags.id', '=', $id)
                         ->get();
@@ -127,7 +122,6 @@ class TagQuery implements ITagQuery
                 $this->name    => 'required|string|min:1|max:60|',
                 $this->category    => 'required|string|min:1|max:60|',
                 $this->active    => 'boolean',
-                $this->project_id   => 'required|numeric',
 
             ];
             try {
@@ -145,9 +139,8 @@ class TagQuery implements ITagQuery
                 $tag = Tag::findOrFail($id);
                 //Actualización de datos
                 $tag->name = $request->name ?? $tag->name;
-                $tag->category = $request->description ?? $tag->category;
-                $tag->active = $request->date_init ?? $tag->active;
-                $tag->project_id = $request->project_id ?? $tag->project_id;
+                $tag->category = $request->category ?? $tag->category;
+                $tag->active = $request->active ?? $tag->active;
 
                 $tag->save();
 
@@ -187,12 +180,11 @@ class TagQuery implements ITagQuery
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
         }
-    }
-    
+    }    
 
+    // showProjectByTagName
     public function showProjectById(Request $request, int $id)
     {
-
         if ($id) {
             try {
                 ////Comprobar existencia
@@ -200,16 +192,16 @@ class TagQuery implements ITagQuery
                 //Consultar option
                 $tag = Tag::find($id);
                 //Aplicar relación
-                $project = $tag->project;
+                $tag->projects;
 
                 return response()->json([
                     'data' => [
-                        'project' => $project,
+                        'tag' => $tag,
                     ],
-                    'message' => 'Project consultado con éxito!'
+                    'message' => 'Tag consultado con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Project relacionado a la tag con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Tag relacionado a la tag con id {$id} no existe!", 'error' => $e->getMessage()], 403);
             }
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);

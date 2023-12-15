@@ -219,7 +219,7 @@ class TagController extends Controller
      *      )
      *     )
      */
-    public function showProjectkById(Request $request, int $id)
+    public function showByProjectId(Request $request, int $id)
     {
         return $this->TagQuery->showProjectById($request, $id);
     }

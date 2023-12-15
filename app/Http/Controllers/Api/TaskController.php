@@ -254,7 +254,7 @@ class TaskController extends Controller
      *      )
      *     )
      */
-    public function showProjectkById(Request $request, int $id)
+    public function showProjectById(Request $request, int $id)
     {
         return $this->TaskQuery->showProjectById($request, $id);
     }

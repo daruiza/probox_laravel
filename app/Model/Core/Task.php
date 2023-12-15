@@ -2,6 +2,8 @@
 
 namespace App\Model\Core;
 
+use App\Model\Core\Project;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 

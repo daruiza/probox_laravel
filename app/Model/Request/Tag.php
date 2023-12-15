@@ -41,8 +41,5 @@ class Tag
      *
      * @var boolean
      */
-    public $active;  
-   
-
-
+    public $active;
 }

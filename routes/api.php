@@ -117,7 +117,7 @@ Route::group(['prefix' => 'tag'], function () {
         Route::get('showbyid/{id}', 'Api\TagController@showById');
         Route::put('update/{id}', 'Api\TagController@update');
         Route::delete('destroy/{id}', 'Api\TagController@destroy');
-        Route::get('showbyprojectid/{id}', 'Api\TagController@showByProjectId');
+        Route::get('showprojectbyid/{id}', 'Api\TagController@showByProjectId');
     });
 });
 
