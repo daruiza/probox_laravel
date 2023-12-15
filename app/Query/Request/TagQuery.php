@@ -3,23 +3,20 @@
 namespace App\Query\Request;
 
 use Illuminate\Support\Facades\DB;
-use App\Model\Core\Task;
+use App\Model\Core\Tag;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Validator;
-use App\Query\Abstraction\ITaskQuery;
+use App\Query\Abstraction\ITagQuery;
 
 
-class TaskQuery implements ITaskQuery
+class TagQuery implements ITagQuery
 {
     private $name   = 'name';
-    private $description  = 'description';
-    private $date_init  = 'date_init';
-    private $date_closed  = 'date_closed';
-    private $focus  = 'focus';
-    private $id_task  = 'id_task';
+    private $category  = 'category';
+    private $active  = 'active';
     private $project_id  = 'project_id';
 
     //Index: Página principal
@@ -27,18 +24,16 @@ class TaskQuery implements ITaskQuery
     {
         try {
             //Devuelve todos los TASKS existentes
-            $task = Task::query()
-                ->select(['id',
+            $tag = Tag::query()
+                ->select([
+                    'id',
                     'name',
-                    'description',
-                    'date_init',
-                    'date_closed',
-                    'focus',
-                    'id_task',
+                    'category',
+                    'active',
                     'project_id'
                 ])->get();
 
-            return response()->json(['message' => $task]);
+            return response()->json(['message' => $tag]);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
         }
@@ -49,12 +44,11 @@ class TaskQuery implements ITaskQuery
     {
         //Rules: Especificaciones a validar
         $rules = [
-            $this->name    => 'required|string|min:1|max:128|',
-            $this->description    => 'required|string|min:1|max:128|',
-            $this->date_init    => 'required',
-            $this->date_closed    => 'required',
-            $this->focus    => 'required',
-            $this->project_id   => 'required',
+            $this->name    => 'required|string|min:1|max:60|',
+            $this->category    => 'required|string|min:1|max:60|',
+            $this->active    => 'boolean',
+            $this->project_id   => 'required|numeric',
+
         ];
         try {
             // Ejecutamos el validador y en caso de que falle devolvemos la respuesta
@@ -68,23 +62,20 @@ class TaskQuery implements ITaskQuery
 
         try {
             //Recepción de datos y guardado en la BD
-            $task = new Task([
+            $tag = new Tag([
                 $this->name => $request->name,
-                $this->description => $request->description,
-                $this->date_init => $request->date_init,
-                $this->date_closed => $request->date_closed,
-                $this->focus => $request->focus,
-                $this->id_task => $request->id_task,
+                $this->category => $request->category,
+                $this->active => $request->active,
                 $this->project_id => $request->project_id
             ]);
 
-            $task->save();
+            $tag->save();
 
             return response()->json([
                 'data' => [
-                    'task' => $task,
+                    'tag' => $tag,
                 ],
-                'message' => 'Task creado correctamente!'
+                'message' => 'Tag creado correctamente!'
             ], 201);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
@@ -97,31 +88,29 @@ class TaskQuery implements ITaskQuery
 
         if ($id) {
             try {
-                $tk = Task::findOrFail($id);
+                $tg = Tag::findOrFail($id);
 
-                if ($tk) {
+                if ($tg) {
                     //Select a la BD: TB_tasks
-                    $task = DB::table('tasks')
-                        ->select(['id',
+                    $tag = DB::table('tags')
+                        ->select([
+                            'id',
                             'name',
-                            'description',
-                            'date_init',
-                            'date_closed',
-                            'focus',
-                            'id_task',
+                            'category',
+                            'active',
                             'project_id'
                         ])
-                        ->where('tasks.id', '=', $id)
+                        ->where('tags.id', '=', $id)
                         ->get();
                     return response()->json([
                         'data' => [
-                            'task' => $task,
+                            'tag' => $tag,
                         ],
-                        'message' => 'Datos de tasks Consultados Correctamente!'
+                        'message' => 'Datos de tags Consultados Correctamente!'
                     ]);
                 }
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Task con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Tag con id {$id} no existe!", 'error' => $e->getMessage()], 403);
             }
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
@@ -135,12 +124,11 @@ class TaskQuery implements ITaskQuery
 
             //Rules: Especificaciones a validar
             $rules = [
-                $this->name    => 'required|string|min:1|max:128|',
-                $this->description    => 'required|string|min:1|max:128|',
-                $this->date_init    => 'required',
-                $this->date_closed    => 'required',
-                $this->focus    => 'required',
-                $this->project_id   => 'required',
+                $this->name    => 'required|string|min:1|max:60|',
+                $this->category    => 'required|string|min:1|max:60|',
+                $this->active    => 'boolean',
+                $this->project_id   => 'required|numeric',
+
             ];
             try {
                 // Ejecutamos el validador y en caso de que falle devolvemos la respuesta
@@ -154,26 +142,23 @@ class TaskQuery implements ITaskQuery
 
             try {
                 //Consulta por Id
-                $task = Task::findOrFail($id);
+                $tag = Tag::findOrFail($id);
                 //Actualización de datos
-                $task->name = $request->name ?? $task->name;
-                $task->description = $request->description ?? $task->description;
-                $task->date_init = $request->date_init ?? $task->date_init;
-                $task->date_closed = $request->date_closed ?? $task->date_closed;
-                $task->focus = $request->focus ?? $task->focus;
-                $task->id_task = $request->id_task ?? $task->id_task;
-                $task->project_id = $request->project_id ?? $task->project_id;
+                $tag->name = $request->name ?? $tag->name;
+                $tag->category = $request->description ?? $tag->category;
+                $tag->active = $request->date_init ?? $tag->active;
+                $tag->project_id = $request->project_id ?? $tag->project_id;
 
-                $task->save();
+                $tag->save();
 
                 return response()->json([
                     'data' => [
-                        'task' => $task,
+                        'tag' => $tag,
                     ],
-                    'message' => 'Task actualizado con éxito!'
+                    'message' => 'Tag actualizado con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $ex) {
-                return response()->json(['message' => "Task con id {$id} no existe!", 'error' => $ex->getMessage()], 404);
+                return response()->json(['message' => "Tag con id {$id} no existe!", 'error' => $ex->getMessage()], 404);
             } catch (\Exception $e) {
                 return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
             }
@@ -188,61 +173,34 @@ class TaskQuery implements ITaskQuery
         if ($id) {
             try {
                 //Delete por id
-                $task = Task::findOrFail($id);
-                $task->delete();
+                $tag = Tag::findOrFail($id);
+                $tag->delete();
                 return response()->json([
                     'data' => [
-                        'task' => $task,
+                        'tag' => $tag,
                     ],
-                    'message' => 'Task eliminado con éxito!'
+                    'message' => 'Tag eliminado con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Task con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Tag con id {$id} no existe!", 'error' => $e->getMessage()], 403);
             }
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
         }
     }
-
-    public function showEvidenceById(Request $request, int $id)
-    {
-        if ($id) {
-            try {
-                //Comprobar existencia
-                //$existencia = OptionRol::where('option_id', '=', $id)->firstOrFail();
-                //Consultar option
-                $task = Task::find($id);
-                //Aplicar relación
-                $evidences = $task->evidences;
-
-                return response()->json([
-                    'data' => [
-                        'evidence' => $evidences,
-                    ],
-                    'message' => 'Evidences consultadas con éxito!'
-                ], 201);
-            } catch (ModelNotFoundException $e) {
-                return response()->json([
-                    'message' => "Evidence relacionadas al Task con id {$id} no existe!",
-                    'error' => $e->getMessage()
-                ], 403);
-            }
-        } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
-        }
-    }
+    
 
     public function showProjectById(Request $request, int $id)
     {
-        
+
         if ($id) {
             try {
                 ////Comprobar existencia
                 //$existencia = Option::find($id)->firstOrFail();
                 //Consultar option
-                $task = Task::find($id);
+                $tag = Tag::find($id);
                 //Aplicar relación
-                $project = $task->project;
+                $project = $tag->project;
 
                 return response()->json([
                     'data' => [
@@ -251,12 +209,10 @@ class TaskQuery implements ITaskQuery
                     'message' => 'Project consultado con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Project relacionado a la task con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Project relacionado a la tag con id {$id} no existe!", 'error' => $e->getMessage()], 403);
             }
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
         }
-        
     }
-
 }
