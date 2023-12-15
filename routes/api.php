@@ -110,6 +110,17 @@ Route::group(['prefix' => 'project'], function () {
     });
 });
 
+Route::group(['prefix' => 'tag'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('index', 'Api\TagController@index');
+        Route::post('store', 'Api\TagController@store');
+        Route::get('showbyid/{id}', 'Api\TagController@showById');
+        Route::put('update/{id}', 'Api\TagController@update');
+        Route::delete('destroy/{id}', 'Api\TagController@destroy');
+        Route::get('showbyprojectid/{id}', 'Api\TagController@showByProjectId');
+    });
+});
+
 Route::group(['prefix' => 'note'], function () {
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('index', 'Api\NoteController@index');
