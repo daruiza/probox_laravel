@@ -5,12 +5,10 @@ namespace App\Query\Request;
 use Illuminate\Support\Facades\DB;
 use App\Model\Core\Note;
 
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 use App\Query\Abstraction\INoteQuery;
 
 

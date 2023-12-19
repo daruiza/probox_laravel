@@ -97,11 +97,9 @@ class EvidenceQuery implements IEvidenceQuery
     //Show: Obtener un registro de la tabla
     public function showById(Request $request,  int $id)
     {
-
         if ($id) {
             try {
                 $ev = Evidence::findOrFail($id);
-
                 if ($ev) {
                     //Select a la BD: TB_evidences
                     $evidence = DB::table('evidences')
