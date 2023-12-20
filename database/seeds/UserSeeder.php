@@ -26,6 +26,8 @@ class UserSeeder extends Seeder
             'nacionality' => 'Venezuela',
             'birthdate' => '2002-10-12',
             'active' => '1',
+            'commerce_id' => '1',
+
         ));
 
         DB::table('users')->insert(array(
@@ -41,6 +43,7 @@ class UserSeeder extends Seeder
             'nacionality' => 'Venezuela',
             'birthdate' => '2002-10-12',
             'active' => '1',
+            'commerce_id' => '2',
         ));
 
         DB::table('users')->insert(array(
@@ -56,6 +59,7 @@ class UserSeeder extends Seeder
             'nacionality' => 'Venezuela',
             'birthdate' => '2002-10-12',
             'active' => '1',
+            'commerce_id' => '2',
         ));
 
         DB::table('users')->insert(array(
@@ -71,6 +75,7 @@ class UserSeeder extends Seeder
             'nacionality' => 'Venezuela',
             'birthdate' => '2002-10-12',
             'active' => '1',
+            'commerce_id' => '2',
         ));
 
         DB::table('users')->insert(array(
@@ -86,6 +91,7 @@ class UserSeeder extends Seeder
             'nacionality' => 'Venezuela',
             'birthdate' => '2002-10-12',
             'active' => '1',
+            'commerce_id' => '2',
         ));
     }
 }

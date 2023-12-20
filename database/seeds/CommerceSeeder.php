@@ -14,14 +14,16 @@ class CommerceSeeder extends Seeder
     {
         DB::table('commerces')->insert(
             array(
-                'name' => 'LMP',
-                'logo' => 'lmp.png',
+                'name' => 'probox',
+                'phone' => '+17206950292',
+                'logo' => 'probox.png',
             )
         );
 
         DB::table('commerces')->insert(
             array(
-                'name' => 'DMG',
+                'name' => 'dmg',
+                'phone' => '+57319406250',
                 'logo' => 'dmg.png',
             )
         );

@@ -13,7 +13,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(GeneralListsSeeder::class);
         $this->call(RolSeeder::class);
-        $this->call(UserSeeder::class);
+        $this->call(CommerceSeeder::class);
+        $this->call(UserSeeder::class);        
         $this->call(ModuleSeeder::class);
         $this->call(OptionSeeder::class);
         $this->call(OptionRolSeeder::class);

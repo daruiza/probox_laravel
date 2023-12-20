@@ -26,6 +26,7 @@ class ProjectSeeder extends Seeder
             'description' => 'project Colombia',
             'focus' => true,
             'active' => false,
+            'commerce_id' => '2',
         ));
 
         DB::table('projects')->insert(array(
@@ -41,6 +42,7 @@ class ProjectSeeder extends Seeder
             'description' => 'project Venezuela',
             'focus' => true,
             'active' => true,
+            'commerce_id' => '2',
         ));
 
         DB::table('projects')->insert(array(
@@ -56,6 +58,7 @@ class ProjectSeeder extends Seeder
             'description' => 'project España',
             'focus' => true,
             'active' => false,
+            'commerce_id' => '2',
         ));
 
         DB::table('projects')->insert(array(
@@ -71,6 +74,7 @@ class ProjectSeeder extends Seeder
             'description' => 'project Argentina',
             'focus' => true,
             'active' => false,
+            'commerce_id' => '2',
         ));
 
         DB::table('projects')->insert(array(
@@ -86,6 +90,7 @@ class ProjectSeeder extends Seeder
             'description' => 'project Colombia',
             'focus' => true,
             'active' => false,
+            'commerce_id' => '2',
         ));
 
         DB::table('projects')->insert(array(
@@ -101,6 +106,7 @@ class ProjectSeeder extends Seeder
             'description' => 'project Venezuela',
             'focus' => true,
             'active' => true,
+            'commerce_id' => '2',
         ));
 
         DB::table('projects')->insert(array(
@@ -116,6 +122,7 @@ class ProjectSeeder extends Seeder
             'description' => 'project España',
             'focus' => true,
             'active' => false,
+            'commerce_id' => '2',
         ));
 
         DB::table('projects')->insert(array(
@@ -131,6 +138,7 @@ class ProjectSeeder extends Seeder
             'description' => 'project Argentina',
             'focus' => true,
             'active' => false,
+            'commerce_id' => '2',
         ));
 
         DB::table('projects')->insert(array(
@@ -146,6 +154,7 @@ class ProjectSeeder extends Seeder
             'description' => 'project Colombia',
             'focus' => true,
             'active' => false,
+            'commerce_id' => '2',
         ));
 
         DB::table('projects')->insert(array(
@@ -161,6 +170,7 @@ class ProjectSeeder extends Seeder
             'description' => 'project Venezuela',
             'focus' => true,
             'active' => true,
+            'commerce_id' => '2',
         ));
 
         DB::table('projects')->insert(array(
@@ -176,6 +186,7 @@ class ProjectSeeder extends Seeder
             'description' => 'project España',
             'focus' => true,
             'active' => false,
+            'commerce_id' => '2',
         ));
 
         DB::table('projects')->insert(array(
@@ -191,6 +202,7 @@ class ProjectSeeder extends Seeder
             'description' => 'project Argentina',
             'focus' => true,
             'active' => false,
+            'commerce_id' => '2',
         ));
 
         DB::table('projects')->insert(array(
@@ -206,6 +218,7 @@ class ProjectSeeder extends Seeder
             'description' => 'project Colombia',
             'focus' => true,
             'active' => false,
+            'commerce_id' => '2',
         ));
 
         DB::table('projects')->insert(array(
@@ -221,6 +234,7 @@ class ProjectSeeder extends Seeder
             'description' => 'project Venezuela',
             'focus' => true,
             'active' => true,
+            'commerce_id' => '2',
         ));
 
         DB::table('projects')->insert(array(
@@ -236,6 +250,7 @@ class ProjectSeeder extends Seeder
             'description' => 'project España',
             'focus' => true,
             'active' => false,
+            'commerce_id' => '2',
         ));
 
         DB::table('projects')->insert(array(
@@ -251,6 +266,7 @@ class ProjectSeeder extends Seeder
             'description' => 'project Argentina',
             'focus' => true,
             'active' => false,
+            'commerce_id' => '2',
         ));
     }
 }

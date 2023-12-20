@@ -14,6 +14,8 @@ class Commerce extends Model
     protected $fillable = [
         'id',
         'name',
+        'phone',
+        'address',
         'description',
         'logo',
         'active'

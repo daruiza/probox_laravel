@@ -99,6 +99,18 @@ Route::group(['prefix' => 'optionrol'], function () {
     });
 });
 
+Route::group(['prefix' => 'commerce'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('index', 'Api\CommerceController@index');
+        Route::post('store', 'Api\CommerceController@store');
+        Route::get('showbyid/{id}', 'Api\CommerceController@showById');
+        Route::put('update/{id}', 'Api\CommerceController@update');
+        Route::delete('destroy/{id}', 'Api\CommerceController@destroy');
+        Route::get('showbyuserid/{id}', 'Api\CommerceController@showByUserId');
+        Route::get('showbyprojectid/{id}', 'Api\CommerceController@showByProjectId');
+    });
+});
+
 Route::group(['prefix' => 'project'], function () {
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('index', 'Api\ProjectController@index');

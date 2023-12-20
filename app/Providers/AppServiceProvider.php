@@ -37,6 +37,10 @@ use App\Http\Controllers\Api\OptionRolController;
 use App\Query\Abstraction\IOptionRolQuery;
 use App\Query\Request\OptionRolQuery;
 
+use App\Http\Controllers\Api\CommerceController;
+use App\Query\Abstraction\ICommerceQuery;
+use App\Query\Request\CommerceQuery;
+
 use App\Http\Controllers\Api\ProjectController;
 use App\Query\Abstraction\IProjectQuery;
 use App\Query\Request\ProjectQuery;
@@ -97,6 +101,9 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(IOptionRolQuery::class, OptionRolQuery::class);
         $this->app->make(OptionRolController::class);
+
+        $this->app->bind(ICommerceQuery::class, CommerceQuery::class);
+        $this->app->make(CommerceController::class);
 
         $this->app->bind(IProjectQuery::class, ProjectQuery::class);
         $this->app->make(ProjectController::class);

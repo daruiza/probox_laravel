@@ -25,11 +25,17 @@ class CreateProjectsTable extends Migration
             $table->string('goal', 1024)->nullable();
             $table->string('logo')->nullable();
             $table->string('photo')->nullable();
-            $table->string('description',1024)->nullable();
+            $table->string('description', 1024)->nullable();
             $table->boolean('focus')->default(false);
             $table->boolean('active')->default(false);
             $table->timestamps();
 
+            $table->unsignedBigInteger('commerce_id')->nullable();
+            $table->foreign('commerce_id')
+                ->references('id')
+                ->on('commerces')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
         });
     }
 

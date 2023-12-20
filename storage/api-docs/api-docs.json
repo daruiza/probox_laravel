@@ -3455,6 +3455,18 @@
                         "type": "string",
                         "example": "Name Commerce"
                     },
+                    "phone": {
+                        "title": "phone",
+                        "description": "Phone of the Commerce",
+                        "type": "string",
+                        "example": "Phone Commerce"
+                    },
+                    "address": {
+                        "title": "address",
+                        "description": "Address of the Commerce",
+                        "type": "string",
+                        "example": "Address Commerce"
+                    },
                     "description": {
                         "title": "description",
                         "description": "description of the Commerce",

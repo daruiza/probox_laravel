@@ -21,6 +21,27 @@ class Commerce
      */
     public $name;
 
+    /**
+     * @OA\Property(
+     *      title="phone",
+     *      description="Phone of the Commerce",
+     *      example="Phone Commerce"
+     * )
+     *
+     * @var string
+     */
+    public $phone;
+
+    /**
+     * @OA\Property(
+     *      title="address",
+     *      description="Address of the Commerce",
+     *      example="Address Commerce"
+     * )
+     *
+     * @var string
+     */
+    public $address;
 
      /**
      * @OA\Property(
