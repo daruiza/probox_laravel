@@ -19,7 +19,7 @@ class ColaboratorController extends Controller
      * Listado de todos los Colaborators
      * @OA\Get(
      *      path="/colaborator/index",
-     *      operationId="getCustomer",
+     *      operationId="getColaborator",
      *      tags={"Colaborator"},
      *      summary="Get All Colaborators",
      *      description="Return Colaborators",

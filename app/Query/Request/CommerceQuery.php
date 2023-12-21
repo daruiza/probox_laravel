@@ -17,31 +17,29 @@ use App\Query\Abstraction\ICommerceQuery;
 class CommerceQuery implements ICommerceQuery
 {
 
-    private $activity_rol       = 'activity_rol';
-    private $date_start       = 'date_start';
-    private $date_departure       = 'date_departure';
-    private $recommended       = 'recommended';
-    private $boss_name       = 'boss_name';
-    private $user_id        = 'user_id';
-    private $project_id     = 'project_id';
+    private $name       = 'name';
+    private $phone      = 'phone';
+    private $address    = 'address';
+    private $description = 'description';
+    private $logo       = 'logo';
+    private $active     = 'active';
 
     public function index(Request $request)
     {
         try {
-            //Devuelve todos los PROJECTS existentes
-            $colaborators = Colaborator::query()
+            //Devuelve todos los Comercios existentes
+            $commerces = Commerce::query()
                 ->select([
                     'id',
-                    $this->activity_rol,
-                    $this->date_start,
-                    $this->date_departure,
-                    $this->recommended,
-                    $this->boss_name,
-                    $this->user_id,
-                    $this->project_id,
+                    $this->name,
+                    $this->phone,
+                    $this->address,
+                    $this->description,
+                    $this->logo,
+                    $this->active,
                 ])->get();
 
-            return response()->json(['colaborators' => $colaborators]);
+            return response()->json(['commerces' => $commerces]);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
         }
@@ -50,13 +48,12 @@ class CommerceQuery implements ICommerceQuery
     {
         //Rules: Especificaciones a validar
         $rules = [
-            $this->activity_rol  => 'string|min:1|max:128',
-            $this->date_start => 'date',
-            $this->date_departure => 'date',
-            $this->recommended  => 'string|min:1|max:128',
-            $this->boss_name  => 'string|min:1|max:128',
-            $this->user_id    => 'required|numeric',
-            $this->project_id    => 'required|numeric',
+            $this->name  => 'string|min:1|max:60',
+            $this->phone => 'string|max:16',
+            $this->address => 'string|max:255',
+            $this->description  => 'string|max:2048',
+            $this->logo  => 'string|max:255',
+            $this->active    => 'boolean',
         ];
 
         try {
@@ -70,35 +67,23 @@ class CommerceQuery implements ICommerceQuery
         }
 
         try {
-
-            // Validación unique
-            $coalborator_find = Colaborator::query()
-                ->userId($request->user_id)
-                ->projectId($request->project_id)
-                ->get();
-
-
-            if (count($coalborator_find)) {
-                throw (new ValidationException('El usuario y el proyecto ya se hallan relacionados'));
-            }
             //Recepción de datos y guardado en la BD
-            $colaborator = new Colaborator([
-                $this->activity_rol => $request->activity_rol,
-                $this->date_start => $request->date_start,
-                $this->date_departure => $request->date_departure,
-                $this->recommended => $request->recommended,
-                $this->boss_name => $request->boss_name,
-                $this->user_id => $request->user_id,
-                $this->project_id => $request->project_id,
+            $commerce = new Commerce([
+                $this->name => $request->name,
+                $this->phone => $request->phone,
+                $this->address => $request->address,
+                $this->description => $request->description,
+                $this->logo => $request->logo,
+                $this->active => $request->active,
             ]);
 
-            $colaborator->save();
+            $commerce->save();
 
             return response()->json([
                 'data' => [
-                    'colaborator' => $colaborator,
+                    'commerce' => $commerce,
                 ],
-                'message' => 'Colaborator creado correctamente!'
+                'message' => 'commerce_store_ok'
             ], 201);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
@@ -109,27 +94,26 @@ class CommerceQuery implements ICommerceQuery
     {
         if ($id) {
             try {
-                $cl = Colaborator::findOrFail($id);
-                if ($cl) {
+                $cm = Commerce::findOrFail($id);
+                if ($cm) {
                     //Select a la BD: TB_customer
-                    $colaborator = DB::table('colaborators')
+                    $commerce = DB::table('commerces')
                         ->select([
                             'id',
-                            $this->activity_rol,
-                            $this->date_start,
-                            $this->date_departure,
-                            $this->recommended,
-                            $this->boss_name,
-                            $this->user_id,
-                            $this->project_id
+                            $this->name,
+                            $this->phone,
+                            $this->address,
+                            $this->description,
+                            $this->logo,
+                            $this->active,
                         ])
-                        ->where('colaborators.id', '=', $id)
+                        ->where('commerces.id', '=', $id)
                         ->get();
                     return response()->json([
                         'data' => [
-                            'colaborator' => $colaborator,
+                            'commerce' => $commerce,
                         ],
-                        'message' => 'Datos de colaborator Consultados Correctamente!'
+                        'message' => 'data_commerce_consulted_ok'
                     ]);
                 }
             } catch (ModelNotFoundException $e) {
@@ -144,13 +128,12 @@ class CommerceQuery implements ICommerceQuery
         if ($id) {
             //Rules: Especificaciones a validar
             $rules = [
-                $this->activity_rol  => 'string|min:1|max:128',
-                $this->date_start => 'date',
-                $this->date_departure => 'date',
-                $this->recommended  => 'string|min:1|max:128',
-                $this->boss_name  => 'string|min:1|max:128',
-                $this->user_id    => 'required|numeric',
-                $this->project_id    => 'required|numeric',
+                $this->name  => 'string|min:1|max:60',
+                $this->phone => 'string|max:16',
+                $this->address => 'string|max:255',
+                $this->description  => 'string|max:2048',
+                $this->logo  => 'string|max:255',
+                $this->active    => 'boolean',
             ];
 
             try {
@@ -165,26 +148,25 @@ class CommerceQuery implements ICommerceQuery
 
             try {
                 //Consulta por Id
-                $colaborator = Colaborator::findOrFail($id);
+                $commerce = Commerce::findOrFail($id);
                 //Actualización de datos
-                $colaborator->activity_rol = $request->name ?? $colaborator->activity_rol;
-                $colaborator->date_start = $request->price ?? $colaborator->date_start;
-                $colaborator->date_departure = $request->date_init ?? $colaborator->date_departure;
-                $colaborator->recomended = $request->date_closed ?? $colaborator->recomended;
-                $colaborator->boss_name = $request->address ?? $colaborator->boss_name;
-                $colaborator->user_id = $request->location ?? $colaborator->user_id;
-                $colaborator->project_id = $request->project_id ?? $colaborator->project_id;
+                $commerce->name = $request->name ?? $commerce->name;
+                $commerce->phone = $request->phone ?? $commerce->phone;
+                $commerce->address = $request->address ?? $commerce->address;
+                $commerce->description = $request->description ?? $commerce->description;
+                $commerce->logo = $request->logo ?? $commerce->logo;
+                $commerce->active = $request->active ?? $commerce->active;
 
-                $colaborator->save();
+                $commerce->save();
 
                 return response()->json([
                     'data' => [
-                        'colaborator' => $colaborator,
+                        'commerce' => $commerce,
                     ],
-                    'message' => 'colaborador actualizado con éxito!'
+                    'message' => 'commerce_updated_ok'
                 ], 201);
             } catch (ModelNotFoundException $ex) {
-                return response()->json(['message' => "Colaborador con id {$id} no existe!", 'error' => $ex->getMessage()], 404);
+                return response()->json(['message' => "Commercio con id {$id} no existe!", 'error' => $ex->getMessage()], 404);
             } catch (\Exception $e) {
                 return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
             }
@@ -198,16 +180,16 @@ class CommerceQuery implements ICommerceQuery
         if ($id) {
             try {
                 //Delete por id
-                $colaborator = Colaborator::findOrFail($id);
-                $colaborator->delete();
+                $commerce = Commerce::findOrFail($id);
+                $commerce->delete();
                 return response()->json([
                     'data' => [
-                        'colaborator' => $colaborator,
+                        'commerce' => $commerce,
                     ],
-                    'message' => 'colaborador eliminado con éxito!'
+                    'message' => 'commerce_deleted_ok'
                 ], 201);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "colaborador con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "commerce con id {$id} no existe!", 'error' => $e->getMessage()], 403);
             }
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
@@ -218,59 +200,58 @@ class CommerceQuery implements ICommerceQuery
     {
         if ($id) {
             try {
-                $colaborator = Colaborator::query()
+                $commerce = Commerce::query()
                     ->select([
                         'id',
-                        $this->activity_rol,
-                        $this->date_start,
-                        $this->date_departure,
-                        $this->recommended,
-                        $this->boss_name,
-                        $this->user_id,
-                        $this->project_id
+                        $this->name,
+                        $this->phone,
+                        $this->address,
+                        $this->description,
+                        $this->logo,
+                        $this->active,
                     ])
                     ->userId($id)
                     ->get();
 
                 return response()->json([
                     'data' => [
-                        'colaborator' => $colaborator,
+                        'commerce' => $commerce,
                     ],
-                    'message' => 'Datos de colaborator Consultados Correctamente!'
+                    'message' => 'data_commerce_consulted_ok'
                 ]);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Colaborator con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Comercio con id {$id} no existe!", 'error' => $e->getMessage()], 403);
             }
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
         }
     }
+
     public function showByProjectId(Request $request, int $id)
     {
         if ($id) {
             try {
-                $colaborator = Colaborator::query()
+                $commerce = Commerce::query()
                     ->select([
                         'id',
-                        $this->activity_rol,
-                        $this->date_start,
-                        $this->date_departure,
-                        $this->recommended,
-                        $this->boss_name,
-                        $this->user_id,
-                        $this->project_id
+                        $this->name,
+                        $this->phone,
+                        $this->address,
+                        $this->description,
+                        $this->logo,
+                        $this->active,
                     ])
                     ->projectId($id)
                     ->get();
 
                 return response()->json([
                     'data' => [
-                        'colaborator' => $colaborator,
+                        'commerce' => $commerce,
                     ],
-                    'message' => 'Datos de colaborator Consultados Correctamente!'
+                    'message' => 'data_commerce_consulted_ok'
                 ]);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Colaborator con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Comercio con id {$id} no existe!", 'error' => $e->getMessage()], 403);
             }
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);

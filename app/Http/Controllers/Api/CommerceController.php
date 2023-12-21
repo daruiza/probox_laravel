@@ -18,8 +18,8 @@ class CommerceController extends Controller
     /**
      * Listado de todos los Commerces
      * @OA\Get(
-     *      path="/colaborator/index",
-     *      operationId="getCustomer",
+     *      path="/commerce/index",
+     *      operationId="getCommerce",
      *      tags={"Commerce"},
      *      summary="Get All Commerces",
      *      description="Return Commerces",
@@ -45,7 +45,7 @@ class CommerceController extends Controller
 
     /**
      * @OA\Post(
-     *      path="/colaborator/store",
+     *      path="/commerce/store",
      *      operationId="storeCommerce",
      *      tags={"Commerce"},
      *      summary="Store Commerce",
@@ -77,7 +77,7 @@ class CommerceController extends Controller
 
     /**
      * @OA\Put(
-     *      path="/colaborator/update/{id}",
+     *      path="/commerce/update/{id}",
      *      operationId="getUpdateCommerceById",
      *      tags={"Commerce"},
      *      summary="Update One Commerce By one Id",
@@ -117,7 +117,7 @@ class CommerceController extends Controller
 
     /**
      * @OA\Delete(
-     *      path="/colaborator/destroy/{id}",
+     *      path="/commerce/destroy/{id}",
      *      operationId="getDestroyCommerceById",
      *      tags={"Commerce"},
      *      summary="Delete One Commerce By one Id",
@@ -153,7 +153,7 @@ class CommerceController extends Controller
 
     /**
      * @OA\Get(
-     *      path="/colaborator/showbyid/{id}",
+     *      path="/commerce/showbyid/{id}",
      *      operationId="getCommerceById",
      *      tags={"Commerce"},
      *      summary="Get One Commerce By one Id",
@@ -189,7 +189,7 @@ class CommerceController extends Controller
 
     /**
      * @OA\Get(
-     *      path="/colaborator/showbyuserid/{id}",
+     *      path="/commerce/showbyuserid/{id}",
      *      operationId="getCommerceByUserId",
      *      tags={"Commerce"},
      *      summary="Get One Commerce By one User Id",
@@ -225,7 +225,7 @@ class CommerceController extends Controller
 
     /**
      * @OA\Get(
-     *      path="/colaborator/showbyprojectid/{id}",
+     *      path="/commerce/showbyprojectid/{id}",
      *      operationId="getCommerceByProjectId",
      *      tags={"Commerce"},
      *      summary="Get One Commerce By one Project Id",

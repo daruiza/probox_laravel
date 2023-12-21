@@ -18,7 +18,7 @@ class CreateCommercesTable extends Migration
             $table->string('name', 60)->unique();
             $table->string('phone', 16)->nullable()->default(null);
             $table->string('address', 255)->nullable()->default(null);
-            $table->string('description', 1024)->nullable()->default(null);
+            $table->string('description', 2048)->nullable()->default(null);
             $table->string('logo', 255)->nullable()->default(null);
             $table->boolean('active')->default(true);
             $table->timestamps();

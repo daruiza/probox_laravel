@@ -32,4 +32,11 @@ class Commerce extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function scopeUserId($query, $user_id)
+    {
+        return is_null($user_id) ?  $query : $query
+        ->join('users', 'users.commerce_id', '=', 'commerces.id')
+        ->where('users.id', $user_id);
+    }
 }
