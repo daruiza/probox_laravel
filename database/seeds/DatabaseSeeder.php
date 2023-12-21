@@ -13,11 +13,13 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(GeneralListsSeeder::class);
         $this->call(RolSeeder::class);
-        $this->call(UserSeeder::class);
+        $this->call(CommerceSeeder::class);
+        $this->call(UserSeeder::class);        
         $this->call(ModuleSeeder::class);
         $this->call(OptionSeeder::class);
         $this->call(OptionRolSeeder::class);
         $this->call(ProjectSeeder::class);
+        $this->call(NoteSeeder::class);        
         $this->call(CustomerSeeder::class);
         $this->call(ColaboratorSeeder::class);                
         $this->call(TaskSeeder::class);

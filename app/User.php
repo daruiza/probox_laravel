@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Model\Core\Rol;
+use App\Model\Core\Commerce;
 use App\Model\Core\Project;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -28,11 +29,12 @@ class User extends Authenticatable
         'password',
         'theme',
         'photo',
-        'rol_id',
         'chexk_digit',
         'nacionality',
         'birthdate',
         'active',
+        'rol_id',
+        'commerce_id'
     ];
 
     /**
@@ -82,6 +84,12 @@ class User extends Authenticatable
     public function rol()
     {
         return $this->belongsTo(Rol::class);
+    }
+
+    //BelongsTo (1-1): Un USER le pertenece un COMMERCE
+    public function commerce()
+    {
+        return $this->belongsTo(Commerce::class);
     }
 
     //Un Proyecto le pertenece a varios Customer

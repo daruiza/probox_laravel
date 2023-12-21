@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTasksTable extends Migration
+class CreateNotesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,15 @@ class CreateTasksTable extends Migration
      */
     public function up()
     {
-        Schema::create('tasks', function (Blueprint $table) {
+        Schema::create('notes', function (Blueprint $table) {
             $table->id('id');
-            $table->string('name', 32)->unique();
-            $table->string('description', 2048)->nullable();
-            $table->date('date_init')->nullable()->default(null);
-            $table->date('date_closed')->nullable()->default(null);
-            $table->boolean('focus')->default(true);
-            $table->unsignedBigInteger('id_task')->nullable();
+            $table->string('description', 1024)->nullable();
+            $table->boolean('approved')->default(true);
+            $table->boolean('focus')->default(false);
             $table->timestamps();
-
             $table->unsignedBigInteger('project_id')->nullable();
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('set null')
                 ->onUpdate('cascade');
-
         });
     }
 
@@ -37,6 +32,6 @@ class CreateTasksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tasks');
+        Schema::dropIfExists('notes');
     }
 }

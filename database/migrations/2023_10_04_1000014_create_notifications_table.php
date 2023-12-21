@@ -17,7 +17,7 @@ class CreateNotificationsTable extends Migration
             $table->id('id');
             $table->string('name', 64);
             $table->string('summary', 64)->nullable();
-            $table->string('description', 128);
+            $table->string('description', 1024);
             $table->string('priority');
             $table->string('status');
             $table->timestamps();

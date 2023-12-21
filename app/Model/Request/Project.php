@@ -133,6 +133,17 @@ class Project
 
     /**
      * @OA\Property(
+     *      title="progress",
+     *      description="Progress of the Project",
+     *      example="Progress Project"
+     * )
+     *
+     * @var numeric
+     */
+    public $progress;
+
+    /**
+     * @OA\Property(
      *      title="focus",
      *      description="Focus of the Project",
      *      example=false

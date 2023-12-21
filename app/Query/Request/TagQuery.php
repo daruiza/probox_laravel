@@ -3,44 +3,35 @@
 namespace App\Query\Request;
 
 use Illuminate\Support\Facades\DB;
-use App\Model\Core\Evidence;
+use App\Model\Core\Tag;
 
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
-use App\Query\Abstraction\IEvidenceQuery;
+use App\Query\Abstraction\ITagQuery;
 
 
-class EvidenceQuery implements IEvidenceQuery
+class TagQuery implements ITagQuery
 {
     private $name   = 'name';
-    private $file  = 'file';
-    private $type  = 'type';
-    private $description  = 'description';
-    private $approved  = 'approved';
-    private $focus  = 'focus';
-    private $task_id  = 'task_id';
+    private $category  = 'category';
+    private $active  = 'active';
 
     //Index: Página principal
     public function index(Request $request)
     {
         try {
-            //Devuelve todos los EVIDENCES existentes
-            $evidence = Evidence::query()
-                ->select(['id',
+            //Devuelve todos los TASKS existentes
+            $tag = Tag::query()
+                ->select([
+                    'id',
                     'name',
-                    'file',
-                    'type',
-                    'description',
-                    'approved',
-                    'focus',
-                    'task_id'
+                    'category',
+                    'active',
                 ])->get();
 
-            return response()->json(['message' => $evidence]);
+            return response()->json(['message' => $tag]);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
         }
@@ -51,13 +42,10 @@ class EvidenceQuery implements IEvidenceQuery
     {
         //Rules: Especificaciones a validar
         $rules = [
-            $this->name    => 'required|string|min:1|max:128|',
-            $this->file    => 'required|string|min:1|max:128|',
-            $this->type    => 'required|string|min:1|max:128|',
-            $this->description    => 'required|string|min:1|max:128|',
-            $this->approved    => 'required',
-            $this->focus    => 'required',
-            $this->task_id    => 'required',
+            $this->name    => 'required|string|min:1|max:60|',
+            $this->category    => 'required|string|min:1|max:60|',
+            $this->active    => 'boolean',
+
         ];
         try {
             // Ejecutamos el validador y en caso de que falle devolvemos la respuesta
@@ -71,23 +59,19 @@ class EvidenceQuery implements IEvidenceQuery
 
         try {
             //Recepción de datos y guardado en la BD
-            $evidence = new Evidence([
+            $tag = new Tag([
                 $this->name => $request->name,
-                $this->file => $request->file,
-                $this->type => $request->type,
-                $this->description => $request->description,
-                $this->approved => $request->approved,
-                $this->focus => $request->focus,
-                $this->task_id => $request->task_id,
+                $this->category => $request->category,
+                $this->active => $request->active,
             ]);
 
-            $evidence->save();
+            $tag->save();
 
             return response()->json([
                 'data' => [
-                    'evidence' => $evidence,
+                    'tag' => $tag,
                 ],
-                'message' => 'Evidence creado correctamente!'
+                'message' => 'Tag creado correctamente!'
             ], 201);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
@@ -97,32 +81,31 @@ class EvidenceQuery implements IEvidenceQuery
     //Show: Obtener un registro de la tabla
     public function showById(Request $request,  int $id)
     {
+
         if ($id) {
             try {
-                $ev = Evidence::findOrFail($id);
-                if ($ev) {
-                    //Select a la BD: TB_evidences
-                    $evidence = DB::table('evidences')
-                        ->select(['id',
-                        'name',
-                        'file',
-                        'type',
-                        'description',
-                        'approved',
-                        'focus',
-                        'task_id'
+                $tg = Tag::findOrFail($id);
+
+                if ($tg) {
+                    //Select a la BD: TB_tasks
+                    $tag = DB::table('tags')
+                        ->select([
+                            'id',
+                            'name',
+                            'category',
+                            'active',
                         ])
-                        ->where('evidences.id', '=', $id)
+                        ->where('tags.id', '=', $id)
                         ->get();
                     return response()->json([
                         'data' => [
-                            'evidence' => $evidence,
+                            'tag' => $tag,
                         ],
-                        'message' => 'Datos de evidence Consultados Correctamente!'
+                        'message' => 'Datos de tags Consultados Correctamente!'
                     ]);
                 }
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Evidence con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Tag con id {$id} no existe!", 'error' => $e->getMessage()], 403);
             }
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
@@ -136,13 +119,10 @@ class EvidenceQuery implements IEvidenceQuery
 
             //Rules: Especificaciones a validar
             $rules = [
-                $this->name    => 'required|string|min:1|max:128|',
-                $this->file    => 'required|string|min:1|max:128|',
-                $this->type    => 'required|string|min:1|max:128|',
-                $this->description    => 'required|string|min:1|max:128|',
-                $this->approved    => 'required',
-                $this->focus    => 'required',
-                $this->task_id    => 'required',
+                $this->name    => 'required|string|min:1|max:60|',
+                $this->category    => 'required|string|min:1|max:60|',
+                $this->active    => 'boolean',
+
             ];
             try {
                 // Ejecutamos el validador y en caso de que falle devolvemos la respuesta
@@ -156,26 +136,22 @@ class EvidenceQuery implements IEvidenceQuery
 
             try {
                 //Consulta por Id
-                $evidence = Evidence::findOrFail($id);
+                $tag = Tag::findOrFail($id);
                 //Actualización de datos
-                $evidence->name = $request->name ?? $evidence->name;
-                $evidence->file = $request->file ?? $evidence->file;
-                $evidence->type = $request->type ?? $evidence->type;
-                $evidence->description = $request->description ?? $evidence->description;
-                $evidence->approved = $request->approved ?? $evidence->approved;
-                $evidence->focus = $request->focus ?? $evidence->focus;
-                $evidence->task_id = $request->task_id ?? $evidence->task_id;
+                $tag->name = $request->name ?? $tag->name;
+                $tag->category = $request->category ?? $tag->category;
+                $tag->active = $request->active ?? $tag->active;
 
-                $evidence->save();
+                $tag->save();
 
                 return response()->json([
                     'data' => [
-                        'evidence' => $evidence,
+                        'tag' => $tag,
                     ],
-                    'message' => 'Evidence actualizado con éxito!'
+                    'message' => 'Tag actualizado con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $ex) {
-                return response()->json(['message' => "Evidence con id {$id} no existe!", 'error' => $ex->getMessage()], 404);
+                return response()->json(['message' => "Tag con id {$id} no existe!", 'error' => $ex->getMessage()], 404);
             } catch (\Exception $e) {
                 return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
             }
@@ -190,46 +166,45 @@ class EvidenceQuery implements IEvidenceQuery
         if ($id) {
             try {
                 //Delete por id
-                $evidence = Evidence::findOrFail($id);
-                $evidence->delete();
+                $tag = Tag::findOrFail($id);
+                $tag->delete();
                 return response()->json([
                     'data' => [
-                        'evidence' => $evidence,
+                        'tag' => $tag,
                     ],
-                    'message' => 'Evidence eliminado con éxito!'
+                    'message' => 'Tag eliminado con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Evidence con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Tag con id {$id} no existe!", 'error' => $e->getMessage()], 403);
             }
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
         }
-    }
+    }    
 
-    public function showTaskById(Request $request, int $id)
+    // showProjectByTagName
+    public function showProjectById(Request $request, int $id)
     {
-        
         if ($id) {
             try {
                 ////Comprobar existencia
                 //$existencia = Option::find($id)->firstOrFail();
                 //Consultar option
-                $evidence = Evidence::find($id);
+                $tag = Tag::find($id);
                 //Aplicar relación
-                $task = $evidence->task;
+                $tag->projects;
 
                 return response()->json([
                     'data' => [
-                        'task' => $task,
+                        'tag' => $tag,
                     ],
-                    'message' => 'Task consultado con éxito!'
+                    'message' => 'Tag consultado con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Task relacionado a la evidence con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Tag relacionado a la tag con id {$id} no existe!", 'error' => $e->getMessage()], 403);
             }
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
         }
-        
     }
 }

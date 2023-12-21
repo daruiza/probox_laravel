@@ -3,48 +3,50 @@
 namespace App\Query\Request;
 
 use Illuminate\Support\Facades\DB;
-use App\Model\Core\Customer;
+use App\Model\Core\Note;
 
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
-use App\Query\Abstraction\ICustomerQuery;
+use App\Query\Abstraction\INoteQuery;
 
 
-class CustomerQuery implements ICustomerQuery
+class NoteQuery implements INoteQuery
 {
 
-    private $is_owner       = 'is_owner';
-    private $user_id        = 'user_id';
-    private $project_id     = 'project_id';
+    private $description = 'description';
+    private $approved    = 'approved';
+    private $focus       = 'focus';
+    private $project_id  = 'project_id';
 
     public function index(Request $request)
     {
         try {
             //Devuelve todos los PROJECTS existentes
-            $customers = Customer::query()
+            $notes = Note::query()
                 ->select([
                     'id',
-                    $this->is_owner,
-                    $this->user_id,
+                    $this->description,
+                    $this->approved,
+                    $this->focus,
                     $this->project_id,
                 ])->get();
 
-            return response()->json(['customers' => $customers]);
+            return response()->json(['notes' => $notes]);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
         }
     }
+
     public function store(Request $request)
     {
         //Rules: Especificaciones a validar
         $rules = [
-            $this->is_owner    => 'required|boolean',
-            $this->user_id    => 'required|numeric',
-            $this->project_id    => 'required|numeric',
+            $this->description  => 'required|string',
+            $this->approved     => 'boolean',
+            $this->focus        => 'boolean',
+            $this->project_id   => 'required|numeric',
         ];
 
         try {
@@ -59,30 +61,21 @@ class CustomerQuery implements ICustomerQuery
 
         try {
 
-            // Validación unique
-            $customer_find = Customer::query()
-                ->userId($request->user_id)
-                ->projectId($request->project_id)
-                ->get();
-
-
-            if (count($customer_find)) {
-                throw (new ValidationException('El usuario y el proyecto ya se hallan relacionados'));
-            }
             //Recepción de datos y guardado en la BD
-            $customer = new Customer([
-                $this->is_owner => $request->is_owner,
-                $this->user_id => $request->user_id,
+            $note = new Note([
+                $this->description => $request->description,
+                $this->approved => $request->approved,
+                $this->focus => $request->focus,
                 $this->project_id => $request->project_id,
             ]);
 
-            $customer->save();
+            $note->save();
 
             return response()->json([
                 'data' => [
-                    'customer' => $customer,
+                    'note' => $note,
                 ],
-                'message' => 'Customer creado correctamente!'
+                'message' => 'note creado correctamente!'
             ], 201);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
@@ -93,39 +86,43 @@ class CustomerQuery implements ICustomerQuery
     {
         if ($id) {
             try {
-                $ct = Customer::findOrFail($id);
-                if ($ct) {
+                $nt = Note::findOrFail($id);
+                if ($nt) {
                     //Select a la BD: TB_customer
-                    $customer = DB::table('customers')
+                    $note = DB::table('notes')
                         ->select([
                             'id',
-                            $this->is_owner,
-                            $this->user_id,
+                            $this->description,
+                            $this->approved,
+                            $this->focus,
                             $this->project_id
                         ])
-                        ->where('customers.id', '=', $id)
+                        ->where('notes.id', '=', $id)
                         ->get();
                     return response()->json([
                         'data' => [
-                            'customer' => $customer,
+                            'note' => $note,
                         ],
-                        'message' => 'Datos de customer Consultados Correctamente!'
+                        'message' => 'Datos de Nota Consultados Correctamente!'
                     ]);
                 }
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Customer con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Nota con id {$id} no existe!", 'error' => $e->getMessage()], 403);
             }
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
         }
     }
+
     public function update(Request $request, int $id)
     {
         if ($id) {
             //Rules: Especificaciones a validar
-            $rules = [                
-                $this->is_owner    => 'required|boolean',
-                $this->project_id    => 'required|numeric',
+            $rules = [
+                $this->description  => 'required|string',
+                $this->approved     => 'boolean',
+                $this->focus        => 'boolean',
+                $this->project_id   => 'required|numeric',
             ];
 
             try {
@@ -140,21 +137,22 @@ class CustomerQuery implements ICustomerQuery
 
             try {
                 //Consulta por Id
-                $customer = Customer::findOrFail($id);
+                $note = Note::findOrFail($id);
                 //Actualización de datos
-                $customer->is_owner = $request->is_owner ?? $customer->is_owner;
-                $customer->project_id = $request->project_id ?? $customer->project_id;
+                $note->description = $request->description ?? $note->description;
+                $note->approved = $request->approved ?? $note->approved;
+                $note->focus = $request->focus ?? $note->focus;
 
-                $customer->save();
+                $note->save();
 
                 return response()->json([
                     'data' => [
-                        'customer' => $customer,
+                        'note' => $note,
                     ],
-                    'message' => 'cliente actualizado con éxito!'
+                    'message' => 'nota actualizada con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $ex) {
-                return response()->json(['message' => "cleinte con id {$id} no existe!", 'error' => $ex->getMessage()], 404);
+                return response()->json(['message' => "nota con id {$id} no existe!", 'error' => $ex->getMessage()], 404);
             } catch (\Exception $e) {
                 return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
             }
@@ -167,58 +165,32 @@ class CustomerQuery implements ICustomerQuery
         if ($id) {
             try {
                 //Delete por id
-                $customer = Customer::findOrFail($id);
-                $customer->delete();
+                $note = Note::findOrFail($id);
+                $note->delete();
                 return response()->json([
                     'data' => [
-                        'customer' => $customer,
+                        'note' => $note,
                     ],
-                    'message' => 'colaborador eliminado con éxito!'
+                    'message' => 'nota eliminada con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "cliente con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "nota con id {$id} no existe!", 'error' => $e->getMessage()], 403);
             }
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
         }
     }
 
-    public function showByUserId(Request $request, int $id)
-    {
-        if ($id) {
-            try {
-                $customer = Customer::query()
-                    ->select([
-                        'id',
-                        $this->is_owner,
-                        $this->user_id,
-                        $this->project_id
-                    ])
-                    ->userId($id)
-                    ->get();
-
-                return response()->json([
-                    'data' => [
-                        'customer' => $customer,
-                    ],
-                    'message' => 'Datos de customer Consultados Correctamente!'
-                ]);
-            } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Customer con id {$id} no existe!", 'error' => $e->getMessage()], 403);
-            }
-        } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
-        }
-    }
     public function showByProjectId(Request $request, int $id)
     {
         if ($id) {
             try {
-                $customer = Customer::query()
+                $note = Note::query()
                     ->select([
                         'id',
-                        $this->is_owner,
-                        $this->user_id,
+                        $this->description,
+                        $this->approved,
+                        $this->focus,
                         $this->project_id
                     ])
                     ->projectId($id)
@@ -226,12 +198,12 @@ class CustomerQuery implements ICustomerQuery
 
                 return response()->json([
                     'data' => [
-                        'customer' => $customer,
+                        'note' => $note,
                     ],
-                    'message' => 'Datos de customer Consultados Correctamente!'
+                    'message' => 'Datos de nota Consultados Correctamente!'
                 ]);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Customer con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "nota con id {$id} no existe!", 'error' => $e->getMessage()], 403);
             }
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);

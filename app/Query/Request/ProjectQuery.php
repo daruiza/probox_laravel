@@ -29,6 +29,7 @@ class ProjectQuery implements IProjectQuery
     private $logo  = 'logo';
     private $photo  = 'photo';
     private $description = 'description';
+    private $progress = 'progress';
     private $focus = 'focus';
     private $active  = 'active';
 
@@ -75,12 +76,14 @@ class ProjectQuery implements IProjectQuery
                     'logo',
                     'photo',
                     'description',
+                    'progress',
                     'focus',
                     'active'
                 ])
                 ->with(['customers'])
                 ->with(['colaborators'])
                 ->with(['tags'])
+                ->with(['notes'])
                 ->name($request->name)
                 ->address($request->address)
                 ->date_init($request->date_init)
@@ -109,6 +112,7 @@ class ProjectQuery implements IProjectQuery
             $this->logo    => 'string',
             $this->photo    => 'string',
             $this->description   => 'string|min:1|max:1024|',
+            $this->progress   => 'numeric',
         ];
         try {
             // Ejecutamos el validador y en caso de que falle devolvemos la respuesta
@@ -134,6 +138,7 @@ class ProjectQuery implements IProjectQuery
                 $this->logo => $request->logo,
                 $this->photo => $request->photo,
                 $this->description => $request->description,
+                $this->progress => $request->progress,
                 $this->focus => $request->focus,
                 $this->active => $request->active,
             ]);
@@ -175,6 +180,7 @@ class ProjectQuery implements IProjectQuery
                             'logo',
                             'photo',
                             'description',
+                            'progress',
                             'focus',
                             'active'
                         ])
@@ -212,6 +218,7 @@ class ProjectQuery implements IProjectQuery
                 $this->logo    => 'string',
                 $this->photo    => 'string',
                 $this->description   => 'string|min:1|max:1024|',
+                $this->progress   => 'numeric',
             ];
             try {
                 // Ejecutamos el validador y en caso de que falle devolvemos la respuesta
@@ -238,6 +245,7 @@ class ProjectQuery implements IProjectQuery
                 $project->logo = $request->logo ?? $project->logo;
                 $project->photo = $request->photo ?? $project->photo;
                 $project->description = $request->description ?? $project->description;
+                $project->progress = $request->progress ?? $project->progress;
                 $project->focus = $request->focus ?? $project->focus;
                 $project->active = $request->active ?? $project->active;
 
