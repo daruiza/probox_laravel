@@ -97,7 +97,7 @@ class CommerceQuery implements ICommerceQuery
                 $cm = Commerce::findOrFail($id);
                 if ($cm) {
                     //Select a la BD: TB_customer
-                    $commerce = DB::table('commerces')
+                    $commerce = Commerce::query()
                         ->select([
                             'id',
                             $this->name,
@@ -108,6 +108,8 @@ class CommerceQuery implements ICommerceQuery
                             $this->active,
                         ])
                         ->where('commerces.id', '=', $id)
+                        ->with(['users'])
+                        ->with(['projects'])
                         ->get();
                     return response()->json([
                         'data' => [
@@ -190,68 +192,6 @@ class CommerceQuery implements ICommerceQuery
                 ], 201);
             } catch (ModelNotFoundException $e) {
                 return response()->json(['message' => "commerce con id {$id} no existe!", 'error' => $e->getMessage()], 403);
-            }
-        } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
-        }
-    }
-
-    public function showByUserId(Request $request, int $id)
-    {
-        if ($id) {
-            try {
-                $commerce = Commerce::query()
-                    ->select([
-                        'id',
-                        $this->name,
-                        $this->phone,
-                        $this->address,
-                        $this->description,
-                        $this->logo,
-                        $this->active,
-                    ])
-                    ->userId($id)
-                    ->get();
-
-                return response()->json([
-                    'data' => [
-                        'commerce' => $commerce,
-                    ],
-                    'message' => 'data_commerce_consulted_ok'
-                ]);
-            } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Comercio con id {$id} no existe!", 'error' => $e->getMessage()], 403);
-            }
-        } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
-        }
-    }
-
-    public function showByProjectId(Request $request, int $id)
-    {
-        if ($id) {
-            try {
-                $commerce = Commerce::query()
-                    ->select([
-                        'id',
-                        $this->name,
-                        $this->phone,
-                        $this->address,
-                        $this->description,
-                        $this->logo,
-                        $this->active,
-                    ])
-                    ->projectId($id)
-                    ->get();
-
-                return response()->json([
-                    'data' => [
-                        'commerce' => $commerce,
-                    ],
-                    'message' => 'data_commerce_consulted_ok'
-                ]);
-            } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Comercio con id {$id} no existe!", 'error' => $e->getMessage()], 403);
             }
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);

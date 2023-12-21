@@ -26,6 +26,7 @@ class CreateProjectsTable extends Migration
             $table->string('logo')->nullable();
             $table->string('photo')->nullable();
             $table->string('description', 1024)->nullable();
+            $table->integer('progress')->unsigned()->nullable()->default(0);
             $table->boolean('focus')->default(false);
             $table->boolean('active')->default(false);
             $table->timestamps();

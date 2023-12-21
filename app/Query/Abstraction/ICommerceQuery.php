@@ -10,7 +10,5 @@ interface ICommerceQuery
     public function store(Request $request);
     public function showById(Request $request, int $id);
     public function update(Request $request, int $id);
-    public function destroy(Request $request, int $id);
-    public function showByUserId(Request $request, int $id);
-    public function showByProjectId(Request $request, int $id);
+    public function destroy(Request $request, int $id);    
 }

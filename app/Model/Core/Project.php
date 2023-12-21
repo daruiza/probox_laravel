@@ -28,6 +28,7 @@ class Project extends Model
         'logo',
         'photo',
         'description',
+        'progress',
         'focus',
         'active',
         'commerce_id'

@@ -32,18 +32,5 @@ class Commerce extends Model
     {
         return $this->hasMany(User::class);
     }
-
-    public function scopeUserId($query, $user_id)
-    {
-        return is_null($user_id) ?  $query : $query
-        ->join('users', 'users.commerce_id', '=', 'commerces.id')
-        ->where('users.id', $user_id);
-    }
-
-    public function scopeProjectId($query, $project_id)
-    {
-        return is_null($project_id) ?  $query : $query
-        ->join('projects', 'projects.commerce_id', '=', 'commerces.id')
-        ->where('projects.id', $project_id);
-    }
+  
 }
