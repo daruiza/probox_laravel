@@ -106,7 +106,7 @@
                 ],
                 "summary": "Get All Colaborators",
                 "description": "Return Colaborators",
-                "operationId": "getCustomer",
+                "operationId": "getColaborator",
                 "responses": {
                     "200": {
                         "description": "Successful operation"
@@ -332,6 +332,189 @@
                         "name": "id",
                         "in": "path",
                         "description": "Colaborator Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/commerce/index": {
+            "get": {
+                "tags": [
+                    "Commerce"
+                ],
+                "summary": "Get All Commerces",
+                "description": "Return Commerces",
+                "operationId": "getCommerce",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/commerce/store": {
+            "post": {
+                "tags": [
+                    "Commerce"
+                ],
+                "summary": "Store Commerce",
+                "description": "Store Commerce",
+                "operationId": "storeCommerce",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Commerce"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/commerce/update/{id}": {
+            "put": {
+                "tags": [
+                    "Commerce"
+                ],
+                "summary": "Update One Commerce By one Id",
+                "description": "Update One Commerce",
+                "operationId": "getUpdateCommerceById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Commerce Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Commerce"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/commerce/destroy/{id}": {
+            "delete": {
+                "tags": [
+                    "Commerce"
+                ],
+                "summary": "Delete One Commerce By one Id",
+                "description": "Delete One Commerce",
+                "operationId": "getDestroyCommerceById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Commerce Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/commerce/showbyid/{id}": {
+            "get": {
+                "tags": [
+                    "Commerce"
+                ],
+                "summary": "Get One Commerce By one Id",
+                "description": "Return One Commerce",
+                "operationId": "getCommerceById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Commerce Id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -1310,6 +1493,226 @@
                 ]
             }
         },
+        "/note/index": {
+            "get": {
+                "tags": [
+                    "Note"
+                ],
+                "summary": "Get All Notes",
+                "description": "Return Notes",
+                "operationId": "getNotes",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/note/store": {
+            "post": {
+                "tags": [
+                    "Note"
+                ],
+                "summary": "Store Note",
+                "description": "Store Note",
+                "operationId": "storeNote",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Note"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/note/update/{id}": {
+            "put": {
+                "tags": [
+                    "Note"
+                ],
+                "summary": "Update One Note By one Id",
+                "description": "Update One Note",
+                "operationId": "getUpdateNoteById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Note Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Note"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/note/destroy/{id}": {
+            "delete": {
+                "tags": [
+                    "Note"
+                ],
+                "summary": "Delete One Note By one Id",
+                "description": "Delete One Note",
+                "operationId": "getDestroyNoteById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Note Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/note/showbyid/{id}": {
+            "get": {
+                "tags": [
+                    "Note"
+                ],
+                "summary": "Get One Note By one Id",
+                "description": "Return One Note",
+                "operationId": "getNoteById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Note Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/note/showbyprojectid/{id}": {
+            "get": {
+                "tags": [
+                    "Note"
+                ],
+                "summary": "Get One Note By one Project Id",
+                "description": "Return One Note",
+                "operationId": "getCustomerByProjectId",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Note Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/option/index": {
             "get": {
                 "tags": [
@@ -2246,6 +2649,226 @@
                 ]
             }
         },
+        "/tag/index": {
+            "get": {
+                "tags": [
+                    "Tag"
+                ],
+                "summary": "Get All Tag",
+                "description": "Return Tag",
+                "operationId": "getTag",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/tag/store": {
+            "post": {
+                "tags": [
+                    "Tag"
+                ],
+                "summary": "Store Tag",
+                "description": "Store Tag",
+                "operationId": "storeTag",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Tag"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/tag/showbyid/{id}": {
+            "get": {
+                "tags": [
+                    "Tag"
+                ],
+                "summary": "Get One Tag By one Id",
+                "description": "Return One Tag",
+                "operationId": "getTagById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Tag Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/tag/update/{id}": {
+            "put": {
+                "tags": [
+                    "Tag"
+                ],
+                "summary": "Update One Tag By one Id",
+                "description": "Update One Tag",
+                "operationId": "getUpdateTagById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Tag Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Tag"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/tag/destroy/{id}": {
+            "delete": {
+                "tags": [
+                    "Tag"
+                ],
+                "summary": "Delete One Tag By one Id",
+                "description": "Delete One Tag",
+                "operationId": "getDestroyTagById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Tag Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/tag/showprojectbyid/{id}": {
+            "get": {
+                "tags": [
+                    "Tag"
+                ],
+                "summary": "Get One Project By one Id",
+                "description": "Return One Project by Id",
+                "operationId": "getShowProjectById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Show Project by Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/task/index": {
             "get": {
                 "tags": [
@@ -3005,6 +3628,49 @@
                 },
                 "type": "object"
             },
+            "Commerce": {
+                "title": "Commerce",
+                "description": "Commerce body data",
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Name of the Commerce",
+                        "type": "string",
+                        "example": "Name Commerce"
+                    },
+                    "phone": {
+                        "title": "phone",
+                        "description": "Phone of the Commerce",
+                        "type": "string",
+                        "example": "Phone Commerce"
+                    },
+                    "address": {
+                        "title": "address",
+                        "description": "Address of the Commerce",
+                        "type": "string",
+                        "example": "Address Commerce"
+                    },
+                    "description": {
+                        "title": "description",
+                        "description": "description of the Commerce",
+                        "type": "string",
+                        "example": "description Commerce"
+                    },
+                    "logo": {
+                        "title": "logo",
+                        "description": "logo of the Commerce",
+                        "type": "string",
+                        "example": "logo Commerce"
+                    },
+                    "active": {
+                        "title": "active",
+                        "description": "active of the Commerce",
+                        "type": "boolean",
+                        "example": false
+                    }
+                },
+                "type": "object"
+            },
             "Customer": {
                 "title": "Customer",
                 "description": "Customer body data",
@@ -3122,6 +3788,36 @@
                         "description": "Active of the Module",
                         "type": "boolean",
                         "example": true
+                    }
+                },
+                "type": "object"
+            },
+            "Note": {
+                "title": "Note",
+                "description": "Note body data",
+                "properties": {
+                    "description": {
+                        "title": "description",
+                        "description": "Description Note on the Proyect",
+                        "type": "string",
+                        "example": "Note about proyect"
+                    },
+                    "approved": {
+                        "title": "approved",
+                        "description": "approved of the Note",
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "focus": {
+                        "title": "focus",
+                        "description": "focus of the Note",
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "project_id": {
+                        "title": "project_id",
+                        "description": "Proyect of the Customer",
+                        "example": 1
                     }
                 },
                 "type": "object"
@@ -3317,6 +4013,31 @@
                         "description": "Active of the Rol",
                         "type": "boolean",
                         "example": true
+                    }
+                },
+                "type": "object"
+            },
+            "Tag": {
+                "title": "Tag",
+                "description": "Tag body data",
+                "properties": {
+                    "category": {
+                        "title": "category",
+                        "description": "category of the Tag",
+                        "type": "string",
+                        "example": "category Tag"
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "Name of the Tag",
+                        "type": "string",
+                        "example": "Name Tag"
+                    },
+                    "active": {
+                        "title": "active",
+                        "description": "active of the Tag",
+                        "type": "boolean",
+                        "example": false
                     }
                 },
                 "type": "object"

@@ -5,7 +5,10 @@ namespace App\Model\Core;
 use Carbon\Carbon;
 
 use App\User;
+use App\Model\Core\Commerce;
 use App\Model\Core\Tag;
+use App\Model\Core\Task;
+use App\Model\Core\Note;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -25,14 +28,22 @@ class Project extends Model
         'logo',
         'photo',
         'description',
+        'progress',
         'focus',
-        'active'
+        'active',
+        'commerce_id'
     ];
 
     //HasMany: Un PROJECT le pertenece a varios TASK.
     public function tasks()
     {
         return $this->hasMany(Task::class);
+    }
+
+    //HasMany: Un PROJECT le pertenece a varios NOTES.
+    public function notes()
+    {
+        return $this->hasMany(Note::class);
     }
 
     //Un Proyecto le pertenece a varios Customes
@@ -54,6 +65,12 @@ class Project extends Model
     {
         // return $this->belongsToMany(Customer::class);
         return $this->belongsToMany(Tag::class, 'projects_tags', 'project_id', 'tag_id');
+    }
+
+    //BelongsTo (1-1): Un USER le pertenece un COMMERCE
+    public function commerce()
+    {
+        return $this->belongsTo(Commerce::class);
     }
 
     public function scopeActive($query, $active)

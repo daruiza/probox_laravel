@@ -5,12 +5,10 @@ namespace App\Query\Request;
 use Illuminate\Support\Facades\DB;
 use App\Model\Core\Task;
 
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 use App\Query\Abstraction\ITaskQuery;
 
 
@@ -244,16 +242,16 @@ class TaskQuery implements ITaskQuery
                 //Consultar option
                 $task = Task::find($id);
                 //Aplicar relación
-                $project = $task->project;
+                $task->project;
 
                 return response()->json([
                     'data' => [
-                        'project' => $project,
+                        'task' => $task,
                     ],
-                    'message' => 'Project consultado con éxito!'
+                    'message' => 'Task consultado con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Project relacionado a la task con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Task relacionado a la task con id {$id} no existe!", 'error' => $e->getMessage()], 403);
             }
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);

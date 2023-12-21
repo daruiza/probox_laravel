@@ -4,26 +4,26 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Query\Abstraction\ITaskQuery;
+use App\Query\Abstraction\ITagQuery;
 
-class TaskController extends Controller
+class TagController extends Controller
 {
 
-    private $TaskQuery;
+    private $TagQuery;
 
-    public function __construct(ITaskQuery $TaskQuery)
+    public function __construct(ITagQuery $TagQuery)
     {
-        $this->TaskQuery = $TaskQuery;
+        $this->TagQuery = $TagQuery;
     }
 
     /**
-     * Listado de todos los Task
+     * Listado de todos los Tag
      * @OA\Get(
-     *      path="/task/index",
-     *      operationId="getTask",
-     *      tags={"Task"},
-     *      summary="Get All Task",
-     *      description="Return Task",
+     *      path="/tag/index",
+     *      operationId="getTag",
+     *      tags={"Tag"},
+     *      summary="Get All Tag",
+     *      description="Return Tag",
      *      security={ {"bearer": {} }},
      *      @OA\Response(
      *          response=200,
@@ -41,20 +41,20 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->TaskQuery->index($request);
+        return $this->TagQuery->index($request);
     }
 
     /**
      * @OA\Post(
-     *      path="/task/store",
-     *      operationId="storeTask",
-     *      tags={"Task"},
-     *      summary="Store Task",
-     *      description="Store Task",
+     *      path="/tag/store",
+     *      operationId="storeTag",
+     *      tags={"Tag"},
+     *      summary="Store Tag",
+     *      description="Store Tag",
      *      security={ {"bearer": {} }},
      *      @OA\RequestBody(
      *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/Task")
+     *          @OA\JsonContent(ref="#/components/schemas/Tag")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -72,20 +72,20 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->TaskQuery->store($request);
+        return $this->TagQuery->store($request);
     }
 
     /**
      * @OA\Get(
-     *      path="/task/showbyid/{id}",
-     *      operationId="getTaskById",
-     *      tags={"Task"},
-     *      summary="Get One Task By one Id",
-     *      description="Return One Task",
+     *      path="/tag/showbyid/{id}",
+     *      operationId="getTagById",
+     *      tags={"Tag"},
+     *      summary="Get One Tag By one Id",
+     *      description="Return One Tag",
      *      security={ {"bearer": {} }},
      *      @OA\Parameter(
      *          name="id",
-     *          description="Task Id",
+     *          description="Tag Id",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -108,20 +108,20 @@ class TaskController extends Controller
      */
      public function showById(Request $request, $id)
      {
-         return $this->TaskQuery->showById($request, $id);
+         return $this->TagQuery->showById($request, $id);
      }
  
      /**
      * @OA\Put(
-     *      path="/task/update/{id}",
-     *      operationId="getUpdateTaskById",
-     *      tags={"Task"},
-     *      summary="Update One Task By one Id",
-     *      description="Update One Task",
+     *      path="/tag/update/{id}",
+     *      operationId="getUpdateTagById",
+     *      tags={"Tag"},
+     *      summary="Update One Tag By one Id",
+     *      description="Update One Tag",
      *      security={ {"bearer": {} }},
      *      @OA\Parameter(
      *          name="id",
-     *          description="Task Id",
+     *          description="Tag Id",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -130,7 +130,7 @@ class TaskController extends Controller
      *      ),
      *       @OA\RequestBody(
      *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/Task")
+     *          @OA\JsonContent(ref="#/components/schemas/Tag")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -148,20 +148,20 @@ class TaskController extends Controller
      */
      public function update(Request $request, $id)
      {
-         return $this->TaskQuery->update($request, $id);
+         return $this->TagQuery->update($request, $id);
      }
  
      /**
       * @OA\Delete(
-      *      path="/task/destroy/{id}",
-      *      operationId="getDestroyTaskById",
-      *      tags={"Task"},
-      *      summary="Delete One Task By one Id",
-      *      description="Delete One Task",
+      *      path="/tag/destroy/{id}",
+      *      operationId="getDestroyTagById",
+      *      tags={"Tag"},
+      *      summary="Delete One Tag By one Id",
+      *      description="Delete One Tag",
       *      security={ {"bearer": {} }},
       *      @OA\Parameter(
       *          name="id",
-      *          description="Task Id",
+      *          description="Tag Id",
       *          required=true,
       *          in="path",
       *          @OA\Schema(
@@ -184,50 +184,15 @@ class TaskController extends Controller
       */
      public function destroy(Request $request, $id)
      {
-         return $this->TaskQuery->destroy($request, $id);
+         return $this->TagQuery->destroy($request, $id);
      }
-
-     /**
-     * @OA\Get(
-     *      path="/task/showevidencebyid/{id}",
-     *      operationId="getShowEvidenceById",
-     *      tags={"Task"},
-     *      summary="Get One Evidence By one Id",
-     *      description="Return One Evidence by Id",
-     *      security={ {"bearer": {} }},
-     *      @OA\Parameter(
-     *          name="id",
-     *          description="Show Evidence by Id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *       ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated"
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      )
-     *     )
-     */
-    public function showEvidenceById(Request $request, int $id)
-    {
-        return $this->TaskQuery->showEvidenceById($request, $id);
-    }
+     
 
     /**
      * @OA\Get(
-     *      path="/task/showprojectbyid/{id}",
+     *      path="/tag/showprojectbyid/{id}",
      *      operationId="getShowProjectById",
-     *      tags={"Task"},
+     *      tags={"Tag"},
      *      summary="Get One Project By one Id",
      *      description="Return One Project by Id",
      *      security={ {"bearer": {} }},
@@ -254,9 +219,9 @@ class TaskController extends Controller
      *      )
      *     )
      */
-    public function showProjectById(Request $request, int $id)
+    public function showByProjectId(Request $request, int $id)
     {
-        return $this->TaskQuery->showProjectById($request, $id);
+        return $this->TagQuery->showProjectById($request, $id);
     }
 
  }

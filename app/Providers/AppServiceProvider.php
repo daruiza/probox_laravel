@@ -37,9 +37,21 @@ use App\Http\Controllers\Api\OptionRolController;
 use App\Query\Abstraction\IOptionRolQuery;
 use App\Query\Request\OptionRolQuery;
 
+use App\Http\Controllers\Api\CommerceController;
+use App\Query\Abstraction\ICommerceQuery;
+use App\Query\Request\CommerceQuery;
+
 use App\Http\Controllers\Api\ProjectController;
 use App\Query\Abstraction\IProjectQuery;
 use App\Query\Request\ProjectQuery;
+
+use App\Http\Controllers\Api\TagController;
+use App\Query\Abstraction\ITagQuery;
+use App\Query\Request\TagQuery;
+
+use App\Http\Controllers\Api\NoteController;
+use App\Query\Abstraction\INoteQuery;
+use App\Query\Request\NoteQuery;
 
 use App\Http\Controllers\Api\CustomerController;
 use App\Query\Abstraction\ICustomerQuery;
@@ -90,8 +102,17 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(IOptionRolQuery::class, OptionRolQuery::class);
         $this->app->make(OptionRolController::class);
 
+        $this->app->bind(ICommerceQuery::class, CommerceQuery::class);
+        $this->app->make(CommerceController::class);
+
         $this->app->bind(IProjectQuery::class, ProjectQuery::class);
         $this->app->make(ProjectController::class);
+
+        $this->app->bind(ITagQuery::class, TagQuery::class);
+        $this->app->make(TagController::class);
+
+        $this->app->bind(INoteQuery::class, NoteQuery::class);
+        $this->app->make(NoteController::class);
 
         $this->app->bind(ICustomerQuery::class, CustomerQuery::class);
         $this->app->make(CustomerController::class);
