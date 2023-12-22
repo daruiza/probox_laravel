@@ -105,6 +105,6 @@ class User extends Authenticatable
      public function projects_colaborator()
      {
          // return $this->belongsToMany(Customer::class);
-         return $this->belongsToMany(Project::class, 'coalborators', 'user_id', 'project_id');
+         return $this->belongsToMany(Project::class, 'colaborators', 'user_id', 'project_id');
      }
 }
