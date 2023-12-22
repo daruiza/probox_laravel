@@ -3964,6 +3964,11 @@
                         "type": "string",
                         "example": "Description Project"
                     },
+                    "progress": {
+                        "title": "progress",
+                        "description": "Progress of the Project",
+                        "example": "Progress Project"
+                    },
                     "focus": {
                         "title": "focus",
                         "description": "Focus of the Project",

@@ -22,6 +22,7 @@ class UserQuery implements IUserQuery
     private $theme      = 'theme';
     private $photo      = 'photo';
     private $rol_id     = 'rol_id';
+    private $commerce_id     = 'commerce_id';
     private $chexk_digit = 'chexk_digit';
     private $nacionality = 'nacionality';
     private $birthdate = 'birthdate';
@@ -35,6 +36,7 @@ class UserQuery implements IUserQuery
             ->where('rol_id', '!=', 1)
             ->where('id', '!=', $request->user()->id)
             ->with(['rol:id,name,description,active'])
+            ->with(['commerce'])
             ->with(['projects_customer'])
             ->with(['projects_colaborator'])
             ->name($request->name)
@@ -89,6 +91,7 @@ class UserQuery implements IUserQuery
                         $this->theme    => $request->theme ?? 'skyblue',
                         $this->photo    => $request->photo ?? '',
                         $this->rol_id   => $request->rol_id,
+                        $this->commerce_id   => $request->commerce_id,
                         $this->chexk_digit => $request->chexk_digit,
                         $this->nacionality => $request->nacionality,
                         $this->birthdate => $request->birthdate,
@@ -121,6 +124,7 @@ class UserQuery implements IUserQuery
                         $this->theme    => $request->theme ?? 'skyblue',
                         $this->photo    => $request->photo ?? '',
                         $this->rol_id   => $request->rol_id ?? 2,
+                        $this->commerce_id   => $request->commerce_id ?? 1,
                         $this->chexk_digit => $request->chexk_digit,
                         $this->nacionality => $request->nacionality,
                         $this->birthdate => $request->birthdate,
@@ -208,6 +212,7 @@ class UserQuery implements IUserQuery
                 $user->nacionality  = $request->nacionality ?? $user->nacionality;
                 $user->birthdate    = $request->birthdate ?? $user->birthdate;
                 $user->rol_id       = $request->rol_id ?? $user->rol_id;
+                $user->commerce_id  = $request->commerce_id ?? $user->commerce_id;
                 $user->save();
                 return response()->json([
                     'data' => [

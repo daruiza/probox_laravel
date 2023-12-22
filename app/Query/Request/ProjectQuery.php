@@ -78,10 +78,13 @@ class ProjectQuery implements IProjectQuery
                     'description',
                     'progress',
                     'focus',
-                    'active'
+                    'active',
+                    'commerce_id'
                 ])
+                ->with(['commerce'])
                 ->with(['customers'])
                 ->with(['colaborators'])
+                ->with(['tasks'])
                 ->with(['tags'])
                 ->with(['notes'])
                 ->name($request->name)
@@ -166,7 +169,7 @@ class ProjectQuery implements IProjectQuery
 
                 if ($pj) {
                     //Select a la BD: TB_projects
-                    $project = DB::table('projects')
+                    $project = Project::query()
                         ->select([
                             'id',
                             'name',
@@ -185,6 +188,12 @@ class ProjectQuery implements IProjectQuery
                             'active'
                         ])
                         ->where('projects.id', '=', $id)
+                        ->with(['commerce'])
+                        ->with(['customers'])
+                        ->with(['colaborators'])
+                        ->with(['tasks'])
+                        ->with(['tags'])
+                        ->with(['notes'])
                         ->get();
                     return response()->json([
                         'data' => [
