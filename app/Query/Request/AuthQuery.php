@@ -59,7 +59,7 @@ class AuthQuery implements IAuthQuery
             $user = User::query()
                 ->select([
                     'id', 'name', 'lastname', 'phone', 'email', 'address',
-                    'location' , 'photo', 'theme', 'rol_id', 'chexk_digit',
+                    'location', 'photo', 'theme', 'rol_id', 'commerce_id', 'chexk_digit',
                     'nacionality', 'birthdate', 'active'
                 ])
                 ->where('id', '=', $request->user()->id)
@@ -67,12 +67,14 @@ class AuthQuery implements IAuthQuery
                 ->with(['commerce'])
                 ->with(['projects_customer'])
                 ->with(['projects_colaborator'])
+                // ->toSql();
                 ->first();
+                
             return response()->json([
                 'data' => [
                     'user' => $user,
                 ],
-                'message' => 'Datos de Usuario Consultados Correctamente!'
+                'message' => 'data_user_consulted_ok'
             ]);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 402);

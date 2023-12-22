@@ -14,17 +14,13 @@ class Rol extends Model
         'description',
         'active'
     ];
-
-    //TABLA INTERMEDIA: Relación Options_Rols
-    public function optionsrols()
-    {
-        return $this->belongsToMany(OptionRol::class);
-    }
+   
     //BelongsToMany: Varios ROLS le pertenecen a varios OPTIONS.
     public function options()
     {
-        return $this->belongsToMany(Option::class);
-    }
+        return $this->belongsToMany(Option::class, 'options_rols', 'rol_id', 'option_id');
+    }   
+ 
 
     public function scopeActive($query, $active)
     {

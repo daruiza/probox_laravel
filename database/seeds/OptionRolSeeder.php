@@ -14,36 +14,83 @@ class OptionRolSeeder extends Seeder
     public function run()
     {
         DB::table('options_rols')->insert(array(
-            'name' => 'Option_rol_1',
-            'description' => 'Option_rol_1',
+            'name' => 'project',
+            'description' => 'admin',
             'active' => true,
-            'rol_id' => '1',
+            'rol_id' => '2',
             'option_id' => '1',
         ));
 
         DB::table('options_rols')->insert(array(
-            'name' => 'Option_rol_2',
-            'description' => 'Option_rol_2',
+            'name' => 'project',
+            'description' => 'admin',
             'active' => true,
             'rol_id' => '2',
             'option_id' => '2',
         ));
 
         DB::table('options_rols')->insert(array(
-            'name' => 'Option_rol_3',
-            'description' => 'Option_rol_3',
-            'active' => false,
-            'rol_id' => '3',
-            'option_id' => '2',
-        ));
-
-        DB::table('options_rols')->insert(array(
-            'name' => 'Option_rol_4',
-            'description' => 'Option_rol_4',
-            'active' => false,
-            'rol_id' => '1',
+            'name' => 'project',
+            'description' => 'admin',
+            'active' => true,
+            'rol_id' => '2',
             'option_id' => '3',
         ));
 
+        DB::table('options_rols')->insert(array(
+            'name' => 'project',
+            'description' => 'admin',
+            'active' => true,
+            'rol_id' => '2',
+            'option_id' => '4',
+        ));
+
+        DB::table('options_rols')->insert(array(
+            'name' => 'project',
+            'description' => 'admin',
+            'active' => true,
+            'rol_id' => '2',
+            'option_id' => '5',
+        ));
+
+        DB::table('options_rols')->insert(array(
+            'name' => 'project',
+            'description' => 'admin',
+            'active' => true,
+            'rol_id' => '2',
+            'option_id' => '6',
+        ));
+
+        DB::table('options_rols')->insert(array(
+            'name' => 'project',
+            'description' => 'admin',
+            'active' => true,
+            'rol_id' => '2',
+            'option_id' => '7',
+        ));
+
+        DB::table('options_rols')->insert(array(
+            'name' => 'project',
+            'description' => 'admin',
+            'active' => true,
+            'rol_id' => '2',
+            'option_id' => '8',
+        ));
+
+        DB::table('options_rols')->insert(array(
+            'name' => 'project',
+            'description' => 'admin',
+            'active' => true,
+            'rol_id' => '2',
+            'option_id' => '9',
+        ));
+
+        DB::table('options_rols')->insert(array(
+            'name' => 'project',
+            'description' => 'admin',
+            'active' => true,
+            'rol_id' => '2',
+            'option_id' => '10',
+        ));
     }
 }

@@ -14,22 +14,10 @@ class ModuleSeeder extends Seeder
     public function run()
     {
         DB::table('modules')->insert(array(
-            'name' => 'Projects',
-            'description' => 'project objectives',
-            'label' => 'PPP',
-        ));
-
-        DB::table('modules')->insert(array(
-            'name' => 'Projects_2',
-            'description' => 'project objectives_2',
-            'label' => 'PPP_2',
-        ));
-
-        DB::table('modules')->insert(array(
-            'name' => 'Projects_3',
-            'description' => 'project objectives_3',
-            'label' => 'PPP_3',
-        ));
+            'name' => 'projects',
+            'description' => 'project module',
+            'label' => null,
+        ));        
 
     }
 }

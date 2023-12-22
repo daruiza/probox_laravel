@@ -67,7 +67,7 @@ class Project extends Model
         return $this->belongsToMany(Tag::class, 'projects_tags', 'project_id', 'tag_id');
     }
 
-    //BelongsTo (1-1): Un USER le pertenece un COMMERCE
+    //BelongsTo (1-1): Un PRIJECT le pertenece un COMMERCE
     public function commerce()
     {
         return $this->belongsTo(Commerce::class);

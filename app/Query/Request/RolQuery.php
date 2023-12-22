@@ -79,12 +79,12 @@ class RolQuery implements IRolQuery
         if ($id) {
             try {
                 $rl = Rol::findOrFail($id);
-
                 if ($rl) {
                     //Select a la BD: TB_rols
-                    $rol = DB::table('rols')
+                    $rol = Rol::query()
                         ->select(['id', 'name', 'description', 'active'])
                         ->where('rols.id', '=', $id)
+                        ->with(['options'])
                         ->get();
                     return response()->json([
                         'data' => [
