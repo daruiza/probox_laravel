@@ -13,6 +13,7 @@ class Option extends Model
         'name',
         'description',
         'label',
+        'icon',
         'active',
         'module_id'
     ];

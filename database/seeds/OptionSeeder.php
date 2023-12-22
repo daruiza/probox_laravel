@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
 class OptionSeeder extends Seeder
 {
@@ -13,26 +12,96 @@ class OptionSeeder extends Seeder
      */
     public function run()
     {
+
+        // PROJECTS
+        // option 1
         DB::table('options')->insert(array(
-            'name' => 'Option1',
-            'description' => 'Description Option1',
-            'label' => 'OP1',
+            'name' => 'store',
+            'description' => 'store of the project',
+            'label' => 'store',
+            'icon' => 'add_circle',
             'module_id' => '1',
         ));
 
+        // option 2
         DB::table('options')->insert(array(
-            'name' => 'Option2',
-            'description' => 'Description Option2',
-            'label' => 'OP2',
-            'module_id' => '2',
+            'name' => 'show',
+            'description' => 'show of the project',
+            'label' => 'show',
+            'icon' => 'visibility',
+            'module_id' => '1',
         ));
 
+        // option 3
         DB::table('options')->insert(array(
-            'name' => 'Option3',
-            'description' => 'Description Option3',
-            'label' => 'OP3',
-            'module_id' => '2',
+            'name' => 'edit',
+            'description' => 'edit of the project',
+            'label' => 'edit',
+            'icon' => 'settings',
+            'module_id' => '1',
         ));
 
+        // option 4
+        DB::table('options')->insert(array(
+            'name' => 'delete',
+            'description' => 'delete of the project',
+            'label' => 'delete',
+            'icon' => 'delete',
+            'module_id' => '1',
+        ));
+
+        // option 5
+        DB::table('options')->insert(array(
+            'name' => 'tasks',
+            'description' => 'task of the project',
+            'label' => 'task',
+            'icon' => 'assignment',
+            'module_id' => '1',
+        ));
+
+        // option 6
+        DB::table('options')->insert(array(
+            'name' => 'documents',
+            'description' => 'documents of the project',
+            'label' => 'documents',
+            'icon' => 'description',
+            'module_id' => '1',
+        ));
+
+        // option 7
+        DB::table('options')->insert(array(
+            'name' => 'customers',
+            'description' => 'customers of the project',
+            'label' => 'customers',
+            'icon' => 'assignment_ind',
+            'module_id' => '1',
+        ));
+
+        // option 8
+        DB::table('options')->insert(array(
+            'name' => 'colaboratos',
+            'description' => 'colaboratos of the project',
+            'label' => 'colaboratos',
+            'icon' => 'build',
+            'module_id' => '1',
+        ));
+
+        // option 9
+        DB::table('options')->insert(array(
+            'name' => 'notes',
+            'description' => 'notes of the project',
+            'label' => 'notes',
+            'icon' => 'event_note',
+            'module_id' => '1',
+        ));
+
+        // option 10
+        DB::table('options')->insert(array(
+            'name' => 'tags',
+            'description' => 'tags of the project',
+            'label' => 'tags',
+            'icon' => 'local_offer',
+            'module_id' => '1',
+        ));
     }
 }

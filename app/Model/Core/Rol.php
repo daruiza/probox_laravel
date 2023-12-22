@@ -15,16 +15,16 @@ class Rol extends Model
         'active'
     ];
 
-    //TABLA INTERMEDIA: Relación Options_Rols
-    public function optionsrols()
-    {
-        return $this->belongsToMany(OptionRol::class);
-    }
     //BelongsToMany: Varios ROLS le pertenecen a varios OPTIONS.
     public function options()
     {
-        return $this->belongsToMany(Option::class);
+        return $this->belongsToMany(Option::class, 'options_rols', 'rol_id', 'option_id');
     }
+
+    // public function optionscard()
+    // {
+    //     return $this->belongsToMany(Option::class, 'options_rols', 'rol_id', 'option_id')->where('options_rols.name', 'card');
+    // }
 
     public function scopeActive($query, $active)
     {
@@ -49,5 +49,4 @@ class Rol extends Model
             $query->where('id', '!=', intval($idRol)) :
             $query->where('id', '!=', 1);
     }
-
 }
