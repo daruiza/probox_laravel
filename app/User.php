@@ -83,8 +83,17 @@ class User extends Authenticatable
     //BelongsTo (1-1): Un USER le pertenece un ROL
     public function rol()
     {
-        return $this->belongsTo(Rol::class);
+        return $this->belongsTo(Rol::class)->with(['options']);
     }
+
+    // public function rol($name = 'card')
+    // {
+    //     return $this->belongsTo(Rol::class)->with(['options' => function ($query) use ($name) {
+    //         return isset($name) ?
+    //             $query->where('options_rols.name', $name) :
+    //             $query;
+    //     }]);
+    // }
 
     //BelongsTo (1-1): Un USER le pertenece un COMMERCE
     public function commerce()

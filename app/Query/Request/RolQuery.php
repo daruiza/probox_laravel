@@ -37,40 +37,39 @@ class RolQuery implements IRolQuery
     //Store: Guardar datos en la BD
     public function store(Request $request)
     {
-       //Rules: Especificaciones a validar
-       $rules = [
-        $this->name    => 'required|string|min:1|max:128|',
-        $this->description   => 'required|string|min:1|max:128|',
-    ];
-    try {
-        // Ejecutamos el validador y en caso de que falle devolvemos la respuesta
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            throw (new ValidationException($validator->errors()->getMessages()));
+        //Rules: Especificaciones a validar
+        $rules = [
+            $this->name    => 'required|string|min:1|max:128|',
+            $this->description   => 'required|string|min:1|max:128|',
+        ];
+        try {
+            // Ejecutamos el validador y en caso de que falle devolvemos la respuesta
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                throw (new ValidationException($validator->errors()->getMessages()));
+            }
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
         }
-    } catch (\Exception $e) {
-        return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
-    }
-    
-    try {
-        //Recepción de datos y guardado en la BD
-        $rol = new Rol([
-            $this->name => $request->name,
-            $this->description => $request->description,
-            $this->active => $request->active,
-        ]);
-        $rol->save();
-        
-        return response()->json([
-            'data' => [
-            'rol' => $rol,
-            ],
-            'message' => 'Rol creado correctamente!'
-        ], 201);
 
-    } catch (\Exception $e) {
-        return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
-    }
+        try {
+            //Recepción de datos y guardado en la BD
+            $rol = new Rol([
+                $this->name => $request->name,
+                $this->description => $request->description,
+                $this->active => $request->active,
+            ]);
+            $rol->save();
+
+            return response()->json([
+                'data' => [
+                    'rol' => $rol,
+                ],
+                'message' => 'Rol creado correctamente!'
+            ], 201);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
+        }
     }
 
     //Show: Obtener un registro de la tabla
@@ -79,12 +78,19 @@ class RolQuery implements IRolQuery
         if ($id) {
             try {
                 $rl = Rol::findOrFail($id);
+                $name = 'card';
                 if ($rl) {
                     //Select a la BD: TB_rols
                     $rol = Rol::query()
                         ->select(['id', 'name', 'description', 'active'])
                         ->where('rols.id', '=', $id)
                         ->with(['options'])
+                        // relacion interna
+                        // ->with(['options' => function ($query) use ($name) {
+                        //     return isset($name) ?
+                        //         $query->where('options_rols.name', $name) :
+                        //         $query;
+                        // }])
                         ->get();
                     return response()->json([
                         'data' => [
@@ -170,7 +176,7 @@ class RolQuery implements IRolQuery
 
     public function showOptionById(Request $request, int $id)
     {
-        
+
         if ($id) {
             try {
                 //Comprobar existencia
@@ -179,7 +185,7 @@ class RolQuery implements IRolQuery
                 $rol = Rol::find($id);
                 //Aplicar relación
                 $options = $rol->options;
-    
+
                 return response()->json([
                     'data' => [
                         'options' => $options,

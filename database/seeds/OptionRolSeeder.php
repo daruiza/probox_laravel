@@ -46,7 +46,7 @@ class OptionRolSeeder extends Seeder
         ));
 
         DB::table('options_rols')->insert(array(
-            'name' => 'project',
+            'name' => 'card',
             'description' => 'admin',
             'active' => true,
             'rol_id' => '2',
@@ -54,7 +54,7 @@ class OptionRolSeeder extends Seeder
         ));
 
         DB::table('options_rols')->insert(array(
-            'name' => 'project',
+            'name' => 'card',
             'description' => 'admin',
             'active' => true,
             'rol_id' => '2',
@@ -62,7 +62,7 @@ class OptionRolSeeder extends Seeder
         ));
 
         DB::table('options_rols')->insert(array(
-            'name' => 'project',
+            'name' => 'card',
             'description' => 'admin',
             'active' => true,
             'rol_id' => '2',
@@ -70,7 +70,7 @@ class OptionRolSeeder extends Seeder
         ));
 
         DB::table('options_rols')->insert(array(
-            'name' => 'project',
+            'name' => 'card',
             'description' => 'admin',
             'active' => true,
             'rol_id' => '2',
@@ -78,7 +78,7 @@ class OptionRolSeeder extends Seeder
         ));
 
         DB::table('options_rols')->insert(array(
-            'name' => 'project',
+            'name' => 'card',
             'description' => 'admin',
             'active' => true,
             'rol_id' => '2',

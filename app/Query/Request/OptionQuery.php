@@ -21,6 +21,7 @@ class OptionQuery implements IOptionQuery
     private $name   = 'name';
     private $description = 'description';
     private $label  = 'label';
+    private $icon  = 'icon';
     private $active  = 'active';
     private $module_id = 'module_id';
 
@@ -29,7 +30,7 @@ class OptionQuery implements IOptionQuery
     {
         try {
             //Devuelve todos los modulos existentes
-            $options = Option::query()->select(['id', 'name', 'description', 'label', 'active', 'module_id'])->get();
+            $options = Option::query()->select(['id', 'name', 'description', 'icon', 'label', 'active', 'module_id'])->get();
 
             return response()->json(['message' => $options]);
         } catch (\Exception $e) {
@@ -42,9 +43,10 @@ class OptionQuery implements IOptionQuery
     {
         //Rules: Especificaciones a validar
         $rules = [
-            $this->name    => 'required|string|min:1|max:128|',
-            $this->description   => 'required|string|min:1|max:128|',
-            $this->label   => 'required|string|min:1|max:128|',
+            $this->name    => 'required|string|max:32',
+            $this->description   => 'string|max:256',
+            $this->label   => 'string|max:32',
+            $this->icon   => 'string|max:32',
         ];
         try {
             // Ejecutamos el validador y en caso de que falle devolvemos la respuesta
@@ -55,25 +57,25 @@ class OptionQuery implements IOptionQuery
         } catch (\Exception $e) {
             return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
         }
-        
+
         try {
             //Recepción de datos y guardado en la BD
             $option = new Option([
                 $this->name => $request->name,
                 $this->description => $request->description,
                 $this->label => $request->label,
+                $this->icon => $request->icon,
                 $this->active => $request->active,
                 $this->module_id => $request->module_id,
             ]);
             $option->save();
-            
+
             return response()->json([
                 'data' => [
-                'option' => $option,
+                    'option' => $option,
                 ],
                 'message' => 'Option creado correctamente!'
             ], 201);
-
         } catch (\Exception $e) {
             return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
         }
@@ -90,7 +92,7 @@ class OptionQuery implements IOptionQuery
                 if ($op) {
                     //Select a la BD: TB_modules
                     $option = DB::table('options')
-                        ->select(['id', 'name', 'description', 'label', 'active', 'module_id'])
+                        ->select(['id', 'name', 'description', 'label', 'icon', 'active', 'module_id'])
                         ->where('options.id', '=', $id)
                         ->get();
                     return response()->json([
@@ -115,9 +117,10 @@ class OptionQuery implements IOptionQuery
 
             //Rules: Especificaciones a validar
             $rules = [
-                $this->name    => 'required|string|min:1|max:128|',
-                $this->description   => 'required|string|min:1|max:128|',
-                $this->label   => 'required|string|min:1|max:128|',
+                $this->name    => 'required|string|max:32',
+                $this->description   => 'string|max:256',
+                $this->label   => 'string|max:32',
+                $this->icon   => 'string|max:32',
             ];
             try {
                 // Ejecutamos el validador y en caso de que falle devolvemos la respuesta
@@ -136,6 +139,7 @@ class OptionQuery implements IOptionQuery
                 $option->name = $request->name ?? $option->name;
                 $option->description = $request->description ?? $option->description;
                 $option->label = $request->label ?? $option->label;
+                $option->icon = $request->icon ?? $option->icon;
                 $option->active = $request->active ?? $option->active;
                 $option->module_id = $request->module_id ?? $option->module_id;
                 $option->save();
@@ -180,7 +184,7 @@ class OptionQuery implements IOptionQuery
 
     public function showModuleById(Request $request, int $id)
     {
-        
+
         if ($id) {
             try {
                 ////Comprobar existencia
@@ -202,12 +206,11 @@ class OptionQuery implements IOptionQuery
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
         }
-        
     }
 
     public function showRolById(Request $request, int $id)
     {
-        
+
         if ($id) {
             try {
                 //Comprobar existencia
@@ -229,7 +232,5 @@ class OptionQuery implements IOptionQuery
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
         }
-        
     }
-
 }

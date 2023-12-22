@@ -63,13 +63,12 @@ class AuthQuery implements IAuthQuery
                     'nacionality', 'birthdate', 'active'
                 ])
                 ->where('id', '=', $request->user()->id)
-                ->with(['rol:id,name,description,active'])
+                ->with(['rol'])
                 ->with(['commerce'])
                 ->with(['projects_customer'])
                 ->with(['projects_colaborator'])
                 // ->toSql();
                 ->first();
-                
             return response()->json([
                 'data' => [
                     'user' => $user,
