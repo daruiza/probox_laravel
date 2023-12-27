@@ -18,7 +18,8 @@ class Rol extends Model
     //BelongsToMany: Varios ROLS le pertenecen a varios OPTIONS.
     public function options()
     {
-        return $this->belongsToMany(Option::class, 'options_rols', 'rol_id', 'option_id');
+        return $this->belongsToMany(Option::class, 'options_rols', 'rol_id', 'option_id')
+        ->withPivot('name');
     }
 
     // public function optionscard()
