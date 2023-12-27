@@ -4038,6 +4038,12 @@
                         "type": "string",
                         "example": "Name Tag"
                     },
+                    "class": {
+                        "title": "class",
+                        "description": "Class of the Tag",
+                        "type": "string",
+                        "example": "Class Tag"
+                    },
                     "active": {
                         "title": "active",
                         "description": "active of the Tag",

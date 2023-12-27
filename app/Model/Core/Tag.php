@@ -14,6 +14,7 @@ class Tag extends Model
         'id',
         'category',
         'name',
+        'class',
         'active'
     ];
 

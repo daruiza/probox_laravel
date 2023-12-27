@@ -32,6 +32,17 @@ class Tag
      */
     public $name;
 
+    /**
+     * @OA\Property(
+     *      title="class",
+     *      description="Class of the Tag",
+     *      example="Class Tag"
+     * )
+     *
+     * @var string
+     */
+    public $class;
+
      /**
      * @OA\Property(
      *      title="active",

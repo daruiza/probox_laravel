@@ -15,6 +15,7 @@ use App\Query\Abstraction\ITagQuery;
 class TagQuery implements ITagQuery
 {
     private $name   = 'name';
+    private $class   = 'class';
     private $category  = 'category';
     private $active  = 'active';
 
@@ -27,6 +28,7 @@ class TagQuery implements ITagQuery
                 ->select([
                     'id',
                     'name',
+                    'class',
                     'category',
                     'active',
                 ])->get();
@@ -43,6 +45,7 @@ class TagQuery implements ITagQuery
         //Rules: Especificaciones a validar
         $rules = [
             $this->name    => 'required|string|min:1|max:60|',
+            $this->class    => 'required|string|min:1|max:60|',
             $this->category    => 'required|string|min:1|max:60|',
             $this->active    => 'boolean',
 
@@ -61,6 +64,7 @@ class TagQuery implements ITagQuery
             //Recepción de datos y guardado en la BD
             $tag = new Tag([
                 $this->name => $request->name,
+                $this->class => $request->class,
                 $this->category => $request->category,
                 $this->active => $request->active,
             ]);
@@ -92,6 +96,7 @@ class TagQuery implements ITagQuery
                         ->select([
                             'id',
                             'name',
+                            'class',
                             'category',
                             'active',
                         ])
@@ -119,8 +124,9 @@ class TagQuery implements ITagQuery
 
             //Rules: Especificaciones a validar
             $rules = [
-                $this->name    => 'required|string|min:1|max:60|',
-                $this->category    => 'required|string|min:1|max:60|',
+                $this->name    => 'required|string|min:1|max:60',
+                $this->category    => 'required|string|min:1|max:60',
+                $this->class    => 'required|string|min:1|max:60',
                 $this->active    => 'boolean',
 
             ];
@@ -139,6 +145,7 @@ class TagQuery implements ITagQuery
                 $tag = Tag::findOrFail($id);
                 //Actualización de datos
                 $tag->name = $request->name ?? $tag->name;
+                $tag->class = $request->class ?? $tag->class;
                 $tag->category = $request->category ?? $tag->category;
                 $tag->active = $request->active ?? $tag->active;
 
@@ -172,7 +179,7 @@ class TagQuery implements ITagQuery
                     'data' => [
                         'tag' => $tag,
                     ],
-                    'message' => 'Tag eliminado con éxito!'
+                    'message' => 'tag_removed_correctly'
                 ], 201);
             } catch (ModelNotFoundException $e) {
                 return response()->json(['message' => "Tag con id {$id} no existe!", 'error' => $e->getMessage()], 403);
