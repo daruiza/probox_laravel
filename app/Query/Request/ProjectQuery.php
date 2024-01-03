@@ -105,16 +105,16 @@ class ProjectQuery implements IProjectQuery
     {
         //Rules: Especificaciones a validar
         $rules = [
-            $this->name    => 'required|string|min:1|max:128|',
+            $this->name    => 'required|string|max:128|',
             $this->price    => 'numeric',
             $this->date_init    => 'date',
             $this->date_closed    => 'date',
-            $this->address    => 'string|min:1|max:512|',
-            $this->quotation    => 'string|min:1|max:512|',
-            $this->goal    => 'string|min:1|max:1024|',
-            $this->logo    => 'string',
-            $this->photo    => 'string',
-            $this->description   => 'string|min:1|max:1024|',
+            $this->address    => 'string|max:512|',
+            $this->quotation    => 'string|max:512|',
+            $this->goal    => 'string|max:1024|',
+            $this->logo    => 'string|nullable',
+            $this->photo    => 'string|nullable',
+            $this->description   => 'string|max:1024|',
             $this->progress   => 'numeric',
         ];
         try {
@@ -217,16 +217,16 @@ class ProjectQuery implements IProjectQuery
 
             //Rules: Especificaciones a validar
             $rules = [
-                $this->name    => 'required|string|min:1|max:128|',
+                $this->name    => 'required|string|max:128|',
                 $this->price    => 'numeric',
                 $this->date_init    => 'date',
                 $this->date_closed    => 'date',
-                $this->address    => 'string|min:1|max:512|',
-                $this->quotation    => 'string|min:1|max:512|',
-                $this->goal    => 'string|min:1|max:1024|',
-                $this->logo    => 'string',
-                $this->photo    => 'string',
-                $this->description   => 'string|min:1|max:1024|',
+                $this->address    => 'string|max:512|',
+                $this->quotation    => 'string|max:512|',
+                $this->goal    => 'string|max:1024|',
+                $this->logo    => 'string|nullable',
+                $this->photo    => 'string|nullable',
+                $this->description   => 'string|max:1024|',
                 $this->progress   => 'numeric',
             ];
             try {
@@ -236,7 +236,11 @@ class ProjectQuery implements IProjectQuery
                     throw (new ValidationException($validator->errors()->getMessages()));
                 }
             } catch (\Exception $e) {
-                return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e->getMessage()], 400);
+                return response()->json([
+                    'message' => 'Los datos ingresados no son validos!',
+                    'error' => $e->getMessage(),
+                    'description' => $validator->errors()->getMessages()
+                ], 400);
             }
 
             try {
