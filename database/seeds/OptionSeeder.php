@@ -121,5 +121,14 @@ class OptionSeeder extends Seeder
             'icon' => 'work',
             'module_id' => '1',
         ));
+
+        // option 13
+        DB::table('options')->insert(array(
+            'name' => 'options',
+            'description' => 'options of the app',
+            'label' => 'options',
+            'icon' => 'extension',
+            'module_id' => '1',
+        ));
     }
 }

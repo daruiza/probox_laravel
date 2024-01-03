@@ -99,14 +99,22 @@ class OptionRolSeeder extends Seeder
             'active' => true,
             'rol_id' => '2',
             'option_id' => '11',
-        ));      
-        
+        ));
+
         DB::table('options_rols')->insert(array(
             'name' => 'menu',
             'description' => 'admin',
             'active' => true,
             'rol_id' => '2',
             'option_id' => '12',
-        ));      
+        ));
+
+        DB::table('options_rols')->insert(array(
+            'name' => 'menu',
+            'description' => 'admin',
+            'active' => true,
+            'rol_id' => '2',
+            'option_id' => '13',
+        ));
     }
 }
