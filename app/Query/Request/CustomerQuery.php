@@ -35,7 +35,7 @@ class CustomerQuery implements ICustomerQuery
 
             return response()->json(['customers' => $customers]);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 400);
         }
     }
     public function store(Request $request)
@@ -54,7 +54,7 @@ class CustomerQuery implements ICustomerQuery
                 throw (new ValidationException($validator->errors()->getMessages()));
             }
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e->getMessage()], 403);
+            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e->getMessage()], 400);
         }
 
         try {
@@ -85,7 +85,7 @@ class CustomerQuery implements ICustomerQuery
                 'message' => 'Customer creado correctamente!'
             ], 201);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
+            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 400);
         }
     }
 
@@ -113,10 +113,10 @@ class CustomerQuery implements ICustomerQuery
                     ]);
                 }
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Customer con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Customer con id {$id} no existe!", 'error' => $e->getMessage()], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
     }
     public function update(Request $request, int $id)
@@ -135,7 +135,7 @@ class CustomerQuery implements ICustomerQuery
                     throw (new ValidationException($validator->errors()->getMessages()));
                 }
             } catch (\Exception $e) {
-                return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e->getMessage()], 400);
             }
 
             try {
@@ -156,10 +156,10 @@ class CustomerQuery implements ICustomerQuery
             } catch (ModelNotFoundException $ex) {
                 return response()->json(['message' => "cleinte con id {$id} no existe!", 'error' => $ex->getMessage()], 404);
             } catch (\Exception $e) {
-                return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
     }
     public function destroy(Request $request, int $id)
@@ -176,10 +176,10 @@ class CustomerQuery implements ICustomerQuery
                     'message' => 'colaborador eliminado con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "cliente con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "cliente con id {$id} no existe!", 'error' => $e->getMessage()], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
     }
 
@@ -204,10 +204,10 @@ class CustomerQuery implements ICustomerQuery
                     'message' => 'Datos de customer Consultados Correctamente!'
                 ]);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Customer con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Customer con id {$id} no existe!", 'error' => $e->getMessage()], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
     }
     public function showByProjectId(Request $request, int $id)
@@ -231,10 +231,10 @@ class CustomerQuery implements ICustomerQuery
                     'message' => 'Datos de customer Consultados Correctamente!'
                 ]);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Customer con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Customer con id {$id} no existe!", 'error' => $e->getMessage()], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
     }
 }

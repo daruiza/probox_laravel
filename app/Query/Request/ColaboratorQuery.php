@@ -43,7 +43,7 @@ class ColaboratorQuery implements IColaboratorQuery
 
             return response()->json(['colaborators' => $colaborators]);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 400);
         }
     }
     public function store(Request $request)
@@ -66,7 +66,7 @@ class ColaboratorQuery implements IColaboratorQuery
                 throw (new ValidationException($validator->errors()->getMessages()));
             }
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e->getMessage()], 403);
+            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e->getMessage()], 400);
         }
 
         try {
@@ -101,7 +101,7 @@ class ColaboratorQuery implements IColaboratorQuery
                 'message' => 'Colaborator creado correctamente!'
             ], 201);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
+            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 400);
         }
     }
 
@@ -133,10 +133,10 @@ class ColaboratorQuery implements IColaboratorQuery
                     ]);
                 }
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Colaborator con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Colaborator con id {$id} no existe!", 'error' => $e->getMessage()], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
     }
     public function update(Request $request, int $id)
@@ -160,7 +160,7 @@ class ColaboratorQuery implements IColaboratorQuery
                     throw (new ValidationException($validator->errors()->getMessages()));
                 }
             } catch (\Exception $e) {
-                return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e->getMessage()], 400);
             }
 
             try {
@@ -184,12 +184,12 @@ class ColaboratorQuery implements IColaboratorQuery
                     'message' => 'colaborador actualizado con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $ex) {
-                return response()->json(['message' => "Colaborador con id {$id} no existe!", 'error' => $ex->getMessage()], 404);
+                return response()->json(['message' => "Colaborador con id {$id} no existe!", 'error' => $ex->getMessage()], 400);
             } catch (\Exception $e) {
-                return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
     }
 
@@ -207,10 +207,10 @@ class ColaboratorQuery implements IColaboratorQuery
                     'message' => 'colaborador eliminado con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "colaborador con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "colaborador con id {$id} no existe!", 'error' => $e->getMessage()], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
     }
 
@@ -239,10 +239,10 @@ class ColaboratorQuery implements IColaboratorQuery
                     'message' => 'Datos de colaborator Consultados Correctamente!'
                 ]);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Colaborator con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Colaborator con id {$id} no existe!", 'error' => $e->getMessage()], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
     }
     public function showByProjectId(Request $request, int $id)
@@ -270,10 +270,10 @@ class ColaboratorQuery implements IColaboratorQuery
                     'message' => 'Datos de colaborator Consultados Correctamente!'
                 ]);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Colaborator con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Colaborator con id {$id} no existe!", 'error' => $e->getMessage()], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
     }
 }

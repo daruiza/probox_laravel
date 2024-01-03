@@ -40,7 +40,7 @@ class TaskQuery implements ITaskQuery
 
             return response()->json(['message' => $task]);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 400);
         }
     }
 
@@ -63,7 +63,7 @@ class TaskQuery implements ITaskQuery
                 throw (new ValidationException($validator->errors()->getMessages()));
             }
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
+            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 400);
         }
 
         try {
@@ -87,7 +87,7 @@ class TaskQuery implements ITaskQuery
                 'message' => 'Task creado correctamente!'
             ], 201);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
+            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 400);
         }
     }
 
@@ -121,10 +121,10 @@ class TaskQuery implements ITaskQuery
                     ]);
                 }
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Task con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Task con id {$id} no existe!", 'error' => $e->getMessage()], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
     }
 
@@ -149,7 +149,7 @@ class TaskQuery implements ITaskQuery
                     throw (new ValidationException($validator->errors()->getMessages()));
                 }
             } catch (\Exception $e) {
-                return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
+                return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 400);
             }
 
             try {
@@ -175,10 +175,10 @@ class TaskQuery implements ITaskQuery
             } catch (ModelNotFoundException $ex) {
                 return response()->json(['message' => "Task con id {$id} no existe!", 'error' => $ex->getMessage()], 404);
             } catch (\Exception $e) {
-                return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
     }
 
@@ -197,10 +197,10 @@ class TaskQuery implements ITaskQuery
                     'message' => 'Task eliminado con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Task con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Task con id {$id} no existe!", 'error' => $e->getMessage()], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
     }
 
@@ -225,10 +225,10 @@ class TaskQuery implements ITaskQuery
                 return response()->json([
                     'message' => "Evidence relacionadas al Task con id {$id} no existe!",
                     'error' => $e->getMessage()
-                ], 403);
+                ], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
     }
 
@@ -251,10 +251,10 @@ class TaskQuery implements ITaskQuery
                     'message' => 'Task consultado con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Task relacionado a la task con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Task relacionado a la task con id {$id} no existe!", 'error' => $e->getMessage()], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
         
     }
