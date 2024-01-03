@@ -47,7 +47,7 @@ class OptionRolSeeder extends Seeder
 
         DB::table('options_rols')->insert(array(
             'name' => 'card',
-            'description' => 'admin',
+            'description' => 'card',
             'active' => true,
             'rol_id' => '2',
             'option_id' => '5',
@@ -55,7 +55,7 @@ class OptionRolSeeder extends Seeder
 
         DB::table('options_rols')->insert(array(
             'name' => 'card',
-            'description' => 'admin',
+            'description' => 'card',
             'active' => true,
             'rol_id' => '2',
             'option_id' => '6',
@@ -63,7 +63,7 @@ class OptionRolSeeder extends Seeder
 
         DB::table('options_rols')->insert(array(
             'name' => 'card',
-            'description' => 'admin',
+            'description' => 'card',
             'active' => true,
             'rol_id' => '2',
             'option_id' => '7',
@@ -71,7 +71,7 @@ class OptionRolSeeder extends Seeder
 
         DB::table('options_rols')->insert(array(
             'name' => 'card',
-            'description' => 'admin',
+            'description' => 'card',
             'active' => true,
             'rol_id' => '2',
             'option_id' => '8',
@@ -79,7 +79,7 @@ class OptionRolSeeder extends Seeder
 
         DB::table('options_rols')->insert(array(
             'name' => 'card',
-            'description' => 'admin',
+            'description' => 'card',
             'active' => true,
             'rol_id' => '2',
             'option_id' => '9',
@@ -99,6 +99,14 @@ class OptionRolSeeder extends Seeder
             'active' => true,
             'rol_id' => '2',
             'option_id' => '11',
-        ));        
+        ));      
+        
+        DB::table('options_rols')->insert(array(
+            'name' => 'menu',
+            'description' => 'admin',
+            'active' => true,
+            'rol_id' => '2',
+            'option_id' => '12',
+        ));      
     }
 }

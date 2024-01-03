@@ -112,5 +112,14 @@ class OptionSeeder extends Seeder
             'icon' => 'map',
             'module_id' => '1',
         ));
+
+        // option 12
+        DB::table('options')->insert(array(
+            'name' => 'projecs',
+            'description' => 'projects of the commerce',
+            'label' => 'projects',
+            'icon' => 'work',
+            'module_id' => '1',
+        ));
     }
 }
