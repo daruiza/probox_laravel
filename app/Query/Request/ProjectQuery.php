@@ -49,7 +49,7 @@ class ProjectQuery implements IProjectQuery
                 throw (new ValidationException($validator->errors()->getMessages()));
             }
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e->getMessage()], 403);
+            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e->getMessage()], 400);
         }
 
         // return response()->json([
@@ -96,7 +96,7 @@ class ProjectQuery implements IProjectQuery
 
             return response()->json(['projects' => $project]);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 400);
         }
     }
 
@@ -105,16 +105,16 @@ class ProjectQuery implements IProjectQuery
     {
         //Rules: Especificaciones a validar
         $rules = [
-            $this->name    => 'required|string|min:1|max:128|',
+            $this->name    => 'required|string|max:128|',
             $this->price    => 'numeric',
             $this->date_init    => 'date',
             $this->date_closed    => 'date',
-            $this->address    => 'string|min:1|max:512|',
-            $this->quotation    => 'string|min:1|max:512|',
-            $this->goal    => 'string|min:1|max:1024|',
-            $this->logo    => 'string',
-            $this->photo    => 'string',
-            $this->description   => 'string|min:1|max:1024|',
+            $this->address    => 'string|max:512|',
+            $this->quotation    => 'string|max:512|',
+            $this->goal    => 'string|max:1024|',
+            $this->logo    => 'string|nullable',
+            $this->photo    => 'string|nullable',
+            $this->description   => 'string|max:1024|',
             $this->progress   => 'numeric',
         ];
         try {
@@ -124,7 +124,7 @@ class ProjectQuery implements IProjectQuery
                 throw (new ValidationException($validator->errors()->getMessages()));
             }
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e->getMessage()], 403);
+            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e->getMessage()], 400);
         }
 
         try {
@@ -155,7 +155,7 @@ class ProjectQuery implements IProjectQuery
                 'message' => 'Project creado correctamente!'
             ], 201);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
+            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 400);
         }
     }
 
@@ -203,10 +203,10 @@ class ProjectQuery implements IProjectQuery
                     ]);
                 }
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Project con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Project con id {$id} no existe!", 'error' => $e->getMessage()], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
     }
 
@@ -217,16 +217,16 @@ class ProjectQuery implements IProjectQuery
 
             //Rules: Especificaciones a validar
             $rules = [
-                $this->name    => 'required|string|min:1|max:128|',
+                $this->name    => 'required|string|max:128|',
                 $this->price    => 'numeric',
                 $this->date_init    => 'date',
                 $this->date_closed    => 'date',
-                $this->address    => 'string|min:1|max:512|',
-                $this->quotation    => 'string|min:1|max:512|',
-                $this->goal    => 'string|min:1|max:1024|',
-                $this->logo    => 'string',
-                $this->photo    => 'string',
-                $this->description   => 'string|min:1|max:1024|',
+                $this->address    => 'string|max:512|',
+                $this->quotation    => 'string|max:512|',
+                $this->goal    => 'string|max:1024|',
+                $this->logo    => 'string|nullable',
+                $this->photo    => 'string|nullable',
+                $this->description   => 'string|max:1024|',
                 $this->progress   => 'numeric',
             ];
             try {
@@ -236,7 +236,11 @@ class ProjectQuery implements IProjectQuery
                     throw (new ValidationException($validator->errors()->getMessages()));
                 }
             } catch (\Exception $e) {
-                return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e->getMessage()], 403);
+                return response()->json([
+                    'message' => 'Los datos ingresados no son validos!',
+                    'error' => $e->getMessage(),
+                    'description' => $validator->errors()->getMessages()
+                ], 400);
             }
 
             try {
@@ -269,10 +273,10 @@ class ProjectQuery implements IProjectQuery
             } catch (ModelNotFoundException $ex) {
                 return response()->json(['message' => "Project con id {$id} no existe!", 'error' => $ex->getMessage()], 404);
             } catch (\Exception $e) {
-                return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
     }
 
@@ -291,10 +295,10 @@ class ProjectQuery implements IProjectQuery
                     'message' => 'Project eliminado con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Projects con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Projects con id {$id} no existe!", 'error' => $e->getMessage()], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
     }
 
@@ -319,10 +323,10 @@ class ProjectQuery implements IProjectQuery
                 return response()->json([
                     'message' => "Tasks relacionadas al module con id {$id} no existe!",
                     'error' => $e->getMessage()
-                ], 403);
+                ], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
     }
 }

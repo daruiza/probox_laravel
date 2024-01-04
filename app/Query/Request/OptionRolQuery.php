@@ -31,7 +31,7 @@ class OptionRolQuery implements IOptionRolQuery
 
             return response()->json(['message' => $optionsrols]);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 400);
         }
     }
 
@@ -52,7 +52,7 @@ class OptionRolQuery implements IOptionRolQuery
                 throw (new ValidationException($validator->errors()->getMessages()));
             }
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
+            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 400);
         }
         
         try {
@@ -74,7 +74,7 @@ class OptionRolQuery implements IOptionRolQuery
             ], 201);
 
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
+            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 400);
         }
     }
 
@@ -100,10 +100,10 @@ class OptionRolQuery implements IOptionRolQuery
                     ]);
                 }
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "OptionRol con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "OptionRol con id {$id} no existe!", 'error' => $e->getMessage()], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
     }
 
@@ -124,7 +124,7 @@ class OptionRolQuery implements IOptionRolQuery
                     throw (new ValidationException($validator->errors()->getMessages()));
                 }
             } catch (\Exception $e) {
-                return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
+                return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 400);
             }
 
             try {
@@ -147,10 +147,10 @@ class OptionRolQuery implements IOptionRolQuery
             } catch (ModelNotFoundException $ex) {
                 return response()->json(['message' => "OptionRol con id {$id} no existe!", 'error' => $ex->getMessage()], 404);
             } catch (\Exception $e) {
-                return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
     }
 
@@ -169,10 +169,10 @@ class OptionRolQuery implements IOptionRolQuery
                     'message' => 'OptionRol eliminado con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "OptionRol con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "OptionRol con id {$id} no existe!", 'error' => $e->getMessage()], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
     }
 

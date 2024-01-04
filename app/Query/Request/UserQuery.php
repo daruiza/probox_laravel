@@ -70,13 +70,13 @@ class UserQuery implements IUserQuery
                 throw (new ValidationException($validator->errors()->getMessages()));
             }
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
+            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 400);
         }
 
         if (auth()->check() && auth()->user()->rol_id == 1) {
 
             if ($request->rol_id <= 1) {
-                return response()->json(['message' => 'no tiene permiso para crear rol super-admin!'], 403);
+                return response()->json(['message' => 'no tiene permiso para crear rol super-admin!'], 400);
             } else {
                 try {
 
@@ -104,13 +104,13 @@ class UserQuery implements IUserQuery
                         'message' => 'Usuario creado correctamente!'
                     ], 201);
                 } catch (\Exception $e) {
-                    return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
+                    return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 400);
                 }
             }
         } elseif (auth()->check() && auth()->user()->rol_id == 3) {
 
             if ($request->rol_id <= 1) {
-                return response()->json(['message' => 'no tiene permiso para crear rol super-admin!'], 403);
+                return response()->json(['message' => 'no tiene permiso para crear rol super-admin!'], 400);
             } else {
                 try {
                     $user = new User([
@@ -137,11 +137,11 @@ class UserQuery implements IUserQuery
                         'message' => 'Usurio creado con Rol cliente!'
                     ], 201);
                 } catch (\Exception $e) {
-                    return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
+                    return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 400);
                 }
             }
         } else {
-            return response()->json(['message' => 'No tiene permiso para crear usuarios!'], 403);
+            return response()->json(['message' => 'No tiene permiso para crear usuarios!'], 400);
         }
     }
 
@@ -244,7 +244,7 @@ class UserQuery implements IUserQuery
                     'message' => 'Datos de Usuario Consultados Correctamente!!'
                 ], 200);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Usuario con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Usuario con id {$id} no existe!", 'error' => $e->getMessage()], 400);
             }
         }
     }
@@ -268,7 +268,7 @@ class UserQuery implements IUserQuery
                 ]);
             }
         } catch (ModelNotFoundException $e) {
-            return response()->json(['message' => "Usuario con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+            return response()->json(['message' => "Usuario con id {$id} no existe!", 'error' => $e->getMessage()], 400);
         }
     }
 
@@ -287,11 +287,11 @@ class UserQuery implements IUserQuery
                         'message' => 'Usuario eliminado con éxito!'
                     ], 201);
                 } catch (ModelNotFoundException $e) {
-                    return response()->json(['message' => "Usuario con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                    return response()->json(['message' => "Usuario con id {$id} no existe!", 'error' => $e->getMessage()], 400);
                 }
             }
         } else {
-            return response()->json(['message' => 'Necesita permisos de super-administrador!'], 403);
+            return response()->json(['message' => 'Necesita permisos de super-administrador!'], 400);
         }
     }
 
@@ -317,10 +317,10 @@ class UserQuery implements IUserQuery
                     'message' => 'Rol consultado con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Rol relacionado al user con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Rol relacionado al user con id {$id} no existe!", 'error' => $e->getMessage()], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
     }
 }

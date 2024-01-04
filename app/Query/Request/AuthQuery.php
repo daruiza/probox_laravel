@@ -49,7 +49,7 @@ class AuthQuery implements IAuthQuery
                 'message' => 'Usuario logueado con éxito!'
             ]);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Credenciales no autorizadas!', 'error' => $e], 403);
+            return response()->json(['message' => 'Credenciales no autorizadas!', 'error' => $e], 401);
         }
     }
 

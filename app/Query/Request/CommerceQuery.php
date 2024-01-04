@@ -41,7 +41,7 @@ class CommerceQuery implements ICommerceQuery
 
             return response()->json(['commerces' => $commerces]);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 400);
         }
     }
     public function store(Request $request)
@@ -63,7 +63,7 @@ class CommerceQuery implements ICommerceQuery
                 throw (new ValidationException($validator->errors()->getMessages()));
             }
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e->getMessage()], 403);
+            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e->getMessage()], 400);
         }
 
         try {
@@ -86,7 +86,7 @@ class CommerceQuery implements ICommerceQuery
                 'message' => 'commerce_store_ok'
             ], 201);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
+            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 400);
         }
     }
 
@@ -119,10 +119,10 @@ class CommerceQuery implements ICommerceQuery
                     ]);
                 }
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Colaborator con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Colaborator con id {$id} no existe!", 'error' => $e->getMessage()], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
     }
     public function update(Request $request, int $id)
@@ -145,7 +145,7 @@ class CommerceQuery implements ICommerceQuery
                     throw (new ValidationException($validator->errors()->getMessages()));
                 }
             } catch (\Exception $e) {
-                return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e->getMessage()], 400);
             }
 
             try {
@@ -170,10 +170,10 @@ class CommerceQuery implements ICommerceQuery
             } catch (ModelNotFoundException $ex) {
                 return response()->json(['message' => "Commercio con id {$id} no existe!", 'error' => $ex->getMessage()], 404);
             } catch (\Exception $e) {
-                return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
     }
 
@@ -191,10 +191,10 @@ class CommerceQuery implements ICommerceQuery
                     'message' => 'commerce_deleted_ok'
                 ], 201);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "commerce con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "commerce con id {$id} no existe!", 'error' => $e->getMessage()], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
     }
 }
