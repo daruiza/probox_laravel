@@ -30,7 +30,7 @@ class GeneralListQuery implements IGeneralListQuery
                 'message' => 'Datos de lista general Consultados Correctamente!'
             ], 201);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 400);
         }
     }
 
@@ -51,7 +51,7 @@ class GeneralListQuery implements IGeneralListQuery
                 ]);
             }
         } catch (ModelNotFoundException $e) {
-            return response()->json(['message' => "Lista general con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+            return response()->json(['message' => "Lista general con id {$id} no existe!", 'error' => $e->getMessage()], 400);
         }
     }
 
@@ -70,7 +70,7 @@ class GeneralListQuery implements IGeneralListQuery
                     'message' => 'Datos de lista general Consultados Correctamente!'
                 ], 201);
             } catch (\Exception $e) {
-                return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 400);
             }
         }
     }
@@ -102,7 +102,7 @@ class GeneralListQuery implements IGeneralListQuery
                     'message' => 'Datos de lista general Consultados Correctamente!'
                 ], 201);
             } catch (\Exception $e) {
-                return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 400);
             }
         }
     }
@@ -130,7 +130,7 @@ class GeneralListQuery implements IGeneralListQuery
                 'message' => 'Lista general creada correctamente!'
             ], 201);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => $e], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => $e], 400);
         }
     }
 
@@ -150,11 +150,11 @@ class GeneralListQuery implements IGeneralListQuery
                         'message' => 'Lista general eliminada con éxito!'
                     ], 201);
                 } catch (ModelNotFoundException $e) {
-                    return response()->json(['message' => "Lista general con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                    return response()->json(['message' => "Lista general con id {$id} no existe!", 'error' => $e->getMessage()], 400);
                 }
             }
         } else {
-            return response()->json(['message' => 'Necesita permisos de super-administrador!'], 403);
+            return response()->json(['message' => 'Necesita permisos de super-administrador!'], 400);
         }
     }
 
@@ -184,7 +184,7 @@ class GeneralListQuery implements IGeneralListQuery
             } catch (ModelNotFoundException $ex) {
                 return response()->json(['message' => "Lista General con id {$id} no existe!", 'error' => $ex->getMessage()], 404);
             } catch (\Exception $e) {
-                return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 400);
             }
         }
     }

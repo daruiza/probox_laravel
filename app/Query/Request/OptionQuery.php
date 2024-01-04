@@ -34,7 +34,7 @@ class OptionQuery implements IOptionQuery
 
             return response()->json(['message' => $options]);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 400);
         }
     }
 
@@ -55,7 +55,7 @@ class OptionQuery implements IOptionQuery
                 throw (new ValidationException($validator->errors()->getMessages()));
             }
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
+            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 400);
         }
 
         try {
@@ -77,7 +77,7 @@ class OptionQuery implements IOptionQuery
                 'message' => 'Option creado correctamente!'
             ], 201);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
+            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 400);
         }
     }
 
@@ -103,10 +103,10 @@ class OptionQuery implements IOptionQuery
                     ]);
                 }
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Option con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Option con id {$id} no existe!", 'error' => $e->getMessage()], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
     }
 
@@ -129,7 +129,7 @@ class OptionQuery implements IOptionQuery
                     throw (new ValidationException($validator->errors()->getMessages()));
                 }
             } catch (\Exception $e) {
-                return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 403);
+                return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 400);
             }
 
             try {
@@ -153,10 +153,10 @@ class OptionQuery implements IOptionQuery
             } catch (ModelNotFoundException $ex) {
                 return response()->json(['message' => "Option con id {$id} no existe!", 'error' => $ex->getMessage()], 404);
             } catch (\Exception $e) {
-                return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
     }
 
@@ -175,10 +175,10 @@ class OptionQuery implements IOptionQuery
                     'message' => 'Option eliminado con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Option con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Option con id {$id} no existe!", 'error' => $e->getMessage()], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
     }
 
@@ -201,10 +201,10 @@ class OptionQuery implements IOptionQuery
                     'message' => 'Module consultado con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Module relacionado a la option con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Module relacionado a la option con id {$id} no existe!", 'error' => $e->getMessage()], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
     }
 
@@ -227,10 +227,10 @@ class OptionQuery implements IOptionQuery
                     'message' => 'Rols consultados con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Rols relacionados a la Option con id {$id} no existe!", 'error' => $e->getMessage()], 403);
+                return response()->json(['message' => "Rols relacionados a la Option con id {$id} no existe!", 'error' => $e->getMessage()], 400);
             }
         } else {
-            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 403);
+            return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
     }
 }

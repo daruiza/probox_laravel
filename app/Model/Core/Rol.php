@@ -19,7 +19,7 @@ class Rol extends Model
     public function options()
     {
         return $this->belongsToMany(Option::class, 'options_rols', 'rol_id', 'option_id')
-        ->withPivot('name');
+        ->withPivot('name', 'description');
     }
 
     // public function optionscard()

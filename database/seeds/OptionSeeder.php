@@ -103,5 +103,32 @@ class OptionSeeder extends Seeder
             'icon' => 'local_offer',
             'module_id' => '1',
         ));
+
+        // option 11
+        DB::table('options')->insert(array(
+            'name' => 'edit_map',
+            'description' => 'edit map of the card project',
+            'label' => 'edit_map',
+            'icon' => 'map',
+            'module_id' => '1',
+        ));
+
+        // option 12
+        DB::table('options')->insert(array(
+            'name' => 'projecs',
+            'description' => 'projects of the commerce',
+            'label' => 'projects',
+            'icon' => 'work',
+            'module_id' => '1',
+        ));
+
+        // option 13
+        DB::table('options')->insert(array(
+            'name' => 'options',
+            'description' => 'options of the app',
+            'label' => 'options',
+            'icon' => 'extension',
+            'module_id' => '1',
+        ));
     }
 }
