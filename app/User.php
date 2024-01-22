@@ -84,7 +84,7 @@ class User extends Authenticatable
     public function rol()
     {
         return $this->belongsTo(Rol::class)
-        ->with(['options']);
+            ->with(['options']);
     }
 
     // public function rol($name = 'card')
@@ -108,8 +108,8 @@ class User extends Authenticatable
     {
         // return $this->belongsToMany(Customer::class);
         return $this->belongsToMany(Project::class, 'customers', 'user_id', 'project_id')
-            ->with(['tags'])
-            ->with(['notes']);
+            // ->with(['notes'])
+            ->with(['tags']);
     }
 
     //Un Proyecto sera sustentado por varios Colaboradores
@@ -118,7 +118,7 @@ class User extends Authenticatable
     {
         // return $this->belongsToMany(Customer::class);
         return $this->belongsToMany(Project::class, 'colaborators', 'user_id', 'project_id')
-            ->with(['tags'])
-            ->with(['notes']);
+            // ->with(['notes'])
+            ->with(['tags']);
     }
 }

@@ -79,9 +79,9 @@ class OptionSeeder extends Seeder
 
         // option 8
         DB::table('options')->insert(array(
-            'name' => 'colaboratos',
-            'description' => 'colaboratos of the project',
-            'label' => 'colaboratos',
+            'name' => 'colaborators',
+            'description' => 'colaborators of the project',
+            'label' => 'colaborators',
             'icon' => 'build',
             'module_id' => '1',
         ));

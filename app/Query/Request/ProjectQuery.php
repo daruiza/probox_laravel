@@ -162,7 +162,6 @@ class ProjectQuery implements IProjectQuery
     //Show: Obtener un registro de la tabla
     public function showById(Request $request,  int $id)
     {
-
         if ($id) {
             try {
                 $pj = Project::findOrFail($id);
@@ -194,7 +193,7 @@ class ProjectQuery implements IProjectQuery
                         ->with(['tasks'])
                         ->with(['tags'])
                         ->with(['notes'])
-                        ->get();
+                        ->first();
                     return response()->json([
                         'data' => [
                             'project' => $project,
