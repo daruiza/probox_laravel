@@ -142,6 +142,17 @@ Route::group(['prefix' => 'note'], function () {
     });
 });
 
+Route::group(['prefix' => 'document'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('index', 'Api\DocumentController@index');
+        Route::post('store', 'Api\DocumentController@store');
+        Route::get('showbyid/{id}', 'Api\DocumentController@showById');
+        Route::put('update/{id}', 'Api\DocumentController@update');
+        Route::delete('destroy/{id}', 'Api\DocumentController@destroy');
+        Route::get('showbyprojectid/{id}', 'Api\DocumentController@showByProjectId');
+    });
+});
+
 Route::group(['prefix' => 'customer'], function () {
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('index', 'Api\CustomerController@index');
