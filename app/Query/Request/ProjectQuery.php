@@ -87,6 +87,7 @@ class ProjectQuery implements IProjectQuery
                 ->with(['tasks'])
                 ->with(['tags'])
                 ->with(['notes'])
+                ->with(['documents'])
                 ->name($request->name)
                 ->address($request->address)
                 ->date_init($request->date_init)
@@ -193,6 +194,7 @@ class ProjectQuery implements IProjectQuery
                         ->with(['tasks'])
                         ->with(['tags'])
                         ->with(['notes'])
+                        ->with(['documents'])                        
                         ->first();
                     return response()->json([
                         'data' => [

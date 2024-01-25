@@ -9,6 +9,7 @@ use App\Model\Core\Commerce;
 use App\Model\Core\Tag;
 use App\Model\Core\Task;
 use App\Model\Core\Note;
+use App\Model\Core\Document;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -40,10 +41,16 @@ class Project extends Model
         return $this->hasMany(Task::class)->with(['evidences']);;
     }
 
-    //HasMany: Un PROJECT le pertenece a varios NOTES.
+    //HasMany: Un PROJECT puede tener varios NOTES.
     public function notes()
     {
         return $this->hasMany(Note::class);
+    }
+
+    //HasMany: Un PROJECT puede tener varios Documentos.
+    public function documents()
+    {
+        return $this->hasMany(Document::class);
     }
 
     //Un Proyecto le pertenece a varios Customes

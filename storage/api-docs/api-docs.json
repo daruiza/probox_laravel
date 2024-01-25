@@ -796,6 +796,226 @@
                 ]
             }
         },
+        "/document/index": {
+            "get": {
+                "tags": [
+                    "Document"
+                ],
+                "summary": "Get All Documents",
+                "description": "Return Documents",
+                "operationId": "getDocuments",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/document/store": {
+            "post": {
+                "tags": [
+                    "Document"
+                ],
+                "summary": "Store Document",
+                "description": "Store Document",
+                "operationId": "storeDocument",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Document"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/document/update/{id}": {
+            "put": {
+                "tags": [
+                    "Document"
+                ],
+                "summary": "Update One Document By one Id",
+                "description": "Update One Document",
+                "operationId": "getUpdateDocumentById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Document Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Document"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/document/destroy/{id}": {
+            "delete": {
+                "tags": [
+                    "Document"
+                ],
+                "summary": "Delete One Document By one Id",
+                "description": "Delete One Document",
+                "operationId": "getDestroyDocumentById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Document Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/document/showbyid/{id}": {
+            "get": {
+                "tags": [
+                    "Document"
+                ],
+                "summary": "Get One Document By one Id",
+                "description": "Return One Document",
+                "operationId": "getDocumentById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Document Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/document/showbyprojectid/{id}": {
+            "get": {
+                "tags": [
+                    "Document"
+                ],
+                "summary": "Get One Document By one Project Id",
+                "description": "Return One Document",
+                "operationId": "getDocumentByProjectId",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Document Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/evidence/index": {
             "get": {
                 "tags": [
@@ -1683,7 +1903,7 @@
                 ],
                 "summary": "Get One Note By one Project Id",
                 "description": "Return One Note",
-                "operationId": "getCustomerByProjectId",
+                "operationId": "getNoteByProjectId",
                 "parameters": [
                     {
                         "name": "id",
@@ -3694,6 +3914,53 @@
                 },
                 "type": "object"
             },
+            "Document": {
+                "title": "Document",
+                "description": "Document body data",
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Name of the Document",
+                        "type": "string",
+                        "example": "Name Document"
+                    },
+                    "file": {
+                        "title": "file",
+                        "description": "file of the Document",
+                        "type": "string",
+                        "example": "file Document"
+                    },
+                    "type": {
+                        "title": "type",
+                        "type": "Type of the Document on the Proyect",
+                        "example": "Type about Document"
+                    },
+                    "description": {
+                        "title": "description",
+                        "description": "Description Document on the Proyect",
+                        "type": "string",
+                        "example": "Description about Document"
+                    },
+                    "approved": {
+                        "title": "approved",
+                        "description": "approved of the Document",
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "focus": {
+                        "title": "focus",
+                        "description": "focus of the Document",
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "project_id": {
+                        "title": "project_id",
+                        "description": "Proyect of the Document",
+                        "example": 1
+                    }
+                },
+                "type": "object"
+            },
             "Evidence": {
                 "title": "Evidence",
                 "description": "Evidence body data",
@@ -3816,7 +4083,7 @@
                     },
                     "project_id": {
                         "title": "project_id",
-                        "description": "Proyect of the Customer",
+                        "description": "Proyect of the Note",
                         "example": 1
                     }
                 },
