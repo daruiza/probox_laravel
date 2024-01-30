@@ -130,5 +130,23 @@ class OptionSeeder extends Seeder
             'icon' => 'extension',
             'module_id' => '1',
         ));
+
+        // option 14
+        DB::table('options')->insert(array(
+            'name' => 'photo',
+            'description' => 'photo of the project',
+            'label' => 'photo',
+            'icon' => 'camera_enhance',
+            'module_id' => '1',
+        ));
+
+        // option 15
+        DB::table('options')->insert(array(
+            'name' => 'notifications_create',
+            'description' => 'notifications_create of the project',
+            'label' => 'notifications_create',
+            'icon' => 'notifications_active',
+            'module_id' => '1',
+        ));
     }
 }
