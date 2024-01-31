@@ -25,6 +25,24 @@ class TagController extends Controller
      *      summary="Get All Tag",
      *      description="Return Tag",
      *      security={ {"bearer": {} }},
+     *      @OA\Parameter(
+     *          name="category",
+     *          description="Tag category",
+     *          required=false,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="default",
+     *          description="Tag default",
+     *          required=false,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="boolean"
+     *          )
+     *      ),
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
@@ -106,12 +124,12 @@ class TagController extends Controller
      *      )
      *     )
      */
-     public function showById(Request $request, $id)
-     {
-         return $this->TagQuery->showById($request, $id);
-     }
- 
-     /**
+    public function showById(Request $request, $id)
+    {
+        return $this->TagQuery->showById($request, $id);
+    }
+
+    /**
      * @OA\Put(
      *      path="/tag/update/{id}",
      *      operationId="getUpdateTagById",
@@ -146,47 +164,47 @@ class TagController extends Controller
      *      )
      *     )
      */
-     public function update(Request $request, $id)
-     {
-         return $this->TagQuery->update($request, $id);
-     }
- 
-     /**
-      * @OA\Delete(
-      *      path="/tag/destroy/{id}",
-      *      operationId="getDestroyTagById",
-      *      tags={"Tag"},
-      *      summary="Delete One Tag By one Id",
-      *      description="Delete One Tag",
-      *      security={ {"bearer": {} }},
-      *      @OA\Parameter(
-      *          name="id",
-      *          description="Tag Id",
-      *          required=true,
-      *          in="path",
-      *          @OA\Schema(
-      *              type="integer"
-      *          )
-      *      ),
-      *      @OA\Response(
-      *          response=200,
-      *          description="Successful operation",
-      *       ),
-      *      @OA\Response(
-      *          response=401,
-      *          description="Unauthenticated"
-      *      ),
-      *      @OA\Response(
-      *          response=403,
-      *          description="Forbidden"
-      *      )
-      *     )
-      */
-     public function destroy(Request $request, $id)
-     {
-         return $this->TagQuery->destroy($request, $id);
-     }
-     
+    public function update(Request $request, $id)
+    {
+        return $this->TagQuery->update($request, $id);
+    }
+
+    /**
+     * @OA\Delete(
+     *      path="/tag/destroy/{id}",
+     *      operationId="getDestroyTagById",
+     *      tags={"Tag"},
+     *      summary="Delete One Tag By one Id",
+     *      description="Delete One Tag",
+     *      security={ {"bearer": {} }},
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Tag Id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated"
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *     )
+     */
+    public function destroy(Request $request, $id)
+    {
+        return $this->TagQuery->destroy($request, $id);
+    }
+
 
     /**
      * @OA\Get(
@@ -223,6 +241,4 @@ class TagController extends Controller
     {
         return $this->TagQuery->showProjectById($request, $id);
     }
-
- }
- 
+}

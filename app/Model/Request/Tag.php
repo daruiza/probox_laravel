@@ -45,9 +45,20 @@ class Tag
 
      /**
      * @OA\Property(
+     *      title="default",
+     *      description="default of the Tag",
+     *      example=true
+     * )
+     *
+     * @var boolean
+     */
+    public $default;
+
+     /**
+     * @OA\Property(
      *      title="active",
      *      description="active of the Tag",
-     *      example=false
+     *      example=true
      * )
      *
      * @var boolean

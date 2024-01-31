@@ -18,6 +18,7 @@ class CreateTagsTable extends Migration
             $table->string('name', 60)->unique();
             $table->string('category', 60);
             $table->string('class', 60);
+            $table->boolean('default')->default(true);
             $table->boolean('active')->default(true);
             $table->timestamps();
         });

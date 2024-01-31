@@ -17,6 +17,7 @@ class TagQuery implements ITagQuery
     private $name   = 'name';
     private $class   = 'class';
     private $category  = 'category';
+    private $default = 'default';
     private $active  = 'active';
 
     //Index: Página principal
@@ -30,10 +31,14 @@ class TagQuery implements ITagQuery
                     'name',
                     'class',
                     'category',
+                    'default',
                     'active',
-                ])->get();
+                ])
+                ->category($request->category)
+                ->default($request->default)
+                ->get();
 
-            return response()->json(['message' => $tag]);
+            return response()->json(['tags' => $tag]);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 400);
         }
@@ -47,6 +52,7 @@ class TagQuery implements ITagQuery
             $this->name    => 'required|string|min:1|max:60|',
             $this->class    => 'required|string|min:1|max:60|',
             $this->category    => 'required|string|min:1|max:60|',
+            $this->default    => 'boolean',
             $this->active    => 'boolean',
 
         ];
@@ -66,6 +72,7 @@ class TagQuery implements ITagQuery
                 $this->name => $request->name,
                 $this->class => $request->class,
                 $this->category => $request->category,
+                $this->default => $request->default,
                 $this->active => $request->active,
             ]);
 
@@ -98,6 +105,7 @@ class TagQuery implements ITagQuery
                             'name',
                             'class',
                             'category',
+                            'default',
                             'active',
                         ])
                         ->where('tags.id', '=', $id)
@@ -127,6 +135,7 @@ class TagQuery implements ITagQuery
                 $this->name    => 'required|string|min:1|max:60',
                 $this->category    => 'required|string|min:1|max:60',
                 $this->class    => 'required|string|min:1|max:60',
+                $this->default    => 'boolean',
                 $this->active    => 'boolean',
 
             ];
@@ -147,6 +156,7 @@ class TagQuery implements ITagQuery
                 $tag->name = $request->name ?? $tag->name;
                 $tag->class = $request->class ?? $tag->class;
                 $tag->category = $request->category ?? $tag->category;
+                $tag->default = $request->default ?? $tag->default;
                 $tag->active = $request->active ?? $tag->active;
 
                 $tag->save();
@@ -187,7 +197,7 @@ class TagQuery implements ITagQuery
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
-    }    
+    }
 
     // showProjectByTagName
     public function showProjectById(Request $request, int $id)

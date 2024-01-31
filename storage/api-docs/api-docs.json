@@ -2877,6 +2877,26 @@
                 "summary": "Get All Tag",
                 "description": "Return Tag",
                 "operationId": "getTag",
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "description": "Tag category",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "default",
+                        "in": "query",
+                        "description": "Tag default",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation"
@@ -4311,11 +4331,17 @@
                         "type": "string",
                         "example": "Class Tag"
                     },
+                    "default": {
+                        "title": "default",
+                        "description": "default of the Tag",
+                        "type": "boolean",
+                        "example": true
+                    },
                     "active": {
                         "title": "active",
                         "description": "active of the Tag",
                         "type": "boolean",
-                        "example": false
+                        "example": true
                     }
                 },
                 "type": "object"

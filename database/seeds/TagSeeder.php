@@ -49,6 +49,7 @@ class TagSeeder extends Seeder
             'class' => 'success'
         ));
 
+        // 7
         DB::table('tags')->insert(array(
             'category' => 'labour',
             'name' => 'floor',
@@ -70,6 +71,13 @@ class TagSeeder extends Seeder
         DB::table('tags')->insert(array(
             'category' => 'labour',
             'name' => 'wood',
+            'class' => 'warning'
+        ));
+
+        DB::table('tags')->insert(array(
+            'category' => 'labour',
+            'name' => 'kitchen',
+            'default' => false,
             'class' => 'warning'
         ));
 
