@@ -15,7 +15,7 @@ class CreateEvidencesTable extends Migration
     {
         Schema::create('evidences', function (Blueprint $table) {
             $table->id('id');
-            $table->string('name', 256)->unique();
+            $table->string('name', 256);
             $table->string('file')->nullable();
             $table->string('type')->nullable();
             $table->string('description', 1024)->nullable();
