@@ -15,7 +15,7 @@ class CreateEvidencesTable extends Migration
     {
         Schema::create('evidences', function (Blueprint $table) {
             $table->id('id');
-            $table->string('name', 256)->unique();
+            $table->string('name');
             $table->string('file')->nullable();
             $table->string('type')->nullable();
             $table->string('description', 1024)->nullable();
@@ -24,9 +24,8 @@ class CreateEvidencesTable extends Migration
             $table->timestamps();
 
             $table->unsignedBigInteger('task_id')->nullable();
-                $table->foreign('task_id')->references('id')->on('tasks')->onDelete('set null')
+            $table->foreign('task_id')->references('id')->on('tasks')->onDelete('set null')
                 ->onUpdate('cascade');
-
         });
     }
 
