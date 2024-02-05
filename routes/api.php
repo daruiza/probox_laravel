@@ -105,7 +105,7 @@ Route::group(['prefix' => 'commerce'], function () {
         Route::post('store', 'Api\CommerceController@store');
         Route::get('showbyid/{id}', 'Api\CommerceController@showById');
         Route::put('update/{id}', 'Api\CommerceController@update');
-        Route::delete('destroy/{id}', 'Api\CommerceController@destroy');        
+        Route::delete('destroy/{id}', 'Api\CommerceController@destroy');
     });
 });
 
@@ -128,6 +128,15 @@ Route::group(['prefix' => 'tag'], function () {
         Route::put('update/{id}', 'Api\TagController@update');
         Route::delete('destroy/{id}', 'Api\TagController@destroy');
         Route::get('showprojectbyid/{id}', 'Api\TagController@showByProjectId');
+    });
+});
+
+Route::group(['prefix' => 'projecttag'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::post('store', 'Api\ProjectTagController@store');
+        Route::get('showbyid/{id}', 'Api\ProjectTagController@showById');
+        Route::delete('destroy/{id}', 'Api\ProjectTagController@destroy');
+        Route::get('showprojectbyid/{id}', 'Api\ProjectTagController@showByProjectId');
     });
 });
 

@@ -49,6 +49,10 @@ use App\Http\Controllers\Api\TagController;
 use App\Query\Abstraction\ITagQuery;
 use App\Query\Request\TagQuery;
 
+use App\Http\Controllers\Api\ProjectTagController;
+use App\Query\Abstraction\IProjectTagQuery;
+use App\Query\Request\ProjectTagQuery;
+
 use App\Http\Controllers\Api\DocumentController;
 use App\Query\Abstraction\IDocumentQuery;
 use App\Query\Request\DocumentQuery;
@@ -114,6 +118,9 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(ITagQuery::class, TagQuery::class);
         $this->app->make(TagController::class);
+
+        $this->app->bind(IProjectTagQuery::class, ProjectTagQuery::class);
+        $this->app->make(ProjectTagController::class);
 
         $this->app->bind(IDocumentQuery::class, DocumentQuery::class);
         $this->app->make(DocumentController::class);
