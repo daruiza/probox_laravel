@@ -49,8 +49,8 @@ class ProjectTagController extends Controller
 
     /**
      * @OA\Get(
-     *      path="/projecttag/showbyid/{id}",
-     *      operationId="getProjectTagById",
+     *      path="/projecttag/showtagsbyprojectid/{id}",
+     *      operationId="getTagsByProjectId",
      *      tags={"ProjectTag"},
      *      summary="Get One ProjectTag By one Id",
      *      description="Return One ProjectTag",
@@ -78,9 +78,9 @@ class ProjectTagController extends Controller
      *      )
      *     )
      */
-    public function showById(Request $request, $id)
+    public function showTagsByProjectId(Request $request, $id)
     {
-        return $this->ProjectTagQuery->showById($request, $id);
+        return $this->ProjectTagQuery->showTagsByProjectId($request, $id);
     }    
 
     /**

@@ -199,7 +199,7 @@ class TagQuery implements ITagQuery
         }
     }
 
-    // showProjectByTagName
+    // Muestra todos los proyectos con respecto a in tagId
     public function showProjectById(Request $request, int $id)
     {
         if ($id) {

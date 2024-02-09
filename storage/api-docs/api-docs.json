@@ -2685,14 +2685,14 @@
                 ]
             }
         },
-        "/projecttag/showbyid/{id}": {
+        "/projecttag/showtagsbyprojectid/{id}": {
             "get": {
                 "tags": [
                     "ProjectTag"
                 ],
                 "summary": "Get One ProjectTag By one Id",
                 "description": "Return One ProjectTag",
-                "operationId": "getProjectTagById",
+                "operationId": "getTagsByProjectId",
                 "parameters": [
                     {
                         "name": "id",

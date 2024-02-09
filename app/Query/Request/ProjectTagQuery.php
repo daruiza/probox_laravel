@@ -2,8 +2,10 @@
 
 namespace App\Query\Request;
 
+use App\Model\Core\Project;
 use Illuminate\Support\Facades\DB;
 use App\Model\Core\ProjectTag;
+use App\Model\Core\Tag;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -23,8 +25,7 @@ class ProjectTagQuery implements IProjectTagQuery
         //Rules: Especificaciones a validar
         $rules = [
             $this->tag_id    => 'required|min:1|max:60',
-            $this->project_id    => 'required|min:1|max:60',
-
+            $this->project_id    => 'required|min:1|max:60'
         ];
         try {
             // Ejecutamos el validador y en caso de que falle devolvemos la respuesta
@@ -56,34 +57,19 @@ class ProjectTagQuery implements IProjectTagQuery
         }
     }
 
-    //Show: Obtener un registro de la tabla
-    public function showById(Request $request,  int $id)
+    //Show: Obteniene los tags de un projecto
+    public function showTagsByProjectId(Request $request,  int $id)
     {
-
         if ($id) {
             try {
-                $tg = ProjectTag::findOrFail($id);
-
-                if ($tg) {
-                    //Select a la BD: TB_tasks
-                    $tag = DB::table('tags')
-                        ->select([
-                            'id',
-                            'name',
-                            'class',
-                            'category',
-                            'default',
-                            'active',
-                        ])
-                        ->where('tags.id', '=', $id)
-                        ->get();
-                    return response()->json([
-                        'data' => [
-                            'tag' => $tag,
-                        ],
-                        'message' => 'Datos de tags Consultados Correctamente!'
-                    ]);
-                }
+                $project = Project::select()->with(['tags'])->where('id', $id)->get();
+                // $project->tags();
+                return response()->json([
+                    'data' => [
+                        'project' => $project,
+                    ],
+                    'message' => 'Datos de tags Consultados Correctamente!'
+                ]);
             } catch (ModelNotFoundException $e) {
                 return response()->json(['message' => "Tag con id {$id} no existe!", 'error' => $e->getMessage()], 400);
             }
@@ -103,12 +89,12 @@ class ProjectTagQuery implements IProjectTagQuery
                 $tag->delete();
                 return response()->json([
                     'data' => [
-                        'tag' => $tag,
+                        'projecttag' => $tag,
                     ],
-                    'message' => 'tag_removed_correctly'
+                    'message' => 'projecttag_removed_correctly'
                 ], 201);
             } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Tag con id {$id} no existe!", 'error' => $e->getMessage()], 400);
+                return response()->json(['message' => "ProjectTag con id {$id} no existe!", 'error' => $e->getMessage()], 400);
             }
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);

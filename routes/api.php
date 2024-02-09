@@ -134,7 +134,7 @@ Route::group(['prefix' => 'tag'], function () {
 Route::group(['prefix' => 'projecttag'], function () {
     Route::group(['middleware' => 'auth:api'], function () {
         Route::post('store', 'Api\ProjectTagController@store');
-        Route::get('showbyid/{id}', 'Api\ProjectTagController@showById');
+        Route::get('showtagsbyprojectid/{id}', 'Api\ProjectTagController@showTagsByProjectId');
         Route::delete('destroy/{id}', 'Api\ProjectTagController@destroy');
         Route::get('showprojectbyid/{id}', 'Api\ProjectTagController@showByProjectId');
     });

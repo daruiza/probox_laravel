@@ -7,7 +7,7 @@
         "pi": "php artisan passport:install",
         "pi2": "php artisan passport:key --force",
         "l5": "php artisan l5-swagger:generate",  
-        "reinstall": "npm run mr && npm run pi && npm run l5",  
+        "reinstall": "npm run mr && npm run pi && npm run l5 && php artisan route:clear && php artisan optimize",  
         "dev": "npm run development",
         "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "watch": "npm run development -- --watch",
