@@ -10,7 +10,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Validator;
 use App\Query\Abstraction\ITagQuery;
-
+use ProjectTag;
 
 class TagQuery implements ITagQuery
 {
@@ -53,8 +53,7 @@ class TagQuery implements ITagQuery
             $this->class    => 'required|string|min:1|max:60|',
             $this->category    => 'required|string|min:1|max:60|',
             $this->default    => 'boolean',
-            $this->active    => 'boolean',
-
+            $this->active    => 'boolean'
         ];
         try {
             // Ejecutamos el validador y en caso de que falle devolvemos la respuesta
@@ -78,6 +77,17 @@ class TagQuery implements ITagQuery
 
             $tag->save();
 
+            // Si hay project_id se realiza la reasignación
+            if ($request->project_id) {
+                request()->merge([
+                    'tag_id' => $tag->id,
+                    'project_id' => $request->project_id,
+                    'return_all' => $request->return_all,
+                    'category' => $request->category
+                ]);
+                return (new ProjectTagQuery)->store($request);
+            }
+
             return response()->json([
                 'data' => [
                     'tag' => $tag,
@@ -85,18 +95,16 @@ class TagQuery implements ITagQuery
                 'message' => 'Tag creado correctamente!'
             ], 201);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 400);
+            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e->getMessage()], 400);
         }
     }
 
     //Show: Obtener un registro de la tabla
     public function showById(Request $request,  int $id)
     {
-
         if ($id) {
             try {
                 $tg = Tag::findOrFail($id);
-
                 if ($tg) {
                     //Select a la BD: TB_tasks
                     $tag = DB::table('tags')

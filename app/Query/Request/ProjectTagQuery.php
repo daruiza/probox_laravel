@@ -46,27 +46,36 @@ class ProjectTagQuery implements IProjectTagQuery
 
             $projecttag->save();
 
+            // return_all llega desde Tag/store cuando de guarda un tag nuevo default: 0
+            if ($request->input('return_all')) {
+                return $this->showTagsByProjectId($request, $request->project_id);
+            }
+
             return response()->json([
                 'data' => [
                     'projecttag' => $projecttag,
                 ],
-                'message' => 'Tag creado correctamente!'
+                'message' => 'ProjectTag creado correctamente!'
             ], 201);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 400);
+            return response()->json(['message' => 'No se logro realizar la relación!', 'error' => $e->getMessage()], 400);
         }
     }
 
     //Show: Obteniene los tags de un projecto
     public function showTagsByProjectId(Request $request,  int $id)
-    {
+    {        
         if ($id) {
             try {
-                $project = Project::select()->with(['tags'])->where('id', $id)->get();
-                // $project->tags();
+                $project = Project::select()
+                    // ->with(['tags'])                    
+                    ->where('id', $id)
+                    ->first();
+                // ->toSql();                    
+                $project->tags();
                 return response()->json([
                     'data' => [
-                        'project' => $project,
+                        'project' => $project->tags()->category($request->category)->get(),
                     ],
                     'message' => 'Datos de tags Consultados Correctamente!'
                 ]);
@@ -87,6 +96,12 @@ class ProjectTagQuery implements IProjectTagQuery
                 //Delete por id
                 $tag = ProjectTag::findOrFail($id);
                 $tag->delete();
+
+                // return_all llega desde Tag/store cuando de guarda un tag nuevo default: 0
+                if ($request->input('return_all')) {
+                    return $this->showTagsByProjectId($request, $request->project_id);
+                }
+
                 return response()->json([
                     'data' => [
                         'projecttag' => $tag,
@@ -102,7 +117,7 @@ class ProjectTagQuery implements IProjectTagQuery
     }
 
     // showProjectByTagName
-    public function showProjectById(Request $request, int $id)
+    public function showProjectTagById(Request $request, int $id)
     {
         if ($id) {
             try {
@@ -117,7 +132,7 @@ class ProjectTagQuery implements IProjectTagQuery
                     'data' => [
                         'tag' => $tag,
                     ],
-                    'message' => 'Tag consultado con éxito!'
+                    'message' => 'ProjectTag consultado con éxito!'
                 ], 201);
             } catch (ModelNotFoundException $e) {
                 return response()->json(['message' => "Tag relacionado a la tag con id {$id} no existe!", 'error' => $e->getMessage()], 400);

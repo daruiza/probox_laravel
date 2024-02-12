@@ -14,7 +14,7 @@ class ProjectTagController extends Controller
     public function __construct(IProjectTagQuery $ProjectTagQuery)
     {
         $this->ProjectTagQuery = $ProjectTagQuery;
-    }    
+    }
 
     /**
      * @OA\Post(
@@ -54,7 +54,7 @@ class ProjectTagController extends Controller
      *      tags={"ProjectTag"},
      *      summary="Get One ProjectTag By one Id",
      *      description="Return One ProjectTag",
-     *      security={ {"bearer": {} }},
+     *      security={ {"bearer": {} }},     
      *      @OA\Parameter(
      *          name="id",
      *          description="Tag Id",
@@ -64,6 +64,15 @@ class ProjectTagController extends Controller
      *              type="integer"
      *          )
      *      ),
+     *      @OA\Parameter(
+     *          name="category",
+     *          description="category",
+     *          required=false,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),    
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
@@ -81,7 +90,7 @@ class ProjectTagController extends Controller
     public function showTagsByProjectId(Request $request, $id)
     {
         return $this->ProjectTagQuery->showTagsByProjectId($request, $id);
-    }    
+    }
 
     /**
      * @OA\Delete(
@@ -151,8 +160,8 @@ class ProjectTagController extends Controller
      *      )
      *     )
      */
-    public function showByProjectId(Request $request, int $id)
+    public function showProjectTagById(Request $request, int $id)
     {
-        return $this->ProjectTagQuery->showProjectById($request, $id);
+        return $this->ProjectTagQuery->showProjectTagById($request, $id);
     }
 }

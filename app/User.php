@@ -106,7 +106,6 @@ class User extends Authenticatable
     // Trae los projectos en los que el es customer
     public function projects_customer()
     {
-        // return $this->belongsToMany(Customer::class);
         return $this->belongsToMany(Project::class, 'customers', 'user_id', 'project_id')
             // ->with(['notes'])
             ->with(['tags']);
@@ -116,7 +115,6 @@ class User extends Authenticatable
     // Trae los projectos en los que el es colaborador
     public function projects_colaborator()
     {
-        // return $this->belongsToMany(Customer::class);
         return $this->belongsToMany(Project::class, 'colaborators', 'user_id', 'project_id')
             // ->with(['notes'])
             ->with(['tags']);

@@ -31,4 +31,17 @@ class ProjectTag
      * @var numeric
      */
     public $project_id;
+
+    /**
+     * @OA\Property(
+     *      title="return_all",
+     *      description="return all tags on the project id",
+     *      example=false
+     * )
+     *
+     * @var boolean
+     */
+    public $return_all;
+
+    
 }

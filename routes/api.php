@@ -136,7 +136,7 @@ Route::group(['prefix' => 'projecttag'], function () {
         Route::post('store', 'Api\ProjectTagController@store');
         Route::get('showtagsbyprojectid/{id}', 'Api\ProjectTagController@showTagsByProjectId');
         Route::delete('destroy/{id}', 'Api\ProjectTagController@destroy');
-        Route::get('showprojectbyid/{id}', 'Api\ProjectTagController@showByProjectId');
+        Route::get('showprojecttagbyid/{id}', 'Api\ProjectTagController@showProjectTagById');
     });
 });
 

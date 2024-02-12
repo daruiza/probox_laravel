@@ -2702,6 +2702,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "return_all",
+                        "in": "path",
+                        "description": "ProjectReturnAllTag",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
                     }
                 ],
                 "responses": {
