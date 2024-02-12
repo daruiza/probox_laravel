@@ -2704,12 +2704,12 @@
                         }
                     },
                     {
-                        "name": "return_all",
+                        "name": "category",
                         "in": "path",
-                        "description": "ProjectReturnAllTag",
+                        "description": "category",
                         "required": false,
                         "schema": {
-                            "type": "boolean"
+                            "type": "string"
                         }
                     }
                 ],
@@ -4453,6 +4453,12 @@
                         "title": "project_id",
                         "description": "project_id of the ProjectTag",
                         "example": 1
+                    },
+                    "return_all": {
+                        "title": "return_all",
+                        "description": "return all tags on the project id",
+                        "type": "boolean",
+                        "example": false
                     }
                 },
                 "type": "object"

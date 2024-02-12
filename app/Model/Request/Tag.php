@@ -10,7 +10,7 @@
 class Tag
 {
 
-     /**
+    /**
      * @OA\Property(
      *      title="category",
      *      description="category of the Tag",
@@ -43,7 +43,7 @@ class Tag
      */
     public $class;
 
-     /**
+    /**
      * @OA\Property(
      *      title="default",
      *      description="default of the Tag",
@@ -54,7 +54,7 @@ class Tag
      */
     public $default;
 
-     /**
+    /**
      * @OA\Property(
      *      title="active",
      *      description="active of the Tag",
@@ -64,4 +64,26 @@ class Tag
      * @var boolean
      */
     public $active;
+
+    /**
+     * @OA\Property(
+     *      title="return_all",
+     *      description="return all tags on the project id, after store",
+     *      example=false
+     * )
+     *
+     * @var boolean
+     */
+    public $return_all;
+
+    /**
+     * @OA\Property(
+     *      title="return_category",
+     *      description="return_category of the Tag, after store",
+     *      example="return_category Tag, after store"
+     * )
+     *
+     * @var string
+     */
+    public $return_category;
 }

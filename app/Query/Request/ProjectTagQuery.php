@@ -48,6 +48,7 @@ class ProjectTagQuery implements IProjectTagQuery
 
             // return_all llega desde Tag/store cuando de guarda un tag nuevo default: 0
             if ($request->input('return_all')) {
+                // $reuest ya contiene category/return_category
                 return $this->showTagsByProjectId($request, $request->project_id);
             }
 
