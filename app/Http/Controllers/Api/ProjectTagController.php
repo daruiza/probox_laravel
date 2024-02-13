@@ -57,7 +57,7 @@ class ProjectTagController extends Controller
      *      security={ {"bearer": {} }},     
      *      @OA\Parameter(
      *          name="id",
-     *          description="Tag Id",
+     *          description="Project Id",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -68,7 +68,7 @@ class ProjectTagController extends Controller
      *          name="category",
      *          description="category",
      *          required=false,
-     *          in="path",
+     *          in="query",
      *          @OA\Schema(
      *              type="string"
      *          )

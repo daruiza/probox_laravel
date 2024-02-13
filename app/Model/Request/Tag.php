@@ -67,6 +67,17 @@ class Tag
 
     /**
      * @OA\Property(
+     *      title="project_id",
+     *      description="project_id of the Project",
+     *      example=1
+     * )
+     *
+     * @var numeric
+     */
+    public $project_id;
+
+    /**
+     * @OA\Property(
      *      title="return_all",
      *      description="return all tags on the project id, after store",
      *      example=false

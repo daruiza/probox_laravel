@@ -2697,7 +2697,7 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Tag Id",
+                        "description": "Project Id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -2705,7 +2705,7 @@
                     },
                     {
                         "name": "category",
-                        "in": "path",
+                        "in": "query",
                         "description": "category",
                         "required": false,
                         "schema": {
@@ -4521,6 +4521,23 @@
                         "description": "active of the Tag",
                         "type": "boolean",
                         "example": true
+                    },
+                    "project_id": {
+                        "title": "project_id",
+                        "description": "project_id of the Project",
+                        "example": 1
+                    },
+                    "return_all": {
+                        "title": "return_all",
+                        "description": "return all tags on the project id, after store",
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "return_category": {
+                        "title": "return_category",
+                        "description": "return_category of the Tag, after store",
+                        "type": "string",
+                        "example": "return_category Tag, after store"
                     }
                 },
                 "type": "object"
