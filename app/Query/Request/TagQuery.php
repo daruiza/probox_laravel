@@ -83,8 +83,8 @@ class TagQuery implements ITagQuery
                     'tag_id' => $tag->id,
                     'project_id' => $request->project_id,
                     'return_all' => $request->return_all,
-                    'category' => $request->return_category
-                ]);
+                    'return_category' => $request->return_category
+                ]);                
                 return (new ProjectTagQuery)->store($request);
             }
 

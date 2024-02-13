@@ -46,8 +46,9 @@ class ProjectTagQuery implements IProjectTagQuery
 
             $projecttag->save();
 
+            
             // return_all llega desde Tag/store cuando de guarda un tag nuevo default: 0
-            if ($request->input('return_all')) {
+            if ($request->return_all) {                
                 // $request ya contiene category/return_category
                 return $this->showTagsByProjectId($request, $request->project_id);
             }
@@ -66,7 +67,6 @@ class ProjectTagQuery implements IProjectTagQuery
     //Show: Obteniene los tags de un projecto
     public function showTagsByProjectId(Request $request,  int $id)
     {
-        return response()->json(['message' => $request->input()], 400);
         if ($id) {
             try {
                 $project = Project::select()
@@ -76,7 +76,7 @@ class ProjectTagQuery implements IProjectTagQuery
                     ->first();
                 return response()->json([
                     'data' => [
-                        'project' => $project->tags()->category($request->category)->get(),
+                        'project' => $project->tags()->category($request->return_category)->get(),
                     ],
                     'message' => 'Datos de tags Consultados Correctamente!'
                 ]);
