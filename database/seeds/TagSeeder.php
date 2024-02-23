@@ -16,13 +16,13 @@ class TagSeeder extends Seeder
         DB::table('tags')->insert(array(
             'category' => 'status',
             'name' => 'active',
-            'class' => 'warning'
+            'class' => 'primary'
         ));
 
         DB::table('tags')->insert(array(
             'category' => 'status',
             'name' => 'complete',
-            'class' => 'warning'
+            'class' => 'success'
         ));
 
         DB::table('tags')->insert(array(
@@ -34,31 +34,32 @@ class TagSeeder extends Seeder
         DB::table('tags')->insert(array(
             'category' => 'status',
             'name' => 'paid',
-            'class' => 'warning'
+            'class' => 'info'
         ));
 
         DB::table('tags')->insert(array(
             'category' => 'status',
             'name' => 'bid',
-            'class' => 'warning'
+            'class' => 'secondary'
         ));
 
         DB::table('tags')->insert(array(
             'category' => 'status',
             'name' => 'important',
-            'class' => 'warning'
+            'class' => 'success'
         ));
 
+        // 7
         DB::table('tags')->insert(array(
             'category' => 'labour',
             'name' => 'floor',
-            'class' => 'warning'
+            'class' => 'dark'
         ));
 
         DB::table('tags')->insert(array(
             'category' => 'labour',
             'name' => 'wall',
-            'class' => 'warning'
+            'class' => 'light'
         ));
 
         DB::table('tags')->insert(array(
@@ -70,6 +71,13 @@ class TagSeeder extends Seeder
         DB::table('tags')->insert(array(
             'category' => 'labour',
             'name' => 'wood',
+            'class' => 'warning'
+        ));
+
+        DB::table('tags')->insert(array(
+            'category' => 'labour',
+            'name' => 'kitchen',
+            'default' => false,
             'class' => 'warning'
         ));
 

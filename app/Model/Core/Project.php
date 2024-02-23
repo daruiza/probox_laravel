@@ -9,6 +9,7 @@ use App\Model\Core\Commerce;
 use App\Model\Core\Tag;
 use App\Model\Core\Task;
 use App\Model\Core\Note;
+use App\Model\Core\Document;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -37,37 +38,40 @@ class Project extends Model
     //HasMany: Un PROJECT le pertenece a varios TASK.
     public function tasks()
     {
-        return $this->hasMany(Task::class);
+        return $this->hasMany(Task::class)->with(['evidences']);;
     }
 
-    //HasMany: Un PROJECT le pertenece a varios NOTES.
+    //HasMany: Un PROJECT puede tener varios NOTES.
     public function notes()
     {
         return $this->hasMany(Note::class);
     }
 
+    //HasMany: Un PROJECT puede tener varios Documentos.
+    public function documents()
+    {
+        return $this->hasMany(Document::class);
+    }
+
     //Un Proyecto le pertenece a varios Customes
     public function customers()
     {
-        // return $this->belongsToMany(Customer::class);
         return $this->belongsToMany(User::class, 'customers', 'project_id', 'user_id');
     }
 
     //Un Proyecto le pertenece a varios Customes
     public function colaborators()
     {
-        // return $this->belongsToMany(Colaborator::class);
         return $this->belongsToMany(User::class, 'colaborators', 'project_id', 'user_id');
     }
 
     //Un Proyecto posee varios tags
     public function tags()
     {
-        // return $this->belongsToMany(Customer::class);
         return $this->belongsToMany(Tag::class, 'projects_tags', 'project_id', 'tag_id');
     }
 
-    //BelongsTo (1-1): Un PRIJECT le pertenece un COMMERCE
+    //BelongsTo (1-1): Un PROJECT le pertenece un COMMERCE
     public function commerce()
     {
         return $this->belongsTo(Commerce::class);

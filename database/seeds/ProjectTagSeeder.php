@@ -28,7 +28,20 @@ class ProjectTagSeeder extends Seeder
             'tag_id' => 3,
         ));
 
-        
+        DB::table('projects_tags')->insert(array(
+            'project_id' => 1,
+            'tag_id' => 4,
+        ));       
+
+        DB::table('projects_tags')->insert(array(
+            'project_id' => 1,
+            'tag_id' => 7,
+        ));
+
+        DB::table('projects_tags')->insert(array(
+            'project_id' => 1,
+            'tag_id' => 8,
+        ));        
     }
 
 }

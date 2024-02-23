@@ -48,7 +48,7 @@ class Note
     /**
      * @OA\Property(
      *      title="project_id",
-     *      description="Proyect of the Customer",
+     *      description="Proyect of the Note",
      *      example=1
      * )
      *

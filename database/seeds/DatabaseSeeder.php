@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(OptionSeeder::class);
         $this->call(OptionRolSeeder::class);
         $this->call(ProjectSeeder::class);
+        $this->call(DocumentSeeder::class);        
         $this->call(NoteSeeder::class);        
         $this->call(CustomerSeeder::class);
         $this->call(ColaboratorSeeder::class);                

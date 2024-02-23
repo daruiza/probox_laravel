@@ -10,13 +10,14 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Validator;
 use App\Query\Abstraction\ITagQuery;
-
+use ProjectTag;
 
 class TagQuery implements ITagQuery
 {
     private $name   = 'name';
     private $class   = 'class';
     private $category  = 'category';
+    private $default = 'default';
     private $active  = 'active';
 
     //Index: Página principal
@@ -30,10 +31,14 @@ class TagQuery implements ITagQuery
                     'name',
                     'class',
                     'category',
+                    'default',
                     'active',
-                ])->get();
+                ])
+                ->category($request->category)
+                ->default($request->default)
+                ->get();
 
-            return response()->json(['message' => $tag]);
+            return response()->json(['tags' => $tag]);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Algo salio mal!', 'error' => $e->getMessage()], 400);
         }
@@ -47,8 +52,8 @@ class TagQuery implements ITagQuery
             $this->name    => 'required|string|min:1|max:60|',
             $this->class    => 'required|string|min:1|max:60|',
             $this->category    => 'required|string|min:1|max:60|',
-            $this->active    => 'boolean',
-
+            $this->default    => 'boolean',
+            $this->active    => 'boolean'
         ];
         try {
             // Ejecutamos el validador y en caso de que falle devolvemos la respuesta
@@ -57,7 +62,7 @@ class TagQuery implements ITagQuery
                 throw (new ValidationException($validator->errors()->getMessages()));
             }
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 400);
+            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e->getMessage()], 400);
         }
 
         try {
@@ -66,10 +71,22 @@ class TagQuery implements ITagQuery
                 $this->name => $request->name,
                 $this->class => $request->class,
                 $this->category => $request->category,
+                $this->default => $request->default,
                 $this->active => $request->active,
             ]);
 
             $tag->save();
+
+            // Si hay project_id se realiza la reasignación
+            if ($request->project_id) {
+                request()->merge([
+                    'tag_id' => $tag->id,
+                    'project_id' => $request->project_id,
+                    'return_all' => $request->return_all,
+                    'return_category' => $request->return_category
+                ]);
+                return (new ProjectTagQuery)->store($request);
+            }
 
             return response()->json([
                 'data' => [
@@ -78,18 +95,16 @@ class TagQuery implements ITagQuery
                 'message' => 'Tag creado correctamente!'
             ], 201);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 400);
+            return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e->getMessage()], 400);
         }
     }
 
     //Show: Obtener un registro de la tabla
     public function showById(Request $request,  int $id)
     {
-
         if ($id) {
             try {
                 $tg = Tag::findOrFail($id);
-
                 if ($tg) {
                     //Select a la BD: TB_tasks
                     $tag = DB::table('tags')
@@ -98,6 +113,7 @@ class TagQuery implements ITagQuery
                             'name',
                             'class',
                             'category',
+                            'default',
                             'active',
                         ])
                         ->where('tags.id', '=', $id)
@@ -127,6 +143,7 @@ class TagQuery implements ITagQuery
                 $this->name    => 'required|string|min:1|max:60',
                 $this->category    => 'required|string|min:1|max:60',
                 $this->class    => 'required|string|min:1|max:60',
+                $this->default    => 'boolean',
                 $this->active    => 'boolean',
 
             ];
@@ -147,6 +164,7 @@ class TagQuery implements ITagQuery
                 $tag->name = $request->name ?? $tag->name;
                 $tag->class = $request->class ?? $tag->class;
                 $tag->category = $request->category ?? $tag->category;
+                $tag->default = $request->default ?? $tag->default;
                 $tag->active = $request->active ?? $tag->active;
 
                 $tag->save();
@@ -170,11 +188,25 @@ class TagQuery implements ITagQuery
     //Destroy: Elimina un resgistro de la BD
     public function destroy(Request $request, int $id)
     {
+
+        return response()->json(['request'=>$request->input()]);
         if ($id) {
             try {
                 //Delete por id
                 $tag = Tag::findOrFail($id);
                 $tag->delete();
+
+                // Si hay project_id se realiza la reasignación
+                if ($request->project_id) {
+                    request()->merge([
+                        'tag_id' => $tag->id,
+                        'project_id' => $request->project_id,
+                        'return_all' => $request->return_all,
+                        'return_category' => $request->return_category
+                    ]);
+                    return (new ProjectTagQuery)->store($request);
+                }
+
                 return response()->json([
                     'data' => [
                         'tag' => $tag,
@@ -187,9 +219,9 @@ class TagQuery implements ITagQuery
         } else {
             return response()->json(['message' => 'Algo salio mal!', 'error' => 'Falto ingresar ID'], 400);
         }
-    }    
+    }
 
-    // showProjectByTagName
+    // Muestra todos los proyectos con respecto a in tagId
     public function showProjectById(Request $request, int $id)
     {
         if ($id) {
