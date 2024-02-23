@@ -95,8 +95,13 @@ class ProjectTagQuery implements IProjectTagQuery
         if ($id) {
             try {
                 //Delete por id
-                $tag = ProjectTag::findOrFail($id);
-                $tag->delete();
+                $projecttag = ProjectTag::findOrFail($id);
+                $projecttag->delete();
+
+                // Se borra tambien el TAG
+                if ($request->default === 0) {
+                    return (new Tag)->destroy($request, $request->tag_id);
+                }
 
                 // return_all llega desde Tag/store cuando de guarda un tag nuevo default: 0
                 if ($request->return_all) {
@@ -106,7 +111,7 @@ class ProjectTagQuery implements IProjectTagQuery
 
                 return response()->json([
                     'data' => [
-                        'projecttag' => $tag,
+                        'projecttag' => $projecttag,
                     ],
                     'message' => 'projecttag_removed_correctly'
                 ], 201);

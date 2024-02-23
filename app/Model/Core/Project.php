@@ -68,7 +68,8 @@ class Project extends Model
     //Un Proyecto posee varios tags
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'projects_tags', 'project_id', 'tag_id');
+        return $this->belongsToMany(Tag::class, 'projects_tags', 'project_id', 'tag_id')
+            ->withPivot('id');
     }
 
     //BelongsTo (1-1): Un PROJECT le pertenece un COMMERCE
@@ -111,11 +112,11 @@ class Project extends Model
 
     public function scopeDate_between($query, $date, $date_start, $date_end)
     {
-        return 
+        return
             is_null($date) ||
             is_null($date_start) ||
             is_null($date_end) ?  $query : $query->whereBetween($date, [$date_start, $date_end]);
-    }   
+    }
 
     public function scopequotation($query, $quotation)
     {

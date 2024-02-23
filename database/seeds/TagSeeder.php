@@ -75,7 +75,7 @@ class TagSeeder extends Seeder
         ));
 
         DB::table('tags')->insert(array(
-            'category' => 'labour',
+            'category' => 'status',
             'name' => 'kitchen',
             'default' => false,
             'class' => 'warning'
