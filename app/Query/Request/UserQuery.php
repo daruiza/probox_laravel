@@ -174,12 +174,8 @@ class UserQuery implements IUserQuery
                 $user->nacionality = $request->nacionality ?? $user->nacionality;
                 $user->birthdate = $request->birthdate ?? $user->birthdate;
                 $user->save();
-                return response()->json([
-                    'data' => [
-                        'user' => $user,
-                    ],
-                    'message' => 'Usuario actualizado con éxito!'
-                ], 201);
+
+                return $this->showByUserId($request, $request->id);
             } catch (\Exception $e) {
                 return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => $e], 404);
             }
@@ -214,12 +210,7 @@ class UserQuery implements IUserQuery
                 $user->rol_id       = $request->rol_id ?? $user->rol_id;
                 $user->commerce_id  = $request->commerce_id ?? $user->commerce_id;
                 $user->save();
-                return response()->json([
-                    'data' => [
-                        'user' => $user,
-                    ],
-                    'message' => 'Usuario actualizado con éxito!'
-                ], 201);
+                return $this->showByUserId($request, $request->id);
             } catch (ModelNotFoundException $ex) {
                 return response()->json(['message' => "Usuario con id {$id} no existe!", 'error' => $ex->getMessage()], 404);
             } catch (\Exception $e) {
@@ -230,22 +221,28 @@ class UserQuery implements IUserQuery
 
     public function showByUserId(Request $request, $id)
     {
-        if ($id) {
-            try {
-                $user = User::findOrFail($id);
-                $user->rol;
-                $user->commerce;
-                $user->projects_customer;
-                $user->projects_colaborator;
-                return response()->json([
-                    'data' => [
-                        'user' => $user,
-                    ],
-                    'message' => 'Datos de Usuario Consultados Correctamente!!'
-                ], 200);
-            } catch (ModelNotFoundException $e) {
-                return response()->json(['message' => "Usuario con id {$id} no existe!", 'error' => $e->getMessage()], 400);
-            }
+        try {
+            $user = User::query()
+                ->select([
+                    'id', 'name', 'lastname', 'phone', 'email', 'address',
+                    'location', 'photo', 'theme', 'rol_id', 'commerce_id', 'chexk_digit',
+                    'nacionality', 'birthdate', 'active'
+                ])
+                ->where('id', '=', $request->user()->id)
+                ->with(['rol'])
+                ->with(['commerce'])
+                ->with(['projects_customer'])
+                ->with(['projects_colaborator'])
+                // ->toSql();
+                ->first();
+            return response()->json([
+                'data' => [
+                    'user' => $user,
+                ],
+                'message' => 'data_user_consulted_ok'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 402);
         }
     }
 

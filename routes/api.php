@@ -105,7 +105,7 @@ Route::group(['prefix' => 'commerce'], function () {
         Route::post('store', 'Api\CommerceController@store');
         Route::get('showbyid/{id}', 'Api\CommerceController@showById');
         Route::put('update/{id}', 'Api\CommerceController@update');
-        Route::delete('destroy/{id}', 'Api\CommerceController@destroy');        
+        Route::delete('destroy/{id}', 'Api\CommerceController@destroy');
     });
 });
 
@@ -131,6 +131,15 @@ Route::group(['prefix' => 'tag'], function () {
     });
 });
 
+Route::group(['prefix' => 'projecttag'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::post('store', 'Api\ProjectTagController@store');
+        Route::get('showtagsbyprojectid/{id}', 'Api\ProjectTagController@showTagsByProjectId');
+        Route::delete('destroy/{id}', 'Api\ProjectTagController@destroy');
+        Route::get('showprojecttagbyid/{id}', 'Api\ProjectTagController@showProjectTagById');
+    });
+});
+
 Route::group(['prefix' => 'note'], function () {
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('index', 'Api\NoteController@index');
@@ -139,6 +148,17 @@ Route::group(['prefix' => 'note'], function () {
         Route::put('update/{id}', 'Api\NoteController@update');
         Route::delete('destroy/{id}', 'Api\NoteController@destroy');
         Route::get('showbyprojectid/{id}', 'Api\NoteController@showByProjectId');
+    });
+});
+
+Route::group(['prefix' => 'document'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('index', 'Api\DocumentController@index');
+        Route::post('store', 'Api\DocumentController@store');
+        Route::get('showbyid/{id}', 'Api\DocumentController@showById');
+        Route::put('update/{id}', 'Api\DocumentController@update');
+        Route::delete('destroy/{id}', 'Api\DocumentController@destroy');
+        Route::get('showbyprojectid/{id}', 'Api\DocumentController@showByProjectId');
     });
 });
 

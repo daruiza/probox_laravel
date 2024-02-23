@@ -2,6 +2,8 @@
 
 namespace App\Query\Request;
 
+use App\Query\Request\UserQuery;
+
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -55,29 +57,30 @@ class AuthQuery implements IAuthQuery
 
     public function user(Request $request)
     {
-        try {
-            $user = User::query()
-                ->select([
-                    'id', 'name', 'lastname', 'phone', 'email', 'address',
-                    'location', 'photo', 'theme', 'rol_id', 'commerce_id', 'chexk_digit',
-                    'nacionality', 'birthdate', 'active'
-                ])
-                ->where('id', '=', $request->user()->id)
-                ->with(['rol'])
-                ->with(['commerce'])
-                ->with(['projects_customer'])
-                ->with(['projects_colaborator'])
-                // ->toSql();
-                ->first();
-            return response()->json([
-                'data' => [
-                    'user' => $user,
-                ],
-                'message' => 'data_user_consulted_ok'
-            ]);
-        } catch (\Exception $e) {
-            return response()->json(['message' => $e->getMessage()], 402);
-        }
+        return (new UserQuery)->showByUserId($request,$request->user()->id);
+        // try {
+        //     $user = User::query()
+        //         ->select([
+        //             'id', 'name', 'lastname', 'phone', 'email', 'address',
+        //             'location', 'photo', 'theme', 'rol_id', 'commerce_id', 'chexk_digit',
+        //             'nacionality', 'birthdate', 'active'
+        //         ])
+        //         ->where('id', '=', $request->user()->id)
+        //         ->with(['rol'])
+        //         ->with(['commerce'])
+        //         ->with(['projects_customer'])
+        //         ->with(['projects_colaborator'])
+        //         // ->toSql();
+        //         ->first();
+        //     return response()->json([
+        //         'data' => [
+        //             'user' => $user,
+        //         ],
+        //         'message' => 'data_user_consulted_ok'
+        //     ]);
+        // } catch (\Exception $e) {
+        //     return response()->json(['message' => $e->getMessage()], 402);
+        // }
     }
 
     public function signup(Request $request)

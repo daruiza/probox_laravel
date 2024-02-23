@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProjectsTagsTable extends Migration
+class CreateDocumentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,18 @@ class CreateProjectsTagsTable extends Migration
      */
     public function up()
     {
-        Schema::create('projects_tags', function (Blueprint $table) {
+        Schema::create('documents', function (Blueprint $table) {
             $table->id('id');            
-            $table->unsignedBigInteger('tag_id')->nullable();            
-            $table->unsignedBigInteger('project_id')->nullable();
+            $table->string('name', 256)->nullable();
+            $table->string('file')->nullable();
+            $table->string('type')->nullable();
+            $table->string('description', 1024)->nullable();
+            $table->boolean('approved')->default(true);
+            $table->boolean('focus')->default(false);
             $table->timestamps();
-
-            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('set null')
-                ->onUpdate('cascade');
+            $table->unsignedBigInteger('project_id')->nullable();
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('set null')
                 ->onUpdate('cascade');
-
         });
     }
 
@@ -34,6 +35,6 @@ class CreateProjectsTagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('projects_tags');
+        Schema::dropIfExists('documents');
     }
 }

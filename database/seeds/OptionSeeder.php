@@ -79,9 +79,9 @@ class OptionSeeder extends Seeder
 
         // option 8
         DB::table('options')->insert(array(
-            'name' => 'colaboratos',
-            'description' => 'colaboratos of the project',
-            'label' => 'colaboratos',
+            'name' => 'colaborators',
+            'description' => 'colaborators of the project',
+            'label' => 'colaborators',
             'icon' => 'build',
             'module_id' => '1',
         ));
@@ -128,6 +128,24 @@ class OptionSeeder extends Seeder
             'description' => 'options of the app',
             'label' => 'options',
             'icon' => 'extension',
+            'module_id' => '1',
+        ));
+
+        // option 14
+        DB::table('options')->insert(array(
+            'name' => 'photo',
+            'description' => 'photo of the project',
+            'label' => 'photo',
+            'icon' => 'camera_enhance',
+            'module_id' => '1',
+        ));
+
+        // option 15
+        DB::table('options')->insert(array(
+            'name' => 'notifications_create',
+            'description' => 'notifications_create of the project',
+            'label' => 'notifications_create',
+            'icon' => 'notifications_active',
             'module_id' => '1',
         ));
     }

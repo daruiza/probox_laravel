@@ -4,45 +4,26 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Query\Abstraction\ITagQuery;
+use App\Query\Abstraction\IDocumentQuery;
 
-class TagController extends Controller
+class DocumentController extends Controller
 {
+    private $DocumentQuery;
 
-    private $TagQuery;
-
-    public function __construct(ITagQuery $TagQuery)
+    public function __construct(IDocumentQuery $DocumentQuery)
     {
-        $this->TagQuery = $TagQuery;
+        $this->DocumentQuery = $DocumentQuery;
     }
 
     /**
-     * Listado de todos los Tag
+     * Listado de todos los Documentos
      * @OA\Get(
-     *      path="/tag/index",
-     *      operationId="getTag",
-     *      tags={"Tag"},
-     *      summary="Get All Tag",
-     *      description="Return Tag",
+     *      path="/document/index",
+     *      operationId="getDocuments",
+     *      tags={"Document"},
+     *      summary="Get All Documents",
+     *      description="Return Documents",
      *      security={ {"bearer": {} }},
-     *      @OA\Parameter(
-     *          name="category",
-     *          description="Tag category",
-     *          required=false,
-     *          in="query",
-     *          @OA\Schema(
-     *              type="string"
-     *          )
-     *      ),
-     *      @OA\Parameter(
-     *          name="default",
-     *          description="Tag default",
-     *          required=false,
-     *          in="query",
-     *          @OA\Schema(
-     *              type="boolean"
-     *          )
-     *      ),
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
@@ -59,20 +40,20 @@ class TagController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->TagQuery->index($request);
+        return $this->DocumentQuery->index($request);
     }
 
     /**
      * @OA\Post(
-     *      path="/tag/store",
-     *      operationId="storeTag",
-     *      tags={"Tag"},
-     *      summary="Store Tag",
-     *      description="Store Tag",
+     *      path="/document/store",
+     *      operationId="storeDocument",
+     *      tags={"Document"},
+     *      summary="Store Document",
+     *      description="Store Document",
      *      security={ {"bearer": {} }},
      *      @OA\RequestBody(
      *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/Tag")
+     *          @OA\JsonContent(ref="#/components/schemas/Document")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -90,56 +71,21 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->TagQuery->store($request);
+        return $this->DocumentQuery->store($request);
     }
 
-    /**
-     * @OA\Get(
-     *      path="/tag/showbyid/{id}",
-     *      operationId="getTagById",
-     *      tags={"Tag"},
-     *      summary="Get One Tag By one Id",
-     *      description="Return One Tag",
-     *      security={ {"bearer": {} }},
-     *      @OA\Parameter(
-     *          name="id",
-     *          description="Tag Id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *       ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated"
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      )
-     *     )
-     */
-    public function showById(Request $request, $id)
-    {
-        return $this->TagQuery->showById($request, $id);
-    }
 
     /**
      * @OA\Put(
-     *      path="/tag/update/{id}",
-     *      operationId="getUpdateTagById",
-     *      tags={"Tag"},
-     *      summary="Update One Tag By one Id",
-     *      description="Update One Tag",
+     *      path="/document/update/{id}",
+     *      operationId="getUpdateDocumentById",
+     *      tags={"Document"},
+     *      summary="Update One Document By one Id",
+     *      description="Update One Document",
      *      security={ {"bearer": {} }},
      *      @OA\Parameter(
      *          name="id",
-     *          description="Tag Id",
+     *          description="Document Id",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -148,7 +94,7 @@ class TagController extends Controller
      *      ),
      *       @OA\RequestBody(
      *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/Tag")
+     *          @OA\JsonContent(ref="#/components/schemas/Document")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -166,20 +112,20 @@ class TagController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $this->TagQuery->update($request, $id);
+        return $this->DocumentQuery->update($request, $id);
     }
 
     /**
      * @OA\Delete(
-     *      path="/tag/destroy/{id}",
-     *      operationId="getDestroyTagById",
-     *      tags={"Tag"},
-     *      summary="Delete One Tag By one Id",
-     *      description="Delete One Tag",
+     *      path="/document/destroy/{id}",
+     *      operationId="getDestroyDocumentById",
+     *      tags={"Document"},
+     *      summary="Delete One Document By one Id",
+     *      description="Delete One Document",
      *      security={ {"bearer": {} }},
      *      @OA\Parameter(
      *          name="id",
-     *          description="Tag Id",
+     *          description="Document Id",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -202,52 +148,24 @@ class TagController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        return $this->TagQuery->destroy($request, $id);
+        return $this->DocumentQuery->destroy($request, $id);
     }
 
-
-    /**
+     /**
      * @OA\Get(
-     *      path="/tag/showprojectbyid/{id}",
-     *      operationId="getShowProjectById",
-     *      tags={"Tag"},
-     *      summary="Get One Project By one Id",
-     *      description="Return One Project by Id",
+     *      path="/document/showbyid/{id}",
+     *      operationId="getDocumentById",
+     *      tags={"Document"},
+     *      summary="Get One Document By one Id",
+     *      description="Return One Document",
      *      security={ {"bearer": {} }},
      *      @OA\Parameter(
      *          name="id",
-     *          description="Show Project by Id",
+     *          description="Document Id",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
      *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Parameter(
-     *          name="project_id",
-     *          description="Optional project_id",
-     *          required=false,
-     *          in="query",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Parameter(
-     *          name="return_all",
-     *          description="Optional return_all tags",
-     *          required=false,
-     *          in="query",
-     *          @OA\Schema(
-     *              type="boolean"
-     *          )
-     *      ),
-     *      @OA\Parameter(
-     *          name="return_category",
-     *          description="Optional return_category tags",
-     *          required=false,
-     *          in="query",
-     *          @OA\Schema(
-     *              type="boolean"
      *          )
      *      ),
      *      @OA\Response(
@@ -264,8 +182,44 @@ class TagController extends Controller
      *      )
      *     )
      */
-    public function showByProjectId(Request $request, int $id)
+    public function showById(Request $request, $id)
     {
-        return $this->TagQuery->showProjectById($request, $id);
+        return $this->DocumentQuery->showById($request, $id);
+    }
+
+     /**
+     * @OA\Get(
+     *      path="/document/showbyprojectid/{id}",
+     *      operationId="getDocumentByProjectId",
+     *      tags={"Document"},
+     *      summary="Get One Document By one Project Id",
+     *      description="Return One Document",
+     *      security={ {"bearer": {} }},
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Document Id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated"
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *     )
+     */
+    public function showByProjectId(Request $request, $id)
+    {
+        return $this->DocumentQuery->showByProjectId($request, $id);
     }
 }

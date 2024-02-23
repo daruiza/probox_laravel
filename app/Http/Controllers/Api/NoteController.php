@@ -190,7 +190,7 @@ class NoteController extends Controller
      /**
      * @OA\Get(
      *      path="/note/showbyprojectid/{id}",
-     *      operationId="getCustomerByProjectId",
+     *      operationId="getNoteByProjectId",
      *      tags={"Note"},
      *      summary="Get One Note By one Project Id",
      *      description="Return One Note",
