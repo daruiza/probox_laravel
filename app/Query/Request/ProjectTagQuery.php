@@ -46,9 +46,9 @@ class ProjectTagQuery implements IProjectTagQuery
 
             $projecttag->save();
 
-            
+
             // return_all llega desde Tag/store cuando de guarda un tag nuevo default: 0
-            if ($request->return_all) {                
+            if ($request->return_all) {
                 // $request ya contiene category/return_category
                 return $this->showTagsByProjectId($request, $request->project_id);
             }
@@ -76,7 +76,7 @@ class ProjectTagQuery implements IProjectTagQuery
                     ->first();
                 return response()->json([
                     'data' => [
-                        'project' => $project->tags()->category($request->return_category)->get(),
+                        'tags' => $project->tags()->category($request->return_category)->get(),
                     ],
                     'message' => 'Datos de tags Consultados Correctamente!'
                 ]);
@@ -99,7 +99,7 @@ class ProjectTagQuery implements IProjectTagQuery
                 $tag->delete();
 
                 // return_all llega desde Tag/store cuando de guarda un tag nuevo default: 0
-                if ($request->input('return_all')) {
+                if ($request->return_all) {
                     // $request ya contiene category/return_category
                     return $this->showTagsByProjectId($request, $request->project_id);
                 }

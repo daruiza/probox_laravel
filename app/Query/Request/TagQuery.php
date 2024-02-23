@@ -84,7 +84,7 @@ class TagQuery implements ITagQuery
                     'project_id' => $request->project_id,
                     'return_all' => $request->return_all,
                     'return_category' => $request->return_category
-                ]);                
+                ]);
                 return (new ProjectTagQuery)->store($request);
             }
 
@@ -188,11 +188,25 @@ class TagQuery implements ITagQuery
     //Destroy: Elimina un resgistro de la BD
     public function destroy(Request $request, int $id)
     {
+
+        return response()->json(['request'=>$request->input()]);
         if ($id) {
             try {
                 //Delete por id
                 $tag = Tag::findOrFail($id);
                 $tag->delete();
+
+                // Si hay project_id se realiza la reasignación
+                if ($request->project_id) {
+                    request()->merge([
+                        'tag_id' => $tag->id,
+                        'project_id' => $request->project_id,
+                        'return_all' => $request->return_all,
+                        'return_category' => $request->return_category
+                    ]);
+                    return (new ProjectTagQuery)->store($request);
+                }
+
                 return response()->json([
                     'data' => [
                         'tag' => $tag,
