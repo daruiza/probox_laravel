@@ -10,7 +10,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Validator;
 use App\Query\Abstraction\ITagQuery;
-use ProjectTag;
+use App\Model\Core\ProjectTag;
 
 class TagQuery implements ITagQuery
 {
@@ -74,6 +74,22 @@ class TagQuery implements ITagQuery
                 $this->default => $request->default,
                 $this->active => $request->active,
             ]);
+
+            // verificar que no se repita el nombre para el proyecto
+            $collection = collect([['name' => 'Desk'], ['name' => 'Mouse']]);
+            if ($request->project_id) {
+                $projecttags = ProjectTag::query()
+                    ->select($this->name)
+                    ->where('project_id', $request->project_id)
+                    ->leftJoin('tags', 'projects_tags.tag_id', '=', 'tags.id')
+                    ->where('default', 0)
+                    ->get();
+
+                // Se halla el nombre repetido
+                if (count($projecttags->where($this->name, $tag->name))) {
+                    return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => 'Nombre repetido'], 400);
+                }                
+            }
 
             $tag->save();
 

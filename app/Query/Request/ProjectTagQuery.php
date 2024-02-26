@@ -5,7 +5,7 @@ namespace App\Query\Request;
 use App\Model\Core\Project;
 use Illuminate\Support\Facades\DB;
 use App\Model\Core\ProjectTag;
-use App\Model\Core\Tag;
+use App\Query\Request\TagQuery;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -99,8 +99,8 @@ class ProjectTagQuery implements IProjectTagQuery
                 $projecttag->delete();
 
                 // Se borra tambien el TAG
-                if ($request->default === 0) {
-                    return (new Tag)->destroy($request, $request->tag_id);
+                if ($request->default === 0 || $request->default === '0' || $request->default === false ||  $request->default === 'false') {
+                    return (new TagQuery)->destroy($request, $projecttag->tag_id);
                 }
 
                 // return_all llega desde Tag/store cuando de guarda un tag nuevo default: 0
