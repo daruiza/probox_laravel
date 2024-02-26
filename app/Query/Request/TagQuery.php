@@ -76,8 +76,8 @@ class TagQuery implements ITagQuery
             ]);
 
             // verificar que no se repita el nombre para el proyecto
-            $collection = collect([['name' => 'Desk'], ['name' => 'Mouse']]);
-            if ($request->project_id) {
+            // En caso de intetnar crear un TAG con su relación al proyectos
+            if ($request->project_id && ($request->default === 0 || $request->default === '0')) {
                 $projecttags = ProjectTag::query()
                     ->select($this->name)
                     ->where('project_id', $request->project_id)
