@@ -2748,6 +2748,42 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "project_id",
+                        "in": "query",
+                        "description": "Optional project_id",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "default",
+                        "in": "query",
+                        "description": "Optional default tags",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "return_all",
+                        "in": "query",
+                        "description": "Optional return_all tags",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "return_category",
+                        "in": "query",
+                        "description": "Optional return_category tags",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -3208,6 +3244,51 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Tag id",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "project_id",
+                        "in": "query",
+                        "description": "Optional project_id",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "default",
+                        "in": "query",
+                        "description": "Optional default tags",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "return_all",
+                        "in": "query",
+                        "description": "Optional return_all tags",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "return_category",
+                        "in": "query",
+                        "description": "Optional return_category tags",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -3270,7 +3351,7 @@
                         "description": "Optional return_category tags",
                         "required": false,
                         "schema": {
-                            "type": "boolean"
+                            "type": "string"
                         }
                     }
                 ],
@@ -4486,6 +4567,12 @@
                         "description": "return all tags on the project id",
                         "type": "boolean",
                         "example": false
+                    },
+                    "return_category": {
+                        "title": "return_category",
+                        "description": "return_category of the ProjectTag, after store",
+                        "type": "string",
+                        "example": "status"
                     }
                 },
                 "type": "object"
@@ -4523,7 +4610,7 @@
                         "title": "category",
                         "description": "category of the Tag",
                         "type": "string",
-                        "example": "category Tag"
+                        "example": "status"
                     },
                     "name": {
                         "title": "name",
@@ -4541,7 +4628,7 @@
                         "title": "default",
                         "description": "default of the Tag",
                         "type": "boolean",
-                        "example": true
+                        "example": false
                     },
                     "active": {
                         "title": "active",
@@ -4558,13 +4645,13 @@
                         "title": "return_all",
                         "description": "return all tags on the project id, after store",
                         "type": "boolean",
-                        "example": false
+                        "example": true
                     },
                     "return_category": {
                         "title": "return_category",
                         "description": "return_category of the Tag, after store",
                         "type": "string",
-                        "example": "return_category Tag, after store"
+                        "example": "status"
                     }
                 },
                 "type": "object"

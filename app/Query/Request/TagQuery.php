@@ -10,7 +10,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Validator;
 use App\Query\Abstraction\ITagQuery;
-use ProjectTag;
+use App\Model\Core\ProjectTag;
 
 class TagQuery implements ITagQuery
 {
@@ -74,6 +74,22 @@ class TagQuery implements ITagQuery
                 $this->default => $request->default,
                 $this->active => $request->active,
             ]);
+
+            // verificar que no se repita el nombre para el proyecto
+            // En caso de intetnar crear un TAG con su relación al proyectos
+            if ($request->project_id && ($request->default === 0 || $request->default === '0')) {
+                $projecttags = ProjectTag::query()
+                    ->select($this->name)
+                    ->where('project_id', $request->project_id)
+                    ->leftJoin('tags', 'projects_tags.tag_id', '=', 'tags.id')
+                    ->where('default', 0)
+                    ->get();
+
+                // Se halla el nombre repetido
+                if (count($projecttags->where($this->name, $tag->name))) {
+                    return response()->json(['message' => 'Los datos ingresados no son validos!', 'error' => 'Nombre repetido'], 400);
+                }                
+            }
 
             $tag->save();
 
@@ -185,18 +201,16 @@ class TagQuery implements ITagQuery
         }
     }
 
-    //Destroy: Elimina un resgistro de la BD
+    //Destroy: Elimina un TAG de la BD
     public function destroy(Request $request, int $id)
     {
-
-        return response()->json(['request'=>$request->input()]);
         if ($id) {
             try {
                 //Delete por id
                 $tag = Tag::findOrFail($id);
                 $tag->delete();
 
-                // Si hay project_id se realiza la reasignación
+                // Si hay project_id se retorna con respecto al proyect_id
                 if ($request->project_id) {
                     request()->merge([
                         'tag_id' => $tag->id,
@@ -204,7 +218,7 @@ class TagQuery implements ITagQuery
                         'return_all' => $request->return_all,
                         'return_category' => $request->return_category
                     ]);
-                    return (new ProjectTagQuery)->store($request);
+                    return (new ProjectTagQuery)->showTagsByProjectId($request, $request->project_id);
                 }
 
                 return response()->json([

@@ -31,7 +31,7 @@ class ProjectTagSeeder extends Seeder
         DB::table('projects_tags')->insert(array(
             'project_id' => 1,
             'tag_id' => 4,
-        ));       
+        ));
 
         DB::table('projects_tags')->insert(array(
             'project_id' => 1,
@@ -41,7 +41,11 @@ class ProjectTagSeeder extends Seeder
         DB::table('projects_tags')->insert(array(
             'project_id' => 1,
             'tag_id' => 8,
-        ));        
-    }
+        ));
 
+        DB::table('projects_tags')->insert(array(
+            'project_id' => 1,
+            'tag_id' => 11,
+        ));
+    }
 }
