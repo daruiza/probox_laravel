@@ -14,7 +14,7 @@ class Tag
      * @OA\Property(
      *      title="category",
      *      description="category of the Tag",
-     *      example="category Tag"
+     *      example="status"
      * )
      *
      * @var string
@@ -47,7 +47,7 @@ class Tag
      * @OA\Property(
      *      title="default",
      *      description="default of the Tag",
-     *      example=true
+     *      example=false
      * )
      *
      * @var boolean
@@ -80,7 +80,7 @@ class Tag
      * @OA\Property(
      *      title="return_all",
      *      description="return all tags on the project id, after store",
-     *      example=false
+     *      example=true
      * )
      *
      * @var boolean
@@ -91,7 +91,7 @@ class Tag
      * @OA\Property(
      *      title="return_category",
      *      description="return_category of the Tag, after store",
-     *      example="return_category Tag, after store"
+     *      example="status"
      * )
      *
      * @var string

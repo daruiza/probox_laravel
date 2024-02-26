@@ -41,7 +41,16 @@ class ProjectTag
      *
      * @var boolean
      */
-    public $return_all;  
+    public $return_all;
 
-    
+    /**
+     * @OA\Property(
+     *      title="return_category",
+     *      description="return_category of the ProjectTag, after store",
+     *      example="status"
+     * )
+     *
+     * @var string
+     */
+    public $return_category;
 }

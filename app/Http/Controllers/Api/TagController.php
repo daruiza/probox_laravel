@@ -186,6 +186,51 @@ class TagController extends Controller
      *              type="integer"
      *          )
      *      ),
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Tag id",
+     *          required=false,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="project_id",
+     *          description="Optional project_id",
+     *          required=false,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="default",
+     *          description="Optional default tags",
+     *          required=false,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="boolean"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="return_all",
+     *          description="Optional return_all tags",
+     *          required=false,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="boolean"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="return_category",
+     *          description="Optional return_category tags",
+     *          required=false,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
@@ -247,7 +292,7 @@ class TagController extends Controller
      *          required=false,
      *          in="query",
      *          @OA\Schema(
-     *              type="boolean"
+     *              type="string"
      *          )
      *      ),
      *      @OA\Response(
