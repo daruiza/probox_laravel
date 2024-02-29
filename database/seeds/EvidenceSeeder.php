@@ -25,7 +25,7 @@ class EvidenceSeeder extends Seeder
 
         DB::table('evidences')->insert(array(
             'name' => 'evidnece 2',
-            'file' => '/storage/images/obra002.jpeg',
+            'file' => '/storage/images/obra002.jpg',
             'type' => 'type 2',
             'description' => 'description 2',
             'approved' => true,
