@@ -1,7 +1,7 @@
 {
     "private": true,
     "scripts": {
-        "start": "php artisan serve --port=8090",
+        "start": "php artisan serve --port=8090 --host=0.0.0.0",
         "run": "php artisan serve --port=8090",
         "mr": "php artisan migrate:refresh --seed",
         "pi": "php artisan passport:install",
